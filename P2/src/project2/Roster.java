@@ -1,6 +1,5 @@
 package project2;
 
-import project.Album;
 
 public class Roster {
 	private Student[] roster;
@@ -36,9 +35,44 @@ public class Roster {
 	}
 	public boolean add(Student student) { 
 		
+		int currentSize = this.size;
+		
+		if (currentSize == 0) {
+			this.roster = (new Album[4]);
+			roster[0] = student;
+			this.size  = 1;
+			return true;
+		}		
+		
+		if (currentSize == roster.length && find(student) == -1) {	
+			 grow();
+		}
+		
+		if (find(student) == -1) {
+			roster[size] = student;
+			this.size ++;
+			return true;
+		}
+		
+		return false;
 	} 
 	public boolean remove(Student student) {
-		
+		int currentSize = this.size;
+		if (currentSize == 0) {
+			this.roster = (new Student[4]);
+			roster[0] = student;
+			this.size  = 1;
+			return true;
+		}		
+		if (currentSize == roster.length && find(student) == -1) {	
+			 grow();
+		}
+		if (find(student) == -1) {
+			roster[size] = student;
+			this.size ++;
+			return true;
+		}
+		return false;
 	}
 	
 }
