@@ -1,5 +1,5 @@
 package project2;
 
-public class Resident {
+public class Resident extends Students {
 
 }

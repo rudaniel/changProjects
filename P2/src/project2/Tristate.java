@@ -1,5 +1,5 @@
 package project2;
 
-public class Tristate {
+public class Tristate extends NonResident{
 
 }

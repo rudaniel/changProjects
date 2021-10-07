@@ -1,5 +1,5 @@
 package project2;
 
-public class NonResident {
+public class NonResident extends Students {
 
 }
