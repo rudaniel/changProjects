@@ -2,7 +2,7 @@ package project2;
 
 
 
-public class Students {
+public class Student {
 
 	private Profile profile;
 	private int credits;
@@ -14,12 +14,19 @@ public class Students {
 	private boolean parttime;
 	
 	
-	
+	//@Override
 	public void tuitionDue() {
 		
 	}
 	
-	public Students(Profile profile, int credits, boolean resident, boolean nonresident, boolean international, String state, 
+	@Override
+	public String toString() {
+		return profile+":"+credits+
+				" credit hours"+":"+"tuition due:"+tuition+":"+"total payment:"+
+				payment+"last payment date:"+date+":"+(resident? "resident":nonresident? international? "international":"":"non-resident"+":"+state);
+	}
+	
+	public Student(Profile profile, int credits, boolean resident, boolean nonresident, boolean international, String state, 
 			        boolean fulltime, boolean parttime ) {
 		
 		this.profile = profile;
@@ -33,7 +40,7 @@ public class Students {
 	}
 	
 	
-	public Students(Students student) {
+	public Student(Student student) {
 		this.profile=student.profile;
 		this.credits=student.credits;
 		this.resident=student.resident;
