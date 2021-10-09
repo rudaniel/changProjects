@@ -11,7 +11,7 @@ public class Roster {
 		
 		for (int i = 0; i <= this.size-1; i++) { //works TESTED
 			
-			if(roster[i].major == student.major && roster[i].name == student.name ) {
+			if(roster[i].equals(student) ) {
 				return i;
 			}
 			
@@ -38,7 +38,7 @@ public class Roster {
 		int currentSize = this.size;
 		
 		if (currentSize == 0) {
-			this.roster = (new Album[4]);
+			this.roster = (new Student[4]);
 			roster[0] = student;
 			this.size  = 1;
 			return true;
