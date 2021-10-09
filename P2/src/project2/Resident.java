@@ -16,9 +16,8 @@ public class Resident extends Student {
 	//@Override
 	public Resident(Profile profile, int credits) {
 		super(profile, credits);
-		if(credits<minFulltimeCredits) {
-			super.parttime=true;
-		}
+		
+		
 		
 //		if(credits<minFulltimeCredits) {
 //			//tuitionTracker=UFEE*discountRate+creditHour*(credits);
@@ -58,22 +57,29 @@ public class Resident extends Student {
 		//return "Tuition updated.";
 		return true;
 	}
-	
-	public void calculateTuition(){
+	@Override
+	public void tuitionDue(){
 		if(credits<minFulltimeCredits) {
 			super.tuition=UFEE*discountRate+creditHour*(credits);
 		}
 		else {	
-			super.tuition=tuitionCost+UFEE+creditHour*(credits-maxFreeCredits);
+			
+			if(credits-maxFreeCredits > 0) {
+				super.tuition=tuitionCost+UFEE+creditHour*(credits-maxFreeCredits);
+			}
+			else {
+				super.tuition=tuitionCost+UFEE;
+			}
+			
 		}
 	}
 	
 	@Override
 	public String toString() {
 		if(financialAid>0) {
-			return super.toString()+"non-resident:financial aid $"+String.format("%.2f",financialAid);
+			return super.toString()+"resident:financial aid $"+String.format("%.2f",financialAid);
 		}
-		return super.toString()+"non-resident";
+		return super.toString()+"resident";
 		
 	}
 

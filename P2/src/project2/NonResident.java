@@ -10,20 +10,26 @@ public class NonResident extends Student {
 	
 	public NonResident(Profile profile, int credits){
 		super(profile, credits);
-		if(credits<minFulltimeCredits) {
-			parttime=true;
-		}
-	}
 	
-	public void calculateTuition(){
-		if(parttime) {
+	}
+	@Override
+	public void tuitionDue(){
+		if(credits<minFulltimeCredits) {
 			super.tuition=UFEE*discountRate+creditHour*(credits);
 		}
 		else {	
-			super.tuition=tuitionCost+UFEE+creditHour*(credits-maxFreeCredits);
+			
+			if(credits-maxFreeCredits > 0) {
+				super.tuition=tuitionCost+UFEE+creditHour*(credits-maxFreeCredits);
+			}
+			else {
+				super.tuition=tuitionCost+UFEE;
+			}
+			
 		}
 	}
 	
+
 	@Override
 	public String toString() {
 		return super.toString()+"non-resident";

@@ -13,7 +13,7 @@ public class Student {
 	protected double tuition;
 	protected double payment;
 	protected Date date;
-	protected boolean parttime;
+	protected boolean parttime; //do we need this we have credits, we gonna need this in international
 	//private boolean resident;
 	//private boolean nonresident;
 	//private boolean international;
@@ -50,6 +50,9 @@ public class Student {
 		this.profile = profile;
 		this.credits=credits;
 	}
+	
+	
+	
 	
 	public Student(Student student) {
 		this.profile=student.profile;
