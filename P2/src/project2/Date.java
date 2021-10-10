@@ -45,7 +45,7 @@ public class Date implements Comparable<Date> {
 	 * Creates a date object.
 	 * @param date the specific date.
 	 */
-	public Date(String date) { //take “mm/dd/yyyy” and create a Date object
+	public Date(String date) { //take â€œmm/dd/yyyyâ€� and create a Date object
 		String seperate[] = date.split("/");
 		month = Integer.parseInt(seperate[0]);
 		day = Integer.parseInt(seperate[1]);
@@ -56,7 +56,7 @@ public class Date implements Comparable<Date> {
 	 * Creates a default date with that date being todays date.
 	 * Creates a date object.
 	 */
-	public Date() { //create an object with today’s date (see Calendar class)
+	public Date() { //create an object with todayâ€™s date (see Calendar class)
 		Calendar today = Calendar.getInstance();
 		 month = today.get(Calendar.MONTH);
 		 year = today.get(Calendar.YEAR);

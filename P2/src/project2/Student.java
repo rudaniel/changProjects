@@ -9,11 +9,11 @@ public class Student {
 	public static final int maxFreeCredits = 16;
 	public static int UFEE = 3268;
 	private Profile profile;
-	protected int credits;
-	protected double tuition;
-	protected double payment;
-	protected Date date;
-	protected boolean parttime; //do we need this we have credits, we gonna need this in international
+	private int credits;
+	private double tuition;
+	private double payment;
+	private Date date;
+	private boolean parttime; //do we need this we have credits, we gonna need this in international
 	//private boolean resident;
 	//private boolean nonresident;
 	//private boolean international;
@@ -27,7 +27,7 @@ public class Student {
 	
 	@Override
 	public String toString() {
-		return profile+":"+credits+" credit hours"+":"+"tuition due:"+String.format("%.2f",tuition)+":"+"total payment:"+String.format("%.2f",payment)+"last payment date:"+date+":";
+		return profile+":"+credits+" credit hours"+":"+"tuition due:"+String.format("%.2f",tuition)+":"+"total payment:"+String.format("%.2f",payment)+"last payment date:"+(date==null? "--/--/--":date)+":";
 				//+(resident? "resident":nonresident? international? "international":"":"non-resident"+":"+state);
 	}
 	
@@ -49,6 +49,9 @@ public class Student {
 	public Student(Profile profile, int credits) {
 		this.profile = profile;
 		this.credits=credits;
+		if(credits<minFulltimeCredits) {
+			this.parttime=true;
+		}
 	}
 	
 	
@@ -77,6 +80,15 @@ public class Student {
 //		this.tuition = d;
 //	}
 	
+	public Student(Profile profile) {
+		this.profile=profile;
+	}
+
+	public String isValid() {
+		
+		return "true";
+	}
+	
 	public boolean payTuition(double amount){
 		if(this.tuition-this.payment-amount>=0) {
 		this.date=new Date();
@@ -91,6 +103,46 @@ public class Student {
 	//@Override
 	public boolean equals(Student student) {
 		return this.profile.equals(student.profile);
+	}
+
+	public double getPayment() {
+		return payment;
+	}
+
+	public void setPayment(double payment) {
+		this.payment = payment;
+	}
+
+	public int getCredits() {
+		return credits;
+	}
+
+	public void setCredits(int credits) {
+		this.credits = credits;
+	}
+
+	public double getTuition() {
+		return tuition;
+	}
+
+	public void setTuition(double tuition) {
+		this.tuition = tuition;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public boolean isParttime() {
+		return parttime;
+	}
+
+	public void setParttime(boolean parttime) {
+		this.parttime = parttime;
 	}
 	
 	

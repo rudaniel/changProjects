@@ -4,56 +4,38 @@ public class Tristate extends NonResident{
 	
 	private static final String CT = "CT";
 	private static final String NY = "NY";
+	/*
 	private static final String ny = "ny";
 	private static final String ct = "ct";
+	*/
 	private static final int ctDiscount = 5000;
 	private static final int nyDiscount = 4000;
-	private String state;
+	private Tristates state;
 	
 	public Tristate(Profile profile, int credits, String state) {
 		super(profile, credits);
-		this.state=state;
+		this.state=Tristates.valueOf(state.toUpperCase());
 	}
 	
 	//I think this overrides nonresident
 	@Override
 	public void tuitionDue(){
-		
-		if(credits<minFulltimeCredits) {
-			super.tuition=UFEE*discountRate+creditHour*(credits);
+		if(isParttime()) {
+			setTuition(UFEE*discountRate+creditHour*(getCredits()));
+			return;
 		}
 		else {	
-			
-			if(credits-maxFreeCredits > 0) {
-				
-				if(state.equals(NY) || state.equals(ny)) {
-					super.tuition=tuitionCost-nyDiscount+UFEE+creditHour*(credits-maxFreeCredits);
-				}
-				else if(state.equals(CT) || state.equals(ct)) {
-					super.tuition=tuitionCost-ctDiscount+UFEE+creditHour*(credits-maxFreeCredits);
-				}
-					
-				
-		
+			setTuition(tuitionCost+UFEE);
+			if(getCredits()>maxFreeCredits) {
+				setTuition(getTuition()+creditHour*(getCredits()-maxFreeCredits));
 			}
-			else {
-				
-				if(state.equals(NY) || state.equals(ny)) {
-					super.tuition=tuitionCost-nyDiscount+UFEE;
-				}
-				else if(state.equals(CT) || state.equals(ct)) {
-					super.tuition=tuitionCost-ctDiscount+UFEE;
-				}
-					
-				
-			}
-			
 		}
-		
-		
-		
-		
-		
+		if(state.toString().equals(NY)) {
+			setTuition(getTuition()-nyDiscount);
+		}
+		else if(state.toString().equals(CT)) {
+			setTuition(getTuition()-ctDiscount);
+		}
 	}
 	
 	@Override

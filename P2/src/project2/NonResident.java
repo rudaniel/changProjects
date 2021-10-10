@@ -14,18 +14,15 @@ public class NonResident extends Student {
 	}
 	@Override
 	public void tuitionDue(){
-		if(credits<minFulltimeCredits) {
-			super.tuition=UFEE*discountRate+creditHour*(credits);
+		if(isParttime()) {
+			setTuition(UFEE*discountRate+creditHour*(getCredits()));
+			return;
 		}
 		else {	
-			
-			if(credits-maxFreeCredits > 0) {
-				super.tuition=tuitionCost+UFEE+creditHour*(credits-maxFreeCredits);
-			}
-			else {
-				super.tuition=tuitionCost+UFEE;
-			}
-			
+			setTuition(tuitionCost+UFEE);
+			if(getCredits() > maxFreeCredits) {
+				setTuition(getTuition()+creditHour*(getCredits()-maxFreeCredits));
+			}			
 		}
 	}
 	

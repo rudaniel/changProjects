@@ -9,6 +9,12 @@ public class Profile {
 		this.major=major;
 	}
 	
+	//added new constructor
+	public Profile(String name, String major) {
+		this.name=name;
+		this.major=Major.valueOf(major.toUpperCase());
+	}
+	
 	@Override
 	public String toString() {
 		return name+":"+major;

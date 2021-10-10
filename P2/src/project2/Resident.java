@@ -34,7 +34,7 @@ public class Resident extends Student {
 
 		//possibly return string
 	public boolean giveAid(double amount) {
-		if(parttime) {
+		if(isParttime()) {
 			//return "Parttime student doesn't qualify for the award.";
 			return false;
 		}
@@ -53,24 +53,21 @@ public class Resident extends Student {
 		this.aid=true;
 		financialAid=amount;
 		//tuitionTracker=tuitionTracker+amount;
-		this.tuition=this.tuition-this.financialAid;
+		this.setTuition(this.getTuition()-this.financialAid);
 		//return "Tuition updated.";
 		return true;
 	}
 	@Override
 	public void tuitionDue(){
-		if(credits<minFulltimeCredits) {
-			super.tuition=UFEE*discountRate+creditHour*(credits);
+		if(isParttime()) {
+			setTuition(UFEE*discountRate+creditHour*(getCredits()));
+			return;
 		}
 		else {	
-			
-			if(credits-maxFreeCredits > 0) {
-				super.tuition=tuitionCost+UFEE+creditHour*(credits-maxFreeCredits);
-			}
-			else {
-				super.tuition=tuitionCost+UFEE;
-			}
-			
+			setTuition(tuitionCost+UFEE);
+			if(getCredits() > maxFreeCredits) {
+				setTuition(getTuition()+creditHour*(getCredits()-maxFreeCredits));
+			}			
 		}
 	}
 	

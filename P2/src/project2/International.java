@@ -5,9 +5,11 @@ public class International extends NonResident{
 	//regular can be from 12 to 24 credits
 	//Study abroad needs 12 credits exactly
 	
-	private static final int additionalFee = 2650;
-	private boolean studyAbroad;
+	//does this need to be public
 	private static final int resetPayment=0;
+	private static final int additionalFee = 2650;
+	
+	private boolean studyAbroad;
 	public International(Profile profile, int credits, boolean studyAbroad) {
 		super(profile, credits);
 		this.studyAbroad=studyAbroad;
@@ -15,22 +17,22 @@ public class International extends NonResident{
 	
 	public void setStudyAbroad(boolean studyAbroad) {
 		this.studyAbroad=studyAbroad;
-		payment=resetPayment;
-		if(credits>minFulltimeCredits) {
-			credits=minFulltimeCredits;
+		setPayment(resetPayment);
+		if(getCredits()>minFulltimeCredits) {
+			setCredits(minFulltimeCredits);
 		}
 		//clear date, may need a blank constructor
-		date=null;
-		calculateTuition();
+		setDate(null);
+		tuitionDue();
 	}
 	
 	//I think this overrides nonresident
 	@Override
-	public void calculateTuition(){	
+	public void tuitionDue(){	
 		if(studyAbroad) {
-			super.tuition=additionalFee+super.UFEE;
+			setTuition(additionalFee+UFEE);
 		}
-		super.tuition=super.tuitionCost+additionalFee+super.UFEE+super.creditHour*(credits-super.maxFreeCredits);
+		setTuition(tuitionCost+additionalFee+UFEE+creditHour*(getCredits()-maxFreeCredits));
 	}
 	
 	@Override

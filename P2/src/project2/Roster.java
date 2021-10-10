@@ -39,15 +39,15 @@ public class Roster {
 		int minCredit = 3;
 		int maxCredit = 24;
 		
-		if(student.credits < minCredit && student.credits > 0) {
+		if(student.getCredits() < minCredit && student.getCredits() > 0) {
 			System.out.println("Minimum credit hours is 3.");
 			return false;
 		}
-		if(student.credits > maxCredit) {
+		if(student.getCredits() > maxCredit) {
 			System.out.println("Credit hours exceed the maximum 24.");
 			return false;
 		}
-		if(student.credits < 0) {
+		if(student.getCredits() < 0) {
 			System.out.println("Credit hours cannot be negative.");
 			return false;
 		}
@@ -58,25 +58,25 @@ public class Roster {
 			this.size  = 1;
 			return true;
 		}		
-		
+		if (find(student) != -1) {
+			return false;			
+		}
 		if (currentSize == roster.length && find(student) == -1) {	
 			 grow();
 		}
+		roster[size] = student;
+		this.size ++;
 		
-		if (find(student) == -1) {
-			roster[size] = student;
-			this.size ++;
-			return true;
-		}
 		
-		return false;
+		
+		return true;
 	} 
 	public boolean remove(Student student) {
 	    int index = find(student);
 	    int notfound = -1;
 		
 		if (index == notfound) {
-			System.out.println("Student is already in the roster.");
+			//System.out.println("Student is already in the roster.");
 			return false;
 		}
 		for(int i =index; i <=  size-1; i++) {
@@ -87,27 +87,27 @@ public class Roster {
 				this.roster[i] = null;
 			}
 		}
-		System.out.println("Student removed from the roster.");
+		//System.out.println("Student removed from the roster.");
 		this.size --;
 		return true; 
 	}
 	public void print() {
 	
 		if(this.size==0) {
-			System.out.println("The collection is empty!");
+			System.out.println("Student roster is empty!");
 			return;
 		}
-		System.out.println("*List of albums in the collection.");
+		System.out.println("* list of students in the roster **");
 		print(roster);
 	}
 	
 	public void printT() {
 		
 		if(this.size==0) {
-			System.out.println("The collection is empty!");
+			System.out.println("Student roster is empty!");
 			return;
 		}
-		System.out.println("*List of albums in the collection.");
+		System.out.println("* list of students in the roster **");
 		totalTuition(roster);
 	}
 	
@@ -117,7 +117,7 @@ public class Roster {
 			System.out.println(roster[counter]);
 			}
 		}
-		System.out.println("*End of list");
+		System.out.println("* end of roster **");
 	}
 	
 	
@@ -199,6 +199,7 @@ public class Roster {
 		Roster r = new Roster();
 		
 		r.add(student1);
+		r.add(student1);
 		r.add(student2);
 		r.add(student3);
 		r.add(student4);
@@ -211,6 +212,16 @@ public class Roster {
 		
 		//r.print();
 		r.printT();
+		
+	}
+	
+	//make these
+	public void printByNames() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void printByPayment() {
+		// TODO Auto-generated method stub
 		
 	}
 	
