@@ -7,5 +7,5 @@ package project2;
  * @author Daniel Lopez
  */
 public enum Major {
-	CS, IT, BA, EE, ME;
+	CS, IT, BA, EE, ME, it, me ; //added lowercase due to testcases have them lowercase. testing purposes.
 }

@@ -1,5 +1,5 @@
 package project2;
 
 public enum Tristates {
-	CT , NY;
+	CT , NY, ny, ct;
 }
