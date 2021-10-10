@@ -139,7 +139,7 @@ public class Roster {
 	
 	public static void main (String arg []) {
 		
-		/*
+		
 		String name = "John Doe";
 		Major major = Major.EE;
 		Profile p = new Profile(name , major);
@@ -164,37 +164,37 @@ public class Roster {
 		Major major5 = Major.IT;
 		Profile p5 = new Profile(name5 , major5);
 		Student student5 = new NonResident (p5,12);
-		*/
 		
-		String name = "John Doe";
-		Major major = Major.it;
-		String state = "NY";
-		Profile p = new Profile(name , major);
-		Student student1 = new Tristate(p,18, state);
 		
-		String name2 = "Rob Harrison";
-		Major major2 = Major.BA;
-		String state2 = "ny";
-		Profile p2 = new Profile(name2 , major2);
-		Student student2 = new Tristate(p2, 9, state2);
+		String name6 = "John Doe";
+		Major major6 = Major.it;
+		String state6 = "NY";
+		Profile p6 = new Profile(name6 , major6);
+		Student student6 = new Tristate(p6,18, state6);
 		
-		String name3 = "Rob Harrison";
-		Major major3 = Major.me;
-		String state3 = "ct";
-		Profile p3 = new Profile(name3 , major3);
-		Student student3 = new Tristate(p3,6, state3);
+		String name7 = "Rob Harrison";
+		Major major7 = Major.BA;
+		String state7 = "ny";
+		Profile p7 = new Profile(name7 , major7);
+		Student student7 = new Tristate(p7, 9, state7);
+		
+		String name8 = "Rob Harrison";
+		Major major8 = Major.me;
+		String state8 = "ct";
+		Profile p8 = new Profile(name8 , major8);
+		Student student8 = new Tristate(p8,6, state8);
 	
-		String name4 = "Mary Johnson";
-		Major major4 = Major.it;
-		String state4 = "CT";
-		Profile p4 = new Profile(name4 , major4);
-		Student student4 = new Tristate(p4,15, state4);
+		String name9 = "Mary Johnson";
+		Major major9 = Major.it;
+		String state9 = "CT";
+		Profile p9 = new Profile(name9 , major9);
+		Student student9 = new Tristate(p9,15, state9);
 		
-		String name5 = "Barry Young";
-		Major major5 = Major.it;
-		String state5 = "ny";
-		Profile p5 = new Profile(name5 , major5);
-		Student student5 = new Tristate(p5,14, state5);
+		String name00 = "Barry Young";
+		Major major00 = Major.it;
+		String state00 = "ny";
+		Profile p00 = new Profile(name00 , major00);
+		Student student00 = new Tristate(p00,14, state00);
 		
 		Roster r = new Roster();
 		
@@ -203,15 +203,14 @@ public class Roster {
 		r.add(student3);
 		r.add(student4);
 		r.add(student5);
+		r.add(student6);
+		r.add(student7);
+		r.add(student8);
+		r.add(student9);
+		r.add(student00);
 		
 		//r.print();
 		r.printT();
-		
-	//	AT,John Doe,it,18,NY
-//		AT,Rob Harrison,BA,9,ny
-//		AT,Rob Harrison,me,6,ct
-//		AT,Mary Johnson,BA,15,CT
-//		AT,Barry Young,EE,14,NY
 		
 	}
 	

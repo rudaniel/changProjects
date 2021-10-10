@@ -4,10 +4,10 @@ package project2;
 
 public class Student {
 
-	protected static final int minFulltimeCredits = 12;
-	protected static final double discountRate = 0.8;
-	protected final int maxFreeCredits = 16;
-	protected final int UFEE = 3268;
+	public static final int minFulltimeCredits = 12;
+	public static final double discountRate = 0.8;
+	public static final int maxFreeCredits = 16;
+	public static int UFEE = 3268;
 	private Profile profile;
 	protected int credits;
 	protected double tuition;
