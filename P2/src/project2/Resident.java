@@ -1,5 +1,6 @@
 package project2;
 
+
 public class Resident extends Student {
 	
 	//partime 3 to >12 credits

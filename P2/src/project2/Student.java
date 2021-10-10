@@ -1,7 +1,13 @@
 package project2;
 
 
-
+/**
+ * The Student Super class is where the we create a student of type Student.
+ * There are getter and setter methods for the Student's properties (except class).
+ * Two subclass extend student.
+ * @author Manav Bali
+ * @author Daniel Lopez
+ */
 public class Student {
 
 	public static final int minFulltimeCredits = 12;
@@ -13,24 +19,37 @@ public class Student {
 	private double tuition;
 	private double payment;
 	private Date date;
-	private boolean parttime; //do we need this we have credits, we gonna need this in international
+	private boolean parttime; 
 	//private boolean resident;
 	//private boolean nonresident;
 	//private boolean international;
 	//private String state;
 	//private boolean fulltime;
 	
-	//@Override
+	/**
+	 * Method extends subclasses and is used to calculate tuition.
+	 */
 	public void tuitionDue() {
 		
 	}
 	
+	/**
+	 * Method extends subclasses and is used to print desired output.
+	 */
 	@Override
 	public String toString() {
 		return profile+":"+credits+" credit hours"+":"+"tuition due:"+String.format("%.2f",tuition)+":"+"total payment:"+String.format("%.2f",payment)+"last payment date:"+(date==null? "--/--/--":date)+":";
 				//+(resident? "resident":nonresident? international? "international":"":"non-resident"+":"+state);
 	}
 	
+	/**
+	 * Creates an instance of student given the correct parameters.
+	 * @param Profile profile of student.
+	 * @param credits credits of student.
+	 * @param tuition amount owed by student.
+	 * @param payment payment by student.
+	 * @param date date of payment.
+	 */
 	public Student(Profile profile, int credits, double tuition, double payment, Date date) {
 		
 		this.profile = profile;
@@ -46,6 +65,11 @@ public class Student {
         //this.parttime = parttime;
 	}
 	
+	/**
+	 * Creates an instance of student given the correct parameters.
+	 * @param Profile profile of student.
+	 * @param credits credits of student.
+	 */
 	public Student(Profile profile, int credits) {
 		this.profile = profile;
 		this.credits=credits;
@@ -56,7 +80,10 @@ public class Student {
 	
 	
 	
-	
+	/**
+	 * Creates a new copy student using another student.
+	 * @param student that needs to be copied.
+	 */
 	public Student(Student student) {
 		this.profile=student.profile;
 		this.credits=student.credits;
@@ -71,7 +98,7 @@ public class Student {
 //		this.parttime = student.parttime;
 	}
 
-	public Student(Profile profile, int credits, double tuition) {
+	public Student(Profile profile, int credits, double tuition) { //whats this??
 		
 		// TODO Auto-generated constructor stub
 	}
@@ -80,15 +107,26 @@ public class Student {
 //		this.tuition = d;
 //	}
 	
+	/**
+	 * Creates an instance of student given the correct parameters.
+	 * @param Profile profile of student.
+	 */
 	public Student(Profile profile) {
 		this.profile=profile;
 	}
 
-	public String isValid() {
+	
+	
+	public String isValid() { //comment unknown
 		
 		return "true";
 	}
 	
+	/**
+	 * Updates tuition based on payment. 
+	 * @param amount being payed.
+	 * @return true if paid, false otherwise.
+	 */
 	public boolean payTuition(double amount){
 		if(this.tuition-this.payment-amount>=0) {
 		this.date=new Date();
@@ -100,47 +138,100 @@ public class Student {
 	}
 	
 	
-	//@Override
+
+	/**
+	 * Grabs the current instance of Student and comapres to other student.
+	 * @param student being compared
+	 * @return true if equal, false otherwise. 
+	 */
 	public boolean equals(Student student) {
 		return this.profile.equals(student.profile);
 	}
-
+	
+	/**
+	 * Getter method to return payment.
+	 * @return payment.
+	 */
 	public double getPayment() {
 		return payment;
 	}
-
+	
+	/**
+	 * Setting method to update total payments.
+	 * @param payment being made.
+	 */
 	public void setPayment(double payment) {
 		this.payment = payment;
 	}
-
+	
+	/**
+	 * Getter method to return credits.
+	 * @return credits.
+	 */
 	public int getCredits() {
 		return credits;
 	}
-
+	
+	/**
+	 * Setting method to update credits.
+	 * @param credits to be updated.
+	 */
 	public void setCredits(int credits) {
 		this.credits = credits;
 	}
-
+	
+	/**
+	 * Getter method to return tuition.
+	 * @return tuition.
+	 */
 	public double getTuition() {
 		return tuition;
 	}
-
+	
+	/**
+	 * Setting method to update tuition.
+	 * @param tuition to be updated.
+	 */
 	public void setTuition(double tuition) {
 		this.tuition = tuition;
 	}
-
+	
+	/**
+	 * Getter method to return date.
+	 * @return date.
+	 */
 	public Date getDate() {
 		return date;
 	}
-
+	
+	/**
+	 * Getter method to return Profile.
+	 * @return profile.
+	 */
+	public Profile getProfile() {
+		return profile;
+	}
+	
+	/**
+	 * Setting method to update credits.
+	 * @param date to be updated.
+	 */
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
+	
+	/**
+	 * Getter method to return parttime.
+	 * @return parttime
+	 */
 	public boolean isParttime() {
 		return parttime;
 	}
 
+	/**
+	 * Setting method to update part time.
+	 * @param parttime to be updated.
+	 */
 	public void setParttime(boolean parttime) {
 		this.parttime = parttime;
 	}

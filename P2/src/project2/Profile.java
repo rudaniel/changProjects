@@ -30,4 +30,7 @@ public class Profile {
 		}
 		return false;
 	}
+	public String getName() {
+		return name;
+	}
 }

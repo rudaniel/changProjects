@@ -38,20 +38,27 @@ public class TuitionManager {
 		else if(input.charAt(0)=='F'&&input.length()>1&&input.charAt(1)==',') {
 			setFinancialAid(input);
 		}
+		else if(input.charAt(0)=='C') {
+			if(input.length()==1) {
+				obj.printC();
+			}
+		}
 		else if(input.charAt(0)=='P') {
 			if(input.length()==1) {
 				obj.print();
 			}
 			else if(input.charAt(1)=='N'&&input.length()==2) {
-				obj.printByNames();
+				obj.printN();
 			}
 			else if(input.charAt(1)=='T'&&input.length()==2) {
-				obj.printByPayment();
+				obj.printT();
 			}
 			else {
 				System.out.println("Command '"+input+"' not supported!");
 			}
 		}
+	
+		
 		else {
 			System.out.println("Command '"+input+"' not supported!");
 		}

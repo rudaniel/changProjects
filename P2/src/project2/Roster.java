@@ -1,9 +1,20 @@
 package project2;
 
+/**
+*The Roster class is what stores our students and handles features.
+*The Roster class is able to add new students, remove students and can calculate tuition/payments.
+*@author Daniel Lopez, Manav Bali
+*/
+
 public class Roster {
 	private Student[] roster;
 	private int size; //keep track of the number of students in the roster
 	
+	/**
+	 * Looks through the roster[] array to see if the student is in the collection.
+	 * @param student that is being searched for.
+	 * @return index if found, -1 if not in collection.
+	 */
 	private int find(Student student) {
 		
 		int notFound = -1;
@@ -17,6 +28,10 @@ public class Roster {
 		}
 		return notFound;
 	} 
+	
+	/**
+	 * Increases the roster[] array by 4 without losing any students.
+	 */
 	private void grow() {
 		
 		Student[] copy = new Student[roster.length];
@@ -32,6 +47,14 @@ public class Roster {
 		}
 		
 	}
+	
+	/**
+	 * Checks the current roster size and adds the student to the roster[] array.
+	 * If the size is too small, the array size gets increased.
+	 * If the size is 0 the array roster[] is initialized.
+	 * @param student that needs to be added.
+	 * @return true if student is added, false otherwise.
+	 */
 	public boolean add(Student student) { 
 		
 		int currentSize = this.size;
@@ -51,7 +74,6 @@ public class Roster {
 			System.out.println("Credit hours cannot be negative.");
 			return false;
 		}
-		
 		if (currentSize == 0) {
 			this.roster = (new Student[4]);
 			roster[0] = student;
@@ -66,11 +88,15 @@ public class Roster {
 		}
 		roster[size] = student;
 		this.size ++;
-		
-		
-		
 		return true;
 	} 
+	
+	/**
+	 * Checks if the student is in the roster. 
+	 * Removes that student and moves students after the removed back a spot in the array.
+	 * @param student that is being removed.
+	 * @return true if student is removed, false otherwise.
+	 */
 	public boolean remove(Student student) {
 	    int index = find(student);
 	    int notfound = -1;
@@ -91,6 +117,10 @@ public class Roster {
 		this.size --;
 		return true; 
 	}
+	
+	/**
+	 * Checks if collection is empty and if not prints the entire albums[] array.
+	 */
 	public void print() {
 	
 		if(this.size==0) {
@@ -98,31 +128,28 @@ public class Roster {
 			return;
 		}
 		System.out.println("* list of students in the roster **");
-		print(roster);
-	}
-	
-	public void printT() {
 		
-		if(this.size==0) {
-			System.out.println("Student roster is empty!");
-			return;
-		}
-		System.out.println("* list of students in the roster **");
-		totalTuition(roster);
-	}
-	
-	public void print(Student[] roster) {
 		for(int counter=0; counter<roster.length; counter++) {
 			if(roster[counter]!=null) {
 			System.out.println(roster[counter]);
 			}
 		}
 		System.out.println("* end of roster **");
+	
 	}
 	
 	
-	public void totalTuition(Student[] roster) {
+
+	/**
+	 * Checks if collection is empty and if not prints the entire albums[] array with tuition amount.
+	 */
+	public void printC() {
 		
+		if(this.size==0) {
+			System.out.println("Student roster is empty!");
+			return;
+		}
+		System.out.println("* list of students in the roster **");
 		
 		for(int counter=0; counter<roster.length; counter++) {
 			
@@ -132,6 +159,80 @@ public class Roster {
 			System.out.println(roster[counter]);
 			}
 		}
+		System.out.println("*End of list");
+		
+	}
+	
+
+	/**
+	 * Sorts roster[] by Name and prints them.
+	 */
+   public void printN() {
+		
+		if(this.size==0) {
+			System.out.println("Student roster is empty!");
+			return;
+		}
+		System.out.println("* list of students ordered by name **");
+		
+		Student[] sortedNames = new Student[roster.length];
+		for(int counter=0; counter<roster.length;counter++) {
+			sortedNames[counter]=roster[counter];
+		}
+		
+		for(int counter=0; counter<sortedNames.length;counter++) {
+			int minIndex=counter;
+			for(int secCounter=minIndex+1; secCounter<sortedNames.length; secCounter++) {
+				if(sortedNames[secCounter]!=null && sortedNames[secCounter].getProfile().getName().charAt(0)<sortedNames[minIndex].getProfile().getName().charAt(0)) {
+					minIndex= secCounter;
+				}
+			}
+			Student temp= sortedNames[minIndex];
+			sortedNames[minIndex]=sortedNames[counter];
+			sortedNames[counter]=temp;
+		}
+		
+		
+		System.out.println("*End of list");
+		
+	}
+
+   /**
+	 * Sorts roster[] by Payment Date and prints them.
+	 */
+	public void printT() {
+		
+		if(this.size==0) {
+			System.out.println("Student roster is empty!");
+			return;
+		}
+		System.out.println("* list of students made payments ordered by payment date **");
+		
+		
+		Student[] sortedDate= new Student[roster.length];
+		
+		for(int counter=0; counter<roster.length;counter++) {
+			if(roster[counter].getPayment() > 0) {//will only had students who had made payments to the array
+				for(int i = 0; i <roster.length; i++ ){
+					sortedDate[counter]=roster[counter]; //Adds them in the right order, no nulls
+				}
+				
+			}
+			
+		
+		}
+		for(int counter=0; counter<sortedDate.length;counter++) {
+			int minIndex=counter;
+			for(int secCounter=minIndex+1; secCounter<sortedDate.length; secCounter++) {
+				if(sortedDate[secCounter]!=null&&sortedDate[secCounter].getDate().compareTo(sortedDate[minIndex].getDate())==-1) {
+					minIndex= secCounter;
+				}	
+			}
+			Student temp= sortedDate[minIndex];
+			sortedDate[minIndex]=sortedDate[counter];
+			sortedDate[counter]=temp;
+		}
+		
 		System.out.println("*End of list");
 	}
 	
@@ -211,19 +312,10 @@ public class Roster {
 		r.add(student00);
 		
 		//r.print();
-		r.printT();
+		//r.printT();
 		
 	}
 	
-	//make these
-	public void printByNames() {
-		// TODO Auto-generated method stub
-		
-	}
-	public void printByPayment() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	
 }
