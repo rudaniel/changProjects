@@ -2,7 +2,7 @@ package project2;
 
 
 /**
- * The Student Super class is where the we create a student of type Student.
+ * The Student Super class is where we create a student of type Student.
  * There are getter and setter methods for the Student's properties (except class).
  * Two subclass extend student.
  * @author Manav Bali

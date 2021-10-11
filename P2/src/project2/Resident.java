@@ -1,10 +1,13 @@
 package project2;
 
-
+/**
+ * The Resident sub class is where we create a student of type Resident.
+ * Tuition is calculated based on Resident pricing.
+ * Aid is also calculated and applied in this class.
+ * @author Manav Bali
+ * @author Daniel Lopez
+ */
 public class Resident extends Student {
-	
-	//partime 3 to >12 credits
-	//fulltime 12 to 24 credits
 	
 	private static final int tuitionCost = 12536; 
 	private static final int creditHour = 404;
@@ -12,9 +15,12 @@ public class Resident extends Student {
 	private double financialAid;
 	private static final int aidMax=10000;
 	private static final double minAid = 0;
-	//private double tuitionTracker;
 	
-	//@Override
+	/**
+	 * Creates an instance of resident given the correct parameters.
+	 * @param Profile profile of student.
+	 * @param credits credits of student.
+	 */
 	public Resident(Profile profile, int credits) {
 		super(profile, credits);
 		
@@ -33,8 +39,15 @@ public class Resident extends Student {
 //		// TODO Auto-generated constructor stub
 	}
 
-		//possibly return string
-	public boolean giveAid(double amount) {
+		
+	
+	/**
+	 * Applies student's aid to their tuition.
+	 * Aid can't be over tuition total.
+	 * @param amount of aid.
+	 * @return true if aid applied to tuition, false otherwise.
+	 */
+	public boolean giveAid(double amount) { //possibly return string
 		if(isParttime()) {
 			//return "Parttime student doesn't qualify for the award.";
 			return false;
@@ -58,6 +71,11 @@ public class Resident extends Student {
 		//return "Tuition updated.";
 		return true;
 	}
+	
+	/**
+	 * Calculates tuition based on if student is part time or full time.
+	 * Credits are also used to find tuition.
+	 */
 	@Override
 	public void tuitionDue(){
 		if(isParttime()) {
@@ -72,6 +90,9 @@ public class Resident extends Student {
 		}
 	}
 	
+	/**
+	 * Method extends subclasses and is used to print desired output.
+	 */
 	@Override
 	public String toString() {
 		if(financialAid>0) {

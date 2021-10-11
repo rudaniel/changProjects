@@ -1,5 +1,12 @@
 package project2;
 
+/**
+ * The Tristate class is a sub class of NonResident where we create a student of type Tristate.
+ * Tuition is calculated based on Tristate pricing.
+ * Discount is dependent on state.
+ * @author Manav Bali
+ * @author Daniel Lopez
+ */
 public class Tristate extends NonResident{
 	
 	private static final String CT = "CT";
@@ -12,12 +19,21 @@ public class Tristate extends NonResident{
 	private static final int nyDiscount = 4000;
 	private Tristates state;
 	
+	/**
+	 * Creates an instance of Tristate given the correct parameters.
+	 * @param Profile profile of student.
+	 * @param credits credits of student.
+	 * @param state state of student.
+	 */
 	public Tristate(Profile profile, int credits, String state) {
 		super(profile, credits);
 		this.state=Tristates.valueOf(state.toUpperCase());
 	}
 	
-	//I think this overrides nonresident
+	/**
+	 * Calculates tuition based on Tristate student guidelines.
+	 * Credits are also used to find tuition.
+	 */
 	@Override
 	public void tuitionDue(){
 		if(isParttime()) {
@@ -38,6 +54,9 @@ public class Tristate extends NonResident{
 		}
 	}
 	
+	/**
+	 * Method extends subclasses and is used to print desired output.
+	 */
 	@Override
 	public String toString() {
 		return super.toString()+"(tri-state):"+state;
