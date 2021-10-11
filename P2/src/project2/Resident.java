@@ -12,10 +12,7 @@ public class Resident extends Student {
 	private static final int tuitionCost = 12536; 
 	private static final int creditHour = 404;
 	private boolean aid;
-	private double financialAid;
-	private static final int aidMax=10000;
-	private static final double minAid = 0;
-	
+	private double financialAid;	
 	/**
 	 * Creates an instance of resident given the correct parameters.
 	 * @param Profile profile of student.
@@ -47,29 +44,22 @@ public class Resident extends Student {
 	 * @param amount of aid.
 	 * @return true if aid applied to tuition, false otherwise.
 	 */
-	public boolean giveAid(double amount) { //possibly return string
+	@Override
+	public String giveAid(double amount) { //possibly return string
 		if(isParttime()) {
-			//return "Parttime student doesn't qualify for the award.";
-			return false;
+			return "Parttime student doesn't qualify for the award.";
+			//return false;
 		}
 		if(this.aid) {
-			//return "Awarded once already.";
-			return false;
-		}
-		if(amount<minAid) {
-			//return "Invalid amount.";
-			return false;
-		}
-		if(amount>aidMax) {
-			//return "Invalid amount.";
-			return false;
+			return "Awarded once already.";
+			//return false;
 		}
 		this.aid=true;
 		financialAid=amount;
 		//tuitionTracker=tuitionTracker+amount;
 		this.setTuition(this.getTuition()-this.financialAid);
 		//return "Tuition updated.";
-		return true;
+		return "Tuition updated.";
 	}
 	
 	/**

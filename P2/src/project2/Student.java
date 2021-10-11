@@ -1,5 +1,6 @@
 package project2;
 
+import java.text.DecimalFormat;
 
 /**
  * The Student Super class is where we create a student of type Student.
@@ -38,7 +39,10 @@ public class Student {
 	 */
 	@Override
 	public String toString() {
-		return profile+":"+credits+" credit hours"+":"+"tuition due:"+String.format("%.2f",tuition)+":"+"total payment:"+String.format("%.2f",payment)+"last payment date:"+(date==null? "--/--/--":date)+":";
+		DecimalFormat format=new DecimalFormat("#,##0.00");
+		return profile+":"+credits+" credit hours"+":"+"tuition due:"+format.format(tuition)+":"+"total payment:"+format.format(payment)+":"+"last payment date: "+(date==null? "--/--/--":date)+":";
+		
+		//return profile+":"+credits+" credit hours"+":"+"tuition due:"+String.format("%.2f",tuition)+":"+"total payment:"+String.format("%.2f",payment)+"last payment date:"+(date==null? "--/--/--":date)+":";
 				//+(resident? "resident":nonresident? international? "international":"":"non-resident"+":"+state);
 	}
 	
@@ -125,16 +129,14 @@ public class Student {
 	/**
 	 * Updates tuition based on payment. 
 	 * @param amount being payed.
+	 * @param date 
 	 * @return true if paid, false otherwise.
 	 */
-	public boolean payTuition(double amount){
-		if(this.tuition-this.payment-amount>=0) {
-		this.date=new Date();
+	public boolean payTuition(double amount, Date date){
+		this.date=date;
 		this.payment=this.payment+amount;
 		this.tuition=this.tuition-amount;
 		return true;
-		}
-		return false;
 	}
 	
 	
@@ -235,7 +237,17 @@ public class Student {
 	public void setParttime(boolean parttime) {
 		this.parttime = parttime;
 	}
+
+	/**
+	 * Declares a international student as abroad and limits credits if needed.
+	 * @param studyAbroad Abroad status.
+	 */
+	public boolean setStudyAbroad(boolean studyAbroad) {
+		return false;
+	}
 	
-	
+	public String giveAid(double amount) {
+		return "Not a resident student.";
+	}
 
 }

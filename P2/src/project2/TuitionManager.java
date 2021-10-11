@@ -27,7 +27,7 @@ public class TuitionManager {
 			removeStudent(input);
 		}
 		else if(input.charAt(0)=='C'&&input.length()==1) {
-			calculateTuition(input);
+			calculateTuition();
 		}
 		else if(input.charAt(0)=='T'&&input.length()>1&&input.charAt(1)==',') {
 			payTuition(input);
@@ -37,11 +37,6 @@ public class TuitionManager {
 		}
 		else if(input.charAt(0)=='F'&&input.length()>1&&input.charAt(1)==',') {
 			setFinancialAid(input);
-		}
-		else if(input.charAt(0)=='C') {
-			if(input.length()==1) {
-				obj.printC();
-			}
 		}
 		else if(input.charAt(0)=='P') {
 			if(input.length()==1) {
@@ -208,22 +203,68 @@ public class TuitionManager {
 		}
 	}
 	public void setFinancialAid(String input) {
-		// TODO Auto-generated method stub
-		
+		try {
+			StringTokenizer studentMaker= new StringTokenizer(input.substring(2),",");
+			StringTokenizer temp= new StringTokenizer(input.substring(2),",");
+			aidCheck(temp);
+			String name=studentMaker.nextToken();
+			String major=studentMaker.nextToken();
+			Double amount=Double.parseDouble(studentMaker.nextToken());
+			Profile profile= new Profile(name,major);
+			Student student= new Student(profile);
+			System.out.println(obj.aid(student, amount));
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public void abroadStatus(String input) {
-		// TODO Auto-generated method stub
-		
+			StringTokenizer studentMaker= new StringTokenizer(input.substring(2),",");
+			String name=studentMaker.nextToken();
+			String major=studentMaker.nextToken();
+			boolean status=Boolean.parseBoolean(studentMaker.nextToken());
+			Profile profile= new Profile(name,major);
+			Student student= new Student(profile);
+			if(obj.abroadStatus(student,status))
+				System.out.println("Tuition updated.");
+			else
+				System.out.println("Couldn't find the international student.");
 	}
 
 	public void payTuition(String input) {
-		// TODO Auto-generated method stub
-		
+		try {
+			StringTokenizer studentMaker= new StringTokenizer(input.substring(2),",");
+			int tokens=studentMaker.countTokens();
+			payCheck(tokens);
+			String name=studentMaker.nextToken();
+			String major=studentMaker.nextToken();
+			majorCheck(major);
+			double amount=Double.parseDouble(studentMaker.nextToken());
+			if(amount<=0) {
+				System.out.println("Invalid amount.");
+				return;
+			}
+			Date date= new Date(studentMaker.nextToken());
+			if(!date.isValid()) {
+				System.out.println("Payment date invalid.");
+				return;
+			}
+			Profile profile= new Profile(name,major);
+			Student student= new Student(profile);
+			if(obj.payment(student,amount,date))
+				System.out.println("Payment applied.");
+			else
+				System.out.println("Amount is greater than amount due.");
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
-	public void calculateTuition(String input) {
-		// TODO Auto-generated method stub
+	public void calculateTuition() {
+		obj.printC();
+		System.out.println("Calculation completed.");
 		
 	}
 
@@ -257,6 +298,13 @@ public class TuitionManager {
 		}
 	}
 	
+	public void payCheck(int tokens) throws NoSuchElementException{
+		int amount=3;
+		if(amount>tokens) {
+			throw new NoSuchElementException("Payment amount missing."); 
+		}
+	}
+	
 	public void creditsCheck(StringTokenizer data) throws Exception{
 		int minTokens=3;
 		if(data.countTokens()<minTokens) {
@@ -282,7 +330,20 @@ public class TuitionManager {
 
 	}
 	
-	public void majorCheck(String data) throws Exception{
+	public void aidCheck(StringTokenizer data) throws Exception{
+		int minTokens=3;
+		if(data.countTokens()<minTokens) {
+			throw new NoSuchElementException("Missing the amount."); 
+		}
+		data.nextToken();
+		data.nextToken();
+		double aid= Double.parseDouble(data.nextToken());
+		if(aid<0||aid>10000) {
+			throw new InputMismatchException("Invalid amount.");
+		}
+	}
+	
+	public void majorCheck(String data) throws IllegalArgumentException{
 		try{
 			Major.valueOf(data.toUpperCase());
 		}
@@ -290,7 +351,7 @@ public class TuitionManager {
 			throw new IllegalArgumentException("'"+data+"' is not a valid major."); 
 		}
 	}
-
+		
 	public void stateCheck(String state) {
 		try{
 			Tristates.valueOf(state.toUpperCase());

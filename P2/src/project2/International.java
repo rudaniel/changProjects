@@ -33,7 +33,8 @@ public class International extends NonResident{
 	 * Declares a international student as abroad and limits credits if needed.
 	 * @param studyAbroad Abroad status.
 	 */
-	public void setStudyAbroad(boolean studyAbroad) {
+	@Override
+	public boolean setStudyAbroad(boolean studyAbroad) {
 		this.studyAbroad=studyAbroad;
 		setPayment(resetPayment);
 		if(getCredits()>minFulltimeCredits) { 
@@ -42,6 +43,7 @@ public class International extends NonResident{
 		//clear date, may need a blank constructor
 		setDate(null);
 		tuitionDue();
+		return true;
 	}
 	
 	/**
@@ -52,8 +54,12 @@ public class International extends NonResident{
 	public void tuitionDue(){	
 		if(studyAbroad) {
 			setTuition(additionalFee+UFEE);
+			return;
 		}
-		setTuition(tuitionCost+additionalFee+UFEE+creditHour*(getCredits()-maxFreeCredits));
+		setTuition(tuitionCost+UFEE+additionalFee);
+		if(getCredits()>maxFreeCredits) {
+			setTuition(getTuition()+creditHour*(getCredits()-maxFreeCredits));
+		}
 	}
 	
 	/**
