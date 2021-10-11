@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-10-11T17:13:18.063Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36" etag="g7eobnyPrjpZzUux71PD" version="15.5.1" type="github">
+<mxfile host="app.diagrams.net" modified="2021-10-11T17:43:42.588Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36" etag="ogSVBY_IaKNpvTWYbtQJ" version="15.5.1" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="2997" dy="2785" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -94,19 +94,19 @@
             <mxPoint x="500" y="770" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e7RU630hIr5rbXdtNLGF-19" value="International" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="e7RU630hIr5rbXdtNLGF-19" value="Tristate" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="500" y="850" width="160" height="200" as="geometry">
             <mxRectangle x="130" y="380" width="160" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e7RU630hIr5rbXdtNLGF-20" value="-resetPayment: Int&#xa;-additionalFee: Int&#xa;-studyAbroad: Boolean" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="e7RU630hIr5rbXdtNLGF-19">
-          <mxGeometry y="26" width="160" height="44" as="geometry" />
+        <mxCell id="e7RU630hIr5rbXdtNLGF-20" value="-CT: String&#xa;-NY: String&#xa;-ctDiscount: Int&#xa;-nyDiscount: Int" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="e7RU630hIr5rbXdtNLGF-19">
+          <mxGeometry y="26" width="160" height="64" as="geometry" />
         </mxCell>
         <mxCell id="e7RU630hIr5rbXdtNLGF-21" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="e7RU630hIr5rbXdtNLGF-19">
-          <mxGeometry y="70" width="160" height="30" as="geometry" />
+          <mxGeometry y="90" width="160" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="e7RU630hIr5rbXdtNLGF-22" value="+International()&lt;br&gt;+setStudyAbroad: Boolean&lt;br&gt;+tuitionDue()&lt;br&gt;+toString(): String" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="e7RU630hIr5rbXdtNLGF-19">
-          <mxGeometry y="100" width="160" height="60" as="geometry" />
+        <mxCell id="e7RU630hIr5rbXdtNLGF-22" value="+Tristate()&lt;br&gt;+tuitionDue()&lt;br&gt;+toString: String" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="e7RU630hIr5rbXdtNLGF-19">
+          <mxGeometry y="140" width="160" height="50" as="geometry" />
         </mxCell>
         <mxCell id="e7RU630hIr5rbXdtNLGF-30" value="" style="rhombus;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="350" y="810" width="50" height="40" as="geometry" />
