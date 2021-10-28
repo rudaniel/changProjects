@@ -70,7 +70,7 @@
                         <RadioButton fx:id="connecticut" layoutX="283.0" layoutY="103.0" mnemonicParsing="false" onAction="#getStatus" text="Connecticut" toggleGroup="$state" />
                         <RadioButton fx:id="internationalButton" layoutX="105.0" layoutY="129.0" mnemonicParsing="false" onAction="#getStatus" text="International" toggleGroup="$home1" />
                         <RadioButton fx:id="abroadButton" layoutX="216.0" layoutY="129.0" mnemonicParsing="false" onAction="#getStatus" text="Study Abroad" />
-                        <TextArea layoutX="8.0" layoutY="305.0" prefHeight="155.0" prefWidth="584.0" />
+                        <TextArea fx:id="displayBoardAdd" layoutX="8.0" layoutY="305.0" prefHeight="155.0" prefWidth="584.0" />
                         <CheckBox layoutX="325.0" layoutY="129.0" mnemonicParsing="false" text="Study Abroad" />
                         <Button layoutX="271.0" layoutY="199.0" mnemonicParsing="false" onAction="#addStudent" prefHeight="25.0" prefWidth="115.0" text="Remove Student" />
                         <Button layoutX="139.0" layoutY="240.0" mnemonicParsing="false" onAction="#addStudent" prefHeight="25.0" prefWidth="115.0" text="Tuition Due" />

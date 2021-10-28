@@ -30,6 +30,8 @@ public class controller1 {
 	@FXML
 	RadioButton Resident, nonResident, tristate, ny, connecticut,internationalButton, abroadButton;
 	
+	@FXML
+	TextArea displayBoardAdd;
 
 	
 	String major = null;
@@ -137,25 +139,28 @@ public class controller1 {
 		String credits = creditHourTextField.getText();
 		
 		
+		
 		if(name.length() != 0 && validName(name)) {
 			if(major.length() != 0) {
 				if(status.length() != 0) {
 					if(status.equals("Resident")) {
 						String finalProfile = residentadd + comma + name + comma + major + comma + credits;
-						displayBoard.appendText(finalProfile + "\n");
+						displayBoardAdd.appendText(finalProfile + "\n");
 					}
-					if(status.equals("Non-Resident")) {
+					if(status.equals("Non-Resident") && state.length() == 0 && international == false) {
 						String finalProfile = nonResidentadd + comma + name + comma + major + comma + credits;
-						displayBoard.appendText(finalProfile + "\n");
+						displayBoardAdd.appendText(finalProfile + "\n");
 					}
-					if(state.length() != 0) {
+					else if(state.length() != 0) {
 						String finalProfile = tristateadd + comma + name + comma + major + comma + credits + comma + state;
-						displayBoard.appendText(finalProfile + "\n");
+						displayBoardAdd.appendText(finalProfile + "\n");
 					}
-					if()
-						String finalProfile =  + comma + name + comma + major + comma + credits;
-						displayBoard.appendText(finalProfile + "\n");
+					else if(international) {
+						String finalProfile3 =  internationaladd + comma + name + comma + major + comma + credits + abroad ;
+						displayBoardAdd.appendText(finalProfile3 + "\n");
 						//System.out.println(finalPayment);
+				
+					}
 				
 				}
 			}
