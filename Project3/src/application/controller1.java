@@ -19,7 +19,7 @@ public class controller1 {
 	String F = "F";
 
 	@FXML
-	TextField addTextField = new TextField();
+	TextField nameProfile = new TextField();
 	
 	@FXML
 	TextField creditHourTextField = new TextField();
@@ -27,19 +27,19 @@ public class controller1 {
 	@FXML
 	RadioButton csMajor, itMajor, baMajor, eeMajor, meMajor;
 	
-	
-	public void addStudent(ActionEvent e) {
-		
-		String name = addTextField.getText();
-		System.out.println(name);
-		int creditHour = Integer.parseInt(creditHourTextField.getText());
-		System.out.println(creditHour);
-	}
+	@FXML
+	RadioButton Resident, nonResident, tristate, ny, connecticut,internationalButton, abroadButton;
 	
 
 	
+	String major = null;
+	String status = null;
+	String state = null;
+	boolean international;
+	boolean abroad;
+	
 	public void getMajor(ActionEvent e) {
-		String major = null;
+
 		
 		if(csMajor.isSelected()) {
 			major = csMajor.getText();
@@ -56,7 +56,112 @@ public class controller1 {
 		if(meMajor.isSelected()) {
 			major = meMajor.getText();
 		}
-		System.out.println(major);
+		//System.out.println(major);
+		
+	}
+
+	
+	public void getStatus(ActionEvent e) {
+		
+	
+		if (Resident.isSelected()) {
+			status = Resident.getText();
+			tristate.setDisable(true);
+			ny.setDisable(true);
+			connecticut.setDisable(true);
+			internationalButton.setDisable(true);
+			abroadButton.setDisable(true);
+			
+			
+			tristate.setSelected(false);
+			ny.setSelected(false);
+			connecticut.setSelected(false);
+			internationalButton.setSelected(false);
+			abroadButton.setSelected(false);
+		}
+		if (nonResident.isSelected()) {
+			status = nonResident.getText();
+			
+			tristate.setDisable(false);
+			internationalButton.setDisable(false);
+			if(tristate.isSelected()) {
+				ny.setDisable(false);
+				connecticut.setDisable(false);
+			//	internationalButton.setDisable(true);
+				
+				if(ny.isSelected()) {
+					state = ny.getText();
+				}
+				if(connecticut.isSelected()) {
+					state = connecticut.getText();
+				}
+			}
+			else {
+				ny.setDisable(true);
+				connecticut.setDisable(true);
+				ny.setSelected(false);
+				connecticut.setSelected(false);
+			//	internationalButton.setDisable(false);
+			}
+			
+			if(internationalButton.isSelected()) {
+				abroadButton.setDisable(false);
+			//	tristate.setDisable(true);
+				international = true;
+				
+				if(abroadButton.isSelected()) {
+					abroad = true;
+				}
+				
+			}
+			else {
+				abroadButton.setDisable(true);
+				abroadButton.setSelected(false);
+				tristate.setDisable(false);
+				
+			}
+			
+		}
+		
+	}
+	
+	String finalProfile = null;
+	
+	String residentadd = "AR";
+	String nonResidentadd = "AN";
+	String tristateadd = "AT";
+	String internationaladd = "AI";
+	
+	public void addStudent(ActionEvent event1) {
+		String name = nameProfile.getText();
+		String credits = creditHourTextField.getText();
+		
+		
+		if(name.length() != 0 && validName(name)) {
+			if(major.length() != 0) {
+				if(status.length() != 0) {
+					if(status.equals("Resident")) {
+						String finalProfile = residentadd + comma + name + comma + major + comma + credits;
+						displayBoard.appendText(finalProfile + "\n");
+					}
+					if(status.equals("Non-Resident")) {
+						String finalProfile = nonResidentadd + comma + name + comma + major + comma + credits;
+						displayBoard.appendText(finalProfile + "\n");
+					}
+					if(state.length() != 0) {
+						String finalProfile = tristateadd + comma + name + comma + major + comma + credits + comma + state;
+						displayBoard.appendText(finalProfile + "\n");
+					}
+					if()
+						String finalProfile =  + comma + name + comma + major + comma + credits;
+						displayBoard.appendText(finalProfile + "\n");
+						//System.out.println(finalPayment);
+				
+				}
+			}
+		}
+		
+		
 		
 	}
 	
