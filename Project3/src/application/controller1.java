@@ -3,17 +3,24 @@ package application;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import project2.International;
+import project2.NonResident;
+import project2.Profile;
+import project2.Roster;
+import project2.Student;
+import project2.Tristate;
+import project2.Resident;
 
 public class controller1 {
-	
+	Roster obj=new Roster();
 	String comma = ",";
 	String T = "T";
 	String F = "F";
@@ -25,104 +32,63 @@ public class controller1 {
 	TextField creditHourTextField = new TextField();
 	
 	@FXML
-	RadioButton csMajor, itMajor, baMajor, eeMajor, meMajor;
+	RadioButton csMajor, itMajor, baMajor, eeMajor, meMajor, major1;
 	
 	@FXML
-	RadioButton Resident, nonResident, tristate, ny, connecticut,internationalButton, abroadButton;
-	
+	RadioButton Resident, nonResident, tristate, ny, connecticut,internationalButton, abroadButton, residency, s, ts;
 
+	@FXML
+	ToggleGroup Major, Status, home1, stateT;
+	
+	@FXML 
+	Button printing;
 	
 	String major = null;
 	String status = null;
 	String state = null;
 	boolean international;
 	boolean abroad;
-	
-	public void getMajor(ActionEvent e) {
-
-		
-		if(csMajor.isSelected()) {
-			major = csMajor.getText();
-		}
-		if(itMajor.isSelected()) {
-			major = itMajor.getText();
-		}
-		if(baMajor.isSelected()) {
-			major = baMajor.getText();
-		}
-		if(eeMajor.isSelected()) {
-			major = eeMajor.getText();
-		}
-		if(meMajor.isSelected()) {
-			major = meMajor.getText();
-		}
-		//System.out.println(major);
-		
-	}
-
-	
+	String r= "Resident";
+	String nr= "Non-Resident";
 	public void getStatus(ActionEvent e) {
-		
-	
-		if (Resident.isSelected()) {
-			status = Resident.getText();
+		residency= (RadioButton) Status.getSelectedToggle();
+		String res= residency.getText();
+		if (res.equals(r)) {
 			tristate.setDisable(true);
 			ny.setDisable(true);
 			connecticut.setDisable(true);
 			internationalButton.setDisable(true);
 			abroadButton.setDisable(true);
-			
-			
 			tristate.setSelected(false);
 			ny.setSelected(false);
 			connecticut.setSelected(false);
 			internationalButton.setSelected(false);
 			abroadButton.setSelected(false);
 		}
-		if (nonResident.isSelected()) {
-			status = nonResident.getText();
+		if (res.equals(nr)){			
 			
 			tristate.setDisable(false);
 			internationalButton.setDisable(false);
 			if(tristate.isSelected()) {
 				ny.setDisable(false);
 				connecticut.setDisable(false);
-			//	internationalButton.setDisable(true);
-				
-				if(ny.isSelected()) {
-					state = ny.getText();
-				}
-				if(connecticut.isSelected()) {
-					state = connecticut.getText();
-				}
 			}
 			else {
 				ny.setDisable(true);
 				connecticut.setDisable(true);
 				ny.setSelected(false);
 				connecticut.setSelected(false);
-			//	internationalButton.setDisable(false);
 			}
 			
 			if(internationalButton.isSelected()) {
 				abroadButton.setDisable(false);
-			//	tristate.setDisable(true);
-				international = true;
-				
-				if(abroadButton.isSelected()) {
-					abroad = true;
-				}
-				
 			}
 			else {
 				abroadButton.setDisable(true);
 				abroadButton.setSelected(false);
 				tristate.setDisable(false);
-				
 			}
-			
 		}
-		
 	}
 	
 	String finalProfile = null;
@@ -135,35 +101,158 @@ public class controller1 {
 	public void addStudent(ActionEvent event1) {
 		String name = nameProfile.getText();
 		String credits = creditHourTextField.getText();
-		
-		
-		if(name.length() != 0 && validName(name)) {
-			if(major.length() != 0) {
-				if(status.length() != 0) {
-					if(status.equals("Resident")) {
-						String finalProfile = residentadd + comma + name + comma + major + comma + credits;
-						displayBoard.appendText(finalProfile + "\n");
+		if(!name.isBlank()) {
+			major1=(RadioButton) Major.getSelectedToggle();
+			if(major1!=null) {
+				major= major1.getText();
+				residency= (RadioButton) Status.getSelectedToggle();
+				if(residency!=null) {
+					if(credits.isBlank()) {
+						profileText.appendText("Enter credits for the Student!\n");
 					}
-					if(status.equals("Non-Resident")) {
-						String finalProfile = nonResidentadd + comma + name + comma + major + comma + credits;
-						displayBoard.appendText(finalProfile + "\n");
+					else {
+						String res= residency.getText();
+						if(res.equals(r)) {
+							profileText.appendText("adding Resident\n");
+							addResident(name,major, Integer.parseInt(credits));
+						}
+						else if(res.equals(nr)) {
+							s= (RadioButton) home1.getSelectedToggle();
+							String tri="Tristate";
+							if(s==null) {
+								profileText.appendText("adding NonResident\n");
+								addNonResident(name,major, Integer.parseInt(credits));
+							}
+							else if(s.getText().equals(tri)){
+								ts= (RadioButton) stateT.getSelectedToggle();
+								if(ts!=null) {
+									String st="CT";
+									String stat= ts.getText();
+									if(stat.equals("New York")) {
+										st="NY";
+									}
+									profileText.appendText("adding tri-state\n");
+									addTristate(name,major, Integer.parseInt(credits), st);
+								}
+								else {
+									profileText.appendText("Enter a state for the Student!\n");	
+								}
+							}
+							else {
+								boolean study=false;
+								if(abroadButton.isSelected()) {
+									study=true;
+								}
+								profileText.appendText("adding international\n");
+								addInternational(name,major, Integer.parseInt(credits), study);
+							}
+						}
 					}
-					if(state.length() != 0) {
-						String finalProfile = tristateadd + comma + name + comma + major + comma + credits + comma + state;
-						displayBoard.appendText(finalProfile + "\n");
-					}
-					if()
-						String finalProfile =  + comma + name + comma + major + comma + credits;
-						displayBoard.appendText(finalProfile + "\n");
-						//System.out.println(finalPayment);
-				
 				}
 			}
 		}
-		
-		
-		
 	}
+	
+	public void removeStudent(ActionEvent event1) {
+		String name = nameProfile.getText();
+		if(!name.isBlank()) {
+			major1=(RadioButton) Major.getSelectedToggle();
+			if(major1!=null) {
+				major= major1.getText();	
+				Profile profile= new Profile(name,major);
+				Student student= new Student(profile);
+				if(obj.remove(student)) {
+					profileText.appendText("Student removed from the roster.\n");
+				}
+				else {
+					profileText.appendText("Student is not in the roster.\n");
+				}
+			}
+		}
+	}
+	
+	public boolean nameCheck() {
+		String name = nameProfile.getText();
+		if(!name.isBlank()) {
+			return true;
+		}
+		profileText.appendText("Enter a name for the Student!\n");
+		return false;
+	}
+	
+	public boolean majorCheck() {
+		major1=(RadioButton) Major.getSelectedToggle();
+		if(major1!=null) {
+			return true;
+		}
+		profileText.appendText("Enter a major for the Student!\n");
+		return false;
+	}
+	
+	public boolean residencyCheck() {
+		residency= (RadioButton) Status.getSelectedToggle();
+		if(residency!=null) {
+			return true;
+		}
+		profileText.appendText("Enter a residency for the Student!\n");
+		return false;
+	}
+	
+	public boolean creditCheck() {
+		String credits= creditHourTextField.getText();
+		if(!credits.isBlank()) {
+			return true;
+		}
+		profileText.appendText("Enter credits for the Student!\n");
+		return false;
+	}
+	
+	public void add(Student student) {
+		if(obj.add(student)) {
+			profileText.appendText("Student added.\n");
+		}
+		else {
+			profileText.appendText("Student is already in the roster.\n");
+		}
+	}
+	
+	public void addInternational(String name, String major, int credits, boolean studyAbroad) {
+		Profile profile= new Profile(name,major);
+		Student student= new International(profile,credits,studyAbroad);
+		add(student);
+	}
+	
+	public void addTristate(String name, String major, int credits, String state) {			
+		Profile profile= new Profile(name,major);
+		Student student= new Tristate(profile,credits,state);
+		add(student);
+	}
+	
+	public void addNonResident(String name, String major, int credits) {
+		Profile profile= new Profile(name,major);
+		Student student= new NonResident(profile,credits);
+		add(student);
+	}
+	
+	public void addResident(String name, String major, int credits) {
+		Profile profile= new Profile(name,major);
+		Student student= new Resident(profile,credits);
+		add(student);
+	}
+	
+	public void printStudents(ActionEvent e) {
+		printing=(Button)e.getSource();
+		if(printing.getText().equals("Print")) {
+			obj.print(printBox);
+		}
+		else if(printing.getText().equals("Print by name")) {
+			obj.printN(printBox);
+		}
+		else if(printing.getText().equals("Print by time")) {
+			obj.printT(printBox);
+		}
+	}
+	
 	
 	@FXML
 	TextField getNamePay;
@@ -173,7 +262,7 @@ public class controller1 {
 	RadioButton csMajorPay, itMajorPay, baMajorPay, eeMajorPay, meMajorPay;
 	
 	@FXML
-	TextArea displayBoard;
+	TextArea displayBoard, profileText, printBox;
 	
 	@FXML
 	TextField payTotal, payAid;
@@ -181,6 +270,7 @@ public class controller1 {
 	@FXML
 	DatePicker paymentDate;
 	
+
 	String majorPay;
 	
 	public void getMajorPay(ActionEvent e) {
@@ -245,7 +335,7 @@ public void paymentAid(ActionEvent event) {
 	String formatDate = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 	
 	if(namePay.length() != 0 && validName(namePay)) {
-		if(majorPay.length() != 0) {
+		//if(majorPay.length() != 0) {
 			if(aidPaid.length() != 0 && realNumAid == true && amountPaid.length() == 0) {
 				if(formatDate.length() != 0) {
 					String finalPayment = F + comma + namePay + comma + majorPay + comma + aidPaid + comma + formatDate;
@@ -253,7 +343,7 @@ public void paymentAid(ActionEvent event) {
 					displayBoard.appendText(finalPayment + "\n");
 				}
 			}
-		}
+		//}
 	}
 }
 

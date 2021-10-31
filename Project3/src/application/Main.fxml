@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
@@ -33,15 +32,15 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <RadioButton fx:id="csMajor" layoutX="105.0" layoutY="53.0" mnemonicParsing="false" onAction="#getMajor" text="CS">
+                        <RadioButton fx:id="csMajor" layoutX="105.0" layoutY="53.0" mnemonicParsing="false" text="CS">
                            <toggleGroup>
                               <ToggleGroup fx:id="Major" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="baMajor" layoutX="235.0" layoutY="53.0" mnemonicParsing="false" onAction="#getMajor" text="BA" toggleGroup="$Major" />
-                        <RadioButton fx:id="itMajor" layoutX="174.0" layoutY="53.0" mnemonicParsing="false" onAction="#getMajor" text="IT" toggleGroup="$Major" />
-                        <RadioButton fx:id="eeMajor" layoutX="308.0" layoutY="53.0" mnemonicParsing="false" onAction="#getMajor" text="EE" toggleGroup="$Major" />
-                        <RadioButton fx:id="meMajor" layoutX="367.0" layoutY="53.0" mnemonicParsing="false" onAction="#getMajor" text="ME" toggleGroup="$Major" />
+                        <RadioButton fx:id="baMajor" layoutX="235.0" layoutY="53.0" mnemonicParsing="false" text="BA" toggleGroup="$Major" />
+                        <RadioButton fx:id="itMajor" layoutX="174.0" layoutY="53.0" mnemonicParsing="false" text="IT" toggleGroup="$Major" />
+                        <RadioButton fx:id="eeMajor" layoutX="308.0" layoutY="53.0" mnemonicParsing="false" text="EE" toggleGroup="$Major" />
+                        <RadioButton fx:id="meMajor" layoutX="367.0" layoutY="53.0" mnemonicParsing="false" text="ME" toggleGroup="$Major" />
                         <Label layoutX="38.0" layoutY="161.0" text="Credit Hours:">
                            <font>
                               <Font size="16.0" />
@@ -58,21 +57,20 @@
                            </toggleGroup>
                         </RadioButton>
                         <RadioButton fx:id="nonResident" layoutX="196.0" layoutY="79.0" mnemonicParsing="false" onAction="#getStatus" text="Non-Resident" toggleGroup="$Status" />
-                        <RadioButton fx:id="tristate" layoutX="105.0" layoutY="103.0" mnemonicParsing="false" onAction="#getStatus" text="Tristate">
+                        <RadioButton fx:id="tristate" disable="true" layoutX="105.0" layoutY="103.0" mnemonicParsing="false" onAction="#getStatus" text="Tristate">
                            <toggleGroup>
                               <ToggleGroup fx:id="home1" />
                            </toggleGroup></RadioButton>
-                        <RadioButton fx:id="ny" layoutX="190.0" layoutY="103.0" mnemonicParsing="false" onAction="#getStatus" text="New York">
+                        <RadioButton fx:id="ny" disable="true" layoutX="190.0" layoutY="103.0" mnemonicParsing="false" onAction="#getStatus" text="New York">
                            <toggleGroup>
-                              <ToggleGroup fx:id="state" />
+                              <ToggleGroup fx:id="stateT" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="connecticut" layoutX="283.0" layoutY="103.0" mnemonicParsing="false" onAction="#getStatus" text="Connecticut" toggleGroup="$state" />
-                        <RadioButton fx:id="internationalButton" layoutX="105.0" layoutY="129.0" mnemonicParsing="false" onAction="#getStatus" text="International" toggleGroup="$home1" />
-                        <RadioButton fx:id="abroadButton" layoutX="216.0" layoutY="129.0" mnemonicParsing="false" onAction="#getStatus" text="Study Abroad" />
-                        <TextArea layoutX="8.0" layoutY="305.0" prefHeight="155.0" prefWidth="584.0" />
-                        <CheckBox layoutX="325.0" layoutY="129.0" mnemonicParsing="false" text="Study Abroad" />
-                        <Button layoutX="271.0" layoutY="199.0" mnemonicParsing="false" onAction="#addStudent" prefHeight="25.0" prefWidth="115.0" text="Remove Student" />
+                        <RadioButton fx:id="connecticut" disable="true" layoutX="283.0" layoutY="103.0" mnemonicParsing="false" onAction="#getStatus" text="Connecticut" toggleGroup="$stateT" />
+                        <RadioButton fx:id="internationalButton" disable="true" layoutX="105.0" layoutY="129.0" mnemonicParsing="false" onAction="#getStatus" text="International" toggleGroup="$home1" />
+                        <RadioButton fx:id="abroadButton" disable="true" layoutX="216.0" layoutY="129.0" mnemonicParsing="false" onAction="#getStatus" text="Study Abroad" />
+                        <TextArea fx:id="profileText" layoutX="8.0" layoutY="305.0" prefHeight="155.0" prefWidth="584.0" />
+                        <Button layoutX="271.0" layoutY="199.0" mnemonicParsing="false" onAction="#removeStudent" prefHeight="25.0" prefWidth="115.0" text="Remove Student" />
                         <Button layoutX="139.0" layoutY="240.0" mnemonicParsing="false" onAction="#addStudent" prefHeight="25.0" prefWidth="115.0" text="Tuition Due" />
                         <Label layoutX="268.0" layoutY="244.0" text="\$" textAlignment="JUSTIFY" />
                         <TextField layoutX="275.0" layoutY="240.0" prefHeight="25.0" prefWidth="174.0" promptText="0.00" />
@@ -110,7 +108,13 @@
             </Tab>
             <Tab text="Process Tuition">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextArea fx:id="printBox" layoutX="9.0" layoutY="177.0" prefHeight="301.0" prefWidth="583.0" />
+                        <Button fx:id="printN" layoutX="249.0" layoutY="137.0" mnemonicParsing="false" onAction="#printStudents" prefHeight="30.0" prefWidth="103.0" text="Print by name" />
+                        <Button fx:id="print" layoutX="85.0" layoutY="137.0" mnemonicParsing="false" onAction="#printStudents" prefHeight="30.0" prefWidth="103.0" text="Print" />
+                        <Button fx:id="printD" layoutX="412.0" layoutY="137.0" mnemonicParsing="false" onAction="#printStudents" prefHeight="30.0" prefWidth="103.0" text="Print by time" />
+                     </children></AnchorPane>
               </content>
             </Tab>
         </tabs>

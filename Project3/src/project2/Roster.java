@@ -1,5 +1,8 @@
 package project2;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
+
 /**
 *The Roster class is what stores our students and handles features.
 *The Roster class is able to add new students, remove students and can calculate tuition/payments.
@@ -104,20 +107,20 @@ public class Roster {
 	/**
 	 * Checks if collection is empty and if not prints the entire albums[] array.
 	 */
-	public void print() {
+	public void print(TextArea p) {
 	
 		if(this.size==0) {
-			System.out.println("Student roster is empty!");
+			p.appendText("Student roster is empty!\n");
 			return;
 		}
-		System.out.println("* list of students in the roster **");
+		p.appendText("* list of students in the roster **\n");
 		
 		for(int counter=0; counter<roster.length; counter++) {
 			if(roster[counter]!=null) {
-			System.out.println(roster[counter]);
+				p.appendText(roster[counter].toString()+"\n");
 			}
 		}
-		System.out.println("* end of roster **");
+		p.appendText("* end of roster **\n");
 	
 	}
 	
@@ -138,10 +141,10 @@ public class Roster {
 	/**
 	 * Sorts roster[] by Name and prints them.
 	 */
-   public void printN() {
+   public void printN(TextArea p) {
 		
 		if(this.size==0) {
-			System.out.println("Student roster is empty!");
+			p.appendText("Student roster is empty!\n");
 			return;
 		}	
 		for(int counter=0; counter<roster.length;counter++) {
@@ -160,22 +163,22 @@ public class Roster {
 			roster[minIndex]=roster[counter];
 			roster[counter]=temp;
 		}
-		System.out.println("* list of students ordered by name **");	
+		p.appendText("* list of students ordered by name **\n");	
 		for(int counter=0; counter<roster.length; counter++) {
 			if(roster[counter]!=null) {
-			System.out.println(roster[counter]);
+				p.appendText(roster[counter].toString()+"\n");
 			}
 		}
-		System.out.println("* end of roster **");
+		p.appendText("* end of roster **\n");
 		
 	}
 
    /**
 	 * Sorts roster[] by Payment Date and prints them.
 	 */
-	public void printT() {
+	public void printT(TextArea p) {
 		if(this.size==0) {
-			System.out.println("Student roster is empty!");
+			p.appendText("Student roster is empty!\n");
 			return;
 		}
 		Student[] sortedDate= new Student[roster.length];
@@ -187,7 +190,7 @@ public class Roster {
 			}
 		}
 		if(!paid) {
-			System.out.println("Student roster is empty!");
+			p.appendText("Student roster is empty!\n");
 			return;
 		}
 		for(int counter=0; counter<sortedDate.length;counter++) {
@@ -201,13 +204,13 @@ public class Roster {
 			sortedDate[minIndex]=sortedDate[counter];
 			sortedDate[counter]=temp;
 		}
-		System.out.println("* list of students made payments ordered by payment date **");
+		p.appendText("* list of students made payments ordered by payment date **\n");
 		for(int counter=0; counter<sortedDate.length; counter++) {
 			if(sortedDate[counter]!=null) {
-			System.out.println(sortedDate[counter]);
+				p.appendText(sortedDate[counter]+"\n");
 			}
 		}
-		System.out.println("* end of roster **");
+		p.appendText("* end of roster **\n");
 	}
 	
 	/**
