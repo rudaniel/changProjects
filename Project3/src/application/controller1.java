@@ -145,50 +145,65 @@ public class controller1 {
 				major= major1.getText();
 				residency= (RadioButton) Status.getSelectedToggle();
 				if(residency!=null) {
-					if(credits.isBlank()) {
-						profileText.appendText("Enter credits for the Student!\n");
-					}
-					else {
-						String res= residency.getText();
-						if(res.equals(r)) {
+					String res= residency.getText();
+					if(res.equals(r)) {
+						if(credits==null||credits.isBlank()) {
+							profileText.appendText("Enter credits for the Student!\n");
+						}
+						else {
+							disable();
 							profileText.appendText("adding Resident\n");
 							addResident(name,major, Integer.parseInt(credits));
 						}
-						else if(res.equals(nr)) {
-							s= (RadioButton) home1.getSelectedToggle();
-							String tri="Tristate";
-							if(s==null) {
+					}
+					else if(res.equals(nr)) {
+						s= (RadioButton) home1.getSelectedToggle();
+						String tri="Tristate";
+						if(s==null) {
+							if(credits==null||credits.isBlank()) {
+								profileText.appendText("Enter credits for the Student!\n");
+							}
+							else {
+								disable();
 								profileText.appendText("adding NonResident\n");
 								addNonResident(name,major, Integer.parseInt(credits));
 							}
-							else if(s.getText().equals(tri)){
-								ts= (RadioButton) stateT.getSelectedToggle();
-								if(ts!=null) {
-									String st="CT";
-									String stat= ts.getText();
-									if(stat.equals("New York")) {
-										st="NY";
-									}
+						}
+						else if(s.getText().equals(tri)){
+							ts= (RadioButton) stateT.getSelectedToggle();
+							if(ts!=null) {
+								String st="CT";
+								String stat= ts.getText();
+								if(stat.equals("New York")) {
+									st="NY";
+								}
+								if(credits==null||credits.isBlank()) {
+									profileText.appendText("Enter credits for the Student!\n");
+								}
+								else {
+									disable();
 									profileText.appendText("adding tri-state\n");
 									addTristate(name,major, Integer.parseInt(credits), st);
 								}
-								else {
-									profileText.appendText("Enter a state for the Student!\n");	
-								}
 							}
 							else {
-								boolean study=false;
-								if(abroadButton.isSelected()) {
-									study=true;
-								}
+								profileText.appendText("Enter a state for the Student!\n");	
+							}
+						}
+						else {
+							boolean study=false;
+							if(abroadButton.isSelected()) {
+								study=true;
+							}
+							if(credits==null||credits.isBlank()) {
+								profileText.appendText("Enter credits for the Student!\n");
+							}
+							else {
+								disable();
 								profileText.appendText("adding international\n");
 								addInternational(name,major, Integer.parseInt(credits), study);
 							}
 						}
-						asBt.setDisable(true);
-						rsBt.setDisable(false);
-						tuitionDue.setDisable(false);
-						tdBox.setDisable(false);
 					}
 				}
 				else {
@@ -647,8 +662,14 @@ public static boolean isNumber(String amountPaid) {
 					chLbl.setDisable(false);
 					chBox.setDisable(false);
 					asBt.setDisable(false);
+					rsBt.setDisable(true);
+					tdBox.setDisable(true);
 				}
 				else {
+					chLbl.setDisable(true);
+					chBox.setDisable(true);
+					statusBox.setDisable(true);
+					statusLbl.setDisable(true);
 					rsBt.setDisable(false);
 					tdBox.setDisable(false);
 					tuitionDue.setDisable(false);
@@ -753,6 +774,34 @@ public static boolean isNumber(String amountPaid) {
 		tuition.setText(null);
 		creditHourTextField.setText(null);
 		us.setDisable(true);
+	}
+	
+	public void disable(){
+		tristate.setDisable(true);
+		ny.setDisable(true);
+		connecticut.setDisable(true);
+		internationalButton.setDisable(true);
+		abroadButton.setDisable(true);
+		//Status.selectToggle(null);
+		//home1.selectToggle(null);
+		//stateT.selectToggle(null);
+		//abroadButton.setSelected(false);
+		statusBox.setDisable(true);
+		statusLbl.setDisable(true);
+		chLbl.setDisable(true);
+		chBox.setDisable(true);
+		asBt.setDisable(true);
+		rsBt.setDisable(true);
+		tdBox.setDisable(true);
+		tuitionDue.setDisable(true);
+		tuition.setDisable(true);
+		//tuition.setText(null);
+		//creditHourTextField.setText(null);
+		//us.setDisable(true);
+		asBt.setDisable(true);
+		rsBt.setDisable(false);
+		tuitionDue.setDisable(false);
+		tdBox.setDisable(false);
 	}
 	
 	/**
