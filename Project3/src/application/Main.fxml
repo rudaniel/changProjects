@@ -81,7 +81,7 @@
                                     </Label>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                                        <children>
-                                          <TextField fx:id="nameProfile" minHeight="-Infinity" onKeyTyped="#resetP" prefHeight="23.0" prefWidth="358.0" />
+                                          <TextField fx:id="nameProfile" minHeight="-Infinity" onKeyTyped="#resetP" prefHeight="23.0" prefWidth="358.0" promptText="First Last" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -155,7 +155,7 @@
                                     </VBox>
                                     <HBox fx:id="chBox" alignment="CENTER_LEFT" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                        <children>
-                                          <TextField fx:id="creditHourTextField" prefHeight="25.0" prefWidth="247.0" />
+                                          <TextField fx:id="creditHourTextField" prefHeight="25.0" prefWidth="247.0" promptText="0" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
@@ -235,7 +235,7 @@
                                     </Label>
                                     <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="446.0" GridPane.columnIndex="1">
                                        <children>
-                                          <TextField fx:id="namePay" minHeight="-Infinity" onKeyPressed="#reset" prefHeight="23.0" prefWidth="358.0" />
+                                          <TextField fx:id="namePay" minHeight="-Infinity" onKeyPressed="#reset" prefHeight="23.0" prefWidth="358.0" promptText="First Last" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">

@@ -2,6 +2,9 @@ package application;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -137,96 +140,173 @@ public class controller1 {
 	 * Makes sure that the fields are filled out and then adds a student to the Roster list.
 	 * @param event1 the button click.
 	 */
+//	public void addStudent(ActionEvent event1) {
+//		String name = nameProfile.getText();
+//		String credits = creditHourTextField.getText();
+//		if(!name.isBlank()) {
+//			major1=(RadioButton) Major.getSelectedToggle();
+//			if(major1!=null) {
+//				major= major1.getText();
+//				residency= (RadioButton) Status.getSelectedToggle();
+//				if(residency!=null) {
+//					String res= residency.getText();
+//					if(res.equals(r)) {
+//						if(creditCheck()) {
+//							disable();
+//							rBox.setDisable(true);
+//							profileText.appendText("adding Resident\n");
+//							addResident(name,major, Integer.parseInt(credits));
+//						}
+//					}
+//					else if(res.equals(nr)) {
+//						s= (RadioButton) home1.getSelectedToggle();
+//						String tri="Tristate";
+//						if(s==null) {
+//							if(creditCheck()) {
+//								disable();
+//								rBox.setDisable(true);
+//								profileText.appendText("adding NonResident\n");
+//								addNonResident(name,major, Integer.parseInt(credits));
+//							}
+//						}
+//						else if(s.getText().equals(tri)){
+//							ts= (RadioButton) stateT.getSelectedToggle();
+//							if(ts!=null) {
+//								String st="CT";
+//								String stat= ts.getText();
+//								if(stat.equals("New York")) {
+//									st="NY";
+//								}
+//								if(creditCheck()) {
+//									disable();
+//									rBox.setDisable(true);
+//									tsBox.setDisable(true);
+//									profileText.appendText("adding tri-state\n");
+//									addTristate(name,major, Integer.parseInt(credits), st);
+//								}
+//							}
+//							else {
+//								profileText.appendText("Enter a state for the Student!\n");	
+//							}
+//						}
+//						else {
+//							boolean study=false;
+//							if(abroadButton.isSelected()) {
+//								study=true;
+//							}
+//							if(creditCheck()) {
+//								disable();
+//								isBox.setDisable(false);
+//								abroadButton.setDisable(false);
+//								us.setDisable(false);
+//								profileText.appendText("adding international\n");
+//								addInternational(name,major, Integer.parseInt(credits), study);
+//							}
+//						}
+//					}
+//				}
+//				else {
+//					profileText.appendText("Please select residency for the Student!\n");	
+//				}
+//			}
+//			else {
+//				profileText.appendText("Please select a major.\n");
+//			}
+//		}		
+//		else {
+//			profileText.appendText("Please enter a name for Student.\n");
+//		}
+//	}
+//	
 	public void addStudent(ActionEvent event1) {
 		String name = nameProfile.getText();
 		String credits = creditHourTextField.getText();
-		if(!name.isBlank()) {
+		if(nameCheck(profileText,name)) {
+			name.trim();
 			major1=(RadioButton) Major.getSelectedToggle();
-			if(major1!=null) {
+			if(majorCheck(profileText,major1)) {
 				major= major1.getText();
 				residency= (RadioButton) Status.getSelectedToggle();
-				if(residency!=null) {
+				if(residencyCheck()) {
 					String res= residency.getText();
 					if(res.equals(r)) {
-						if(credits==null||credits.isBlank()) {
-							profileText.appendText("Enter credits for the Student!\n");
-						}
-						else {
-							disable();
-							rBox.setDisable(true);
-							profileText.appendText("adding Resident\n");
-							addResident(name,major, Integer.parseInt(credits));
+						if(creditCheck()) {
+							resAdd(name, Integer.parseInt(credits));
 						}
 					}
 					else if(res.equals(nr)) {
-						s= (RadioButton) home1.getSelectedToggle();
-						String tri="Tristate";
-						if(s==null) {
-							if(credits==null||credits.isBlank()) {
-								profileText.appendText("Enter credits for the Student!\n");
-							}
-							else {
-								disable();
-								rBox.setDisable(true);
-								profileText.appendText("adding NonResident\n");
-								addNonResident(name,major, Integer.parseInt(credits));
-							}
-						}
-						else if(s.getText().equals(tri)){
-							ts= (RadioButton) stateT.getSelectedToggle();
-							if(ts!=null) {
-								String st="CT";
-								String stat= ts.getText();
-								if(stat.equals("New York")) {
-									st="NY";
-								}
-								if(credits==null||credits.isBlank()) {
-									profileText.appendText("Enter credits for the Student!\n");
-								}
-								else {
-									disable();
-									rBox.setDisable(true);
-									tsBox.setDisable(true);
-									profileText.appendText("adding tri-state\n");
-									addTristate(name,major, Integer.parseInt(credits), st);
-								}
-							}
-							else {
-								profileText.appendText("Enter a state for the Student!\n");	
-							}
-						}
-						else {
-							boolean study=false;
-							if(abroadButton.isSelected()) {
-								study=true;
-							}
-							if(credits==null||credits.isBlank()) {
-								profileText.appendText("Enter credits for the Student!\n");
-							}
-							else {
-								disable();
-								isBox.setDisable(false);
-								abroadButton.setDisable(false);
-								us.setDisable(false);
-								profileText.appendText("adding international\n");
-								addInternational(name,major, Integer.parseInt(credits), study);
-							}
-						}
+						nonResAdd(name,credits);
 					}
 				}
-				else {
-					profileText.appendText("Please select residency for the Student!\n");	
-				}
 			}
-			else {
-				profileText.appendText("Please select a major.\n");
-			}
-		}		
-		else {
-			profileText.appendText("Please enter a name for Student.\n");
 		}
 	}
 	
+	
+	private void intAdd(String name, int credits) {
+		boolean study=false;
+		if(abroadButton.isSelected()) {
+			study=true;
+		}
+		disable();
+		rBox.setDisable(true);
+		isBox.setDisable(false);
+		abroadButton.setDisable(false);
+		us.setDisable(false);
+		profileText.appendText("adding international\n");
+		addInternational(name,major,credits, study);
+	}
+
+
+	private void triAdd(String name, int credits, String st) {
+		disable();
+		rBox.setDisable(true);
+		tsBox.setDisable(true);
+		profileText.appendText("adding tri-state\n");
+		addTristate(name,major, credits, st);
+	}
+
+
+	public void nonResAdd(String name, String credits) {
+		s= (RadioButton) home1.getSelectedToggle();
+		String tri="Tristate";
+		if(s==null) {
+			if(creditCheck()) {
+				disable();
+				rBox.setDisable(true);
+				profileText.appendText("adding NonResident\n");
+				addNonResident(name,major, Integer.parseInt(credits));
+			}
+		}
+		else if(s.getText().equals(tri)){
+			ts= (RadioButton) stateT.getSelectedToggle();
+			if(ts!=null) {
+				String st="CT";
+				String stat= ts.getText();
+				if(stat.equals("New York"))
+					st="NY";
+				if(creditCheck())
+					triAdd(name, Integer.parseInt(credits), st);
+			}
+			else
+				profileText.appendText("Enter a state for the Student!\n");	
+		}
+		else {
+			if(creditCheck())
+				intAdd(name,Integer.parseInt(credits));
+		}
+	}
+
+
+	public void resAdd(String name, int credits) {
+		disable();
+		rBox.setDisable(true);
+		profileText.appendText("adding Resident\n");
+		addResident(name,major, credits);
+		
+	}
+
+
 	/**
 	 * Makes sure that the fields are filled out and then removes a student from the Roster list.
 	 * @param event1 the button click.
@@ -259,24 +339,27 @@ public class controller1 {
 	/**
 	 * Checks if the user inputed a proper name.
 	 */
-	public boolean nameCheck() {
-		String name = nameProfile.getText();
-		if(!name.isBlank()) {
-			return true;
+	public boolean nameCheck(TextArea a,String name) {
+		if(!(name==null||name.isBlank())) {
+			name.trim();
+			if (name.contains(" ")) {
+				return true;
+			}
+			a.appendText("Invalid Name.\n");
+			return false;
 		}
-		profileText.appendText("Enter a name for the Student!\n");
+		a.appendText("Enter a name for the Student!\n");
 		return false;
 	}
 	
 	/**
 	 * Checks if the user inputed a proper major button.
 	 */
-	public boolean majorCheck() {
-		major1=(RadioButton) Major.getSelectedToggle();
-		if(major1!=null) {
+	public boolean majorCheck(TextArea a, RadioButton b) {
+		if(b!=null) {
 			return true;
 		}
-		profileText.appendText("Enter a major for the Student!\n");
+		a.appendText("Please select a major.\n");
 		return false;
 	}
 	
@@ -288,7 +371,7 @@ public class controller1 {
 		if(residency!=null) {
 			return true;
 		}
-		profileText.appendText("Enter a residency for the Student!\n");
+		profileText.appendText("Please select residency for the Student!\n");
 		return false;
 	}
 	
@@ -297,11 +380,33 @@ public class controller1 {
 	 */
 	public boolean creditCheck() {
 		String credits= creditHourTextField.getText();
-		if(!credits.isBlank()) {
-			return true;
+		if(!(credits==null||credits.isBlank())) {
+			credits.trim();
+			try {
+				int credit=Integer.parseInt(credits);
+				if(credit<0) {
+					profileText.appendText("Credit hours cannot be negative.\n");
+					return false;
+				}
+				if(credit<3) {
+					profileText.appendText("Minimum credit hours is 3.\n");
+					return false;
+				}
+				if(credit>24) {
+					profileText.appendText("Credit hours exceed the maximum 24.\n");
+					return false;
+				}
+				return true;
+			}
+			catch(NumberFormatException e) {
+				profileText.appendText("Invalid credit hours.\n");
+				return false;
+			}
 		}
-		profileText.appendText("Enter credits for the Student!\n");
-		return false;
+		else {
+			profileText.appendText("Credit hours missing.\n"); 
+			return false;
+		}
 	}
 	
 	/**
@@ -631,9 +736,7 @@ public static boolean isNumber(String amountPaid) {
 						aidbox1.setDisable(false);
 						aidbox2.setDisable(false);
 					}
-					catch(Exception e){
-						
-					}
+					catch(Exception e){}
 				}
 			}
 			else {
@@ -653,23 +756,19 @@ public static boolean isNumber(String amountPaid) {
 	 */
 	@FXML
 	void searchP(ActionEvent ee) {
-	//	resetP();
 		String name = nameProfile.getText();
-		if(!name.isBlank()) {
+		if(nameCheck(profileText,name)) {
 			major1=(RadioButton) Major.getSelectedToggle();
-			if(major1!=null) {
+			if(majorCheck(profileText,major1)) {
 				major= major1.getText();	
 				Profile profile= new Profile(name,major);	
 				Student student= obj.search(new Student(profile));
 				if(student==null) {
 					resetP();
-					//statusBox.setDisable(false);
 					statusLbl.setDisable(false);
 					rBox.setDisable(false);
 					tsBox.setDisable(false);
 					isBox.setDisable(false);
-					//isBox.setDisable(true);
-					//tsBox.setDisable(true);
 					chLbl.setDisable(false);
 					chBox.setDisable(false);
 					asBt.setDisable(false);
@@ -682,23 +781,19 @@ public static boolean isNumber(String amountPaid) {
 					rBox.setDisable(true);
 					tsBox.setDisable(true);
 					isBox.setDisable(true);
-					//statusBox.setDisable(true);
 					statusLbl.setDisable(true);
 					rsBt.setDisable(true);
 					tdBox.setDisable(false);
 					tuitionDue.setDisable(false);
 					tuition.setDisable(false);
 					Student test;
-					//NonResident test2;
 					try {
 						test= (Resident) student;
 						Status.selectToggle(Resident);
 						creditHourTextField.setText(test.getCredits()+"");
 						tuition.setText(test.getTuition()+"");
 					}
-					catch(Exception e){
-						
-					}
+					catch(Exception e){}
 					try {
 						test= (NonResident) student;
 						Status.selectToggle(nonResident);
@@ -718,9 +813,7 @@ public static boolean isNumber(String amountPaid) {
 								stateT.selectToggle(connecticut);
 							}
 						}				
-						catch(Exception e){
-							
-						}
+						catch(Exception e){}
 						try {
 							test= (International) student;
 							test4= (International) student;
@@ -732,25 +825,12 @@ public static boolean isNumber(String amountPaid) {
 							nonResident.setDisable(false);
 							internationalButton.setDisable(false);
 						}				
-						catch(Exception e){
-							
-						}
-						//tuition.setText(test.getTuition()+"");
-						//creditHourTextField.setText(test.getCredits()+"");
+						catch(Exception e){}
 					}
-					catch(Exception e){
-						
-					}
-					
+					catch(Exception e){}
 				}
 				profileText.appendText("Search successful.\n");
 			}
-			else {
-				profileText.appendText("Please select a major.\n");
-			}
-		}
-		else {
-			profileText.appendText("Please enter a name for Student.\n");
 		}
 	}
 	
@@ -781,7 +861,6 @@ public static boolean isNumber(String amountPaid) {
 		home1.selectToggle(null);
 		stateT.selectToggle(null);
 		abroadButton.setSelected(false);
-		//statusBox.setDisable(true);
 		rBox.setDisable(true);
 		tsBox.setDisable(true);
 		isBox.setDisable(true);
@@ -804,11 +883,6 @@ public static boolean isNumber(String amountPaid) {
 		connecticut.setDisable(true);
 		internationalButton.setDisable(true);
 		abroadButton.setDisable(true);
-		//Status.selectToggle(null);
-		//home1.selectToggle(null);
-		//stateT.selectToggle(null);
-		//abroadButton.setSelected(false);
-		//statusBox.setDisable(true);
 		rBox.setDisable(false);
 		tsBox.setDisable(false);
 		isBox.setDisable(false);
@@ -820,9 +894,6 @@ public static boolean isNumber(String amountPaid) {
 		tdBox.setDisable(true);
 		tuitionDue.setDisable(true);
 		tuition.setDisable(true);
-		//tuition.setText(null);
-		//creditHourTextField.setText(null);
-		//us.setDisable(true);
 		asBt.setDisable(true);
 		rsBt.setDisable(false);
 		tuitionDue.setDisable(false);
