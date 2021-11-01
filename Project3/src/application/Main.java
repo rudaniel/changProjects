@@ -21,6 +21,7 @@ public class Main extends Application {
 			Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
 			Scene scene =  new Scene(root);
 		 	//scene.getStylesheets().add(getClass().getResource("applicatipron.css").toExternalForm());
+			primaryStage.setTitle("Student Roster");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		}

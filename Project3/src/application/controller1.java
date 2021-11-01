@@ -7,15 +7,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import project2.Date;
 import project2.International;
 import project2.NonResident;
 import project2.Profile;
 import project2.Roster;
+import project2.RunProject2;
 import project2.Student;
 import project2.Tristate;
 import project2.Resident;
@@ -45,7 +50,19 @@ public class controller1 {
 	ToggleGroup Major, Status, home1, stateT, Major1;
 	
 	@FXML 
-	Button printing, tuitionDue;
+	Button printing, tuitionDue, us, asBt, rsBt;
+	
+	@FXML
+	Label aidbox1, pa1, pd1, statusLbl, chLbl;
+	
+	@FXML
+	HBox aidbox2, pd2,chBox,tdBox,isBox,tsBox;
+	
+	@FXML
+	VBox statusBox;
+	
+	@FXML
+	Pane pa2;
 	
 	String major = null;
 	String status = null;
@@ -83,11 +100,13 @@ public class controller1 {
 				ny.setSelected(false);
 				connecticut.setSelected(false);
 			}
-			
 			if(internationalButton.isSelected()) {
 				abroadButton.setDisable(false);
+				us.setVisible(true);
+				us.setDisable(false);
 			}
 			else {
+				us.setDisable(true);
 				abroadButton.setDisable(true);
 				abroadButton.setSelected(false);
 				tristate.setDisable(false);
@@ -151,6 +170,10 @@ public class controller1 {
 								addInternational(name,major, Integer.parseInt(credits), study);
 							}
 						}
+						asBt.setDisable(true);
+						rsBt.setDisable(false);
+						tuitionDue.setDisable(false);
+						tdBox.setDisable(false);
 					}
 				}
 				else {
@@ -176,6 +199,7 @@ public class controller1 {
 				Student student= new Student(profile);
 				if(obj.remove(student)) {
 					profileText.appendText("Student removed from the roster.\n");
+					resetP();
 				}
 				else {
 					profileText.appendText("Student is not in the roster.\n");
@@ -418,25 +442,6 @@ public void paymentAid(ActionEvent event) {
 	else {
 		displayBoard.appendText("Please enter a name for Student.\n");
 	}
-	
-//	String namePay = getNamePay.getText();
-//	String aidPaid = payAid.getText();
-//	//boolean realNumAmount = isNumber(amountPaid);
-//	boolean realNumAid = isNumber(aidPaid);
-//	//LocalDate date = paymentDate.getValue();
-//	//String formatDate = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-//	
-//	if(namePay.length() != 0 && validName(namePay)) {
-//		//if(majorPay.length() != 0) {
-//			if(aidPaid.length() != 0 && realNumAid == true && amountPaid.length() == 0) {
-//				if(formatDate.length() != 0) {
-//					String finalPayment = F + comma + namePay + comma + majorPay + comma + aidPaid + comma + formatDate;
-//					//System.out.println(finalPayment);
-//					displayBoard.appendText(finalPayment + "\n");
-//				}
-//			}
-//		//}
-//	}
 }
 
 public static boolean validName(String name) {
@@ -466,11 +471,194 @@ public static boolean validName(String name) {
 	
 	
 	
+	@FXML
+	void update() {
+		String name = nameProfile.getText();
+		if(!name.isBlank()) {
+			major1=(RadioButton) Major.getSelectedToggle();
+			if(major1!=null) {
+				major= major1.getText();	
+				Profile profile= new Profile(name,major);	
+				International student= new International(profile, abroadButton.isSelected());
+				obj.abroadStatus(student);
+				profileText.appendText("Status updated.\n");
+				
+			}
+			else {
+				profileText.appendText("Please select a major.\n");
+			}
+		}
+		else {
+			profileText.appendText("Please enter a name for Student.\n");
+		}
+	}
 	
+	@FXML
+	void search(ActionEvent ee) {
+		reset();
+		String name = namePay.getText();
+		if(!name.isBlank()) {
+			major1=(RadioButton) Major1.getSelectedToggle();
+			if(major1!=null) {
+				major= major1.getText();	
+				Profile profile= new Profile(name,major);	
+				Student student= obj.search(new Student(profile));
+				if(student==null) {
+					displayBoard.appendText("Student is not in the roster.\n");
+				}
+				else {
+					pa1.setDisable(false);
+					pa2.setDisable(false);
+					pd1.setDisable(false);
+					pd2.setDisable(false);
+					displayBoard.appendText("Search successful.\n");
+					Resident test;
+					try {
+						test= (Resident) student;
+						aidbox1.setDisable(false);
+						aidbox2.setDisable(false);
+					}
+					catch(Exception e){
+						
+					}
+				}
+			}
+			else {
+				displayBoard.appendText("Please select a major.\n");
+			}
+		}
+		else {
+			displayBoard.appendText("Please enter a name for Student.\n");
+		}
+	}
 	
+	String nyS="NY";
 	
+	@FXML
+	void searchP(ActionEvent ee) {
+	//	resetP();
+		String name = nameProfile.getText();
+		if(!name.isBlank()) {
+			major1=(RadioButton) Major.getSelectedToggle();
+			if(major1!=null) {
+				major= major1.getText();	
+				Profile profile= new Profile(name,major);	
+				Student student= obj.search(new Student(profile));
+				if(student==null) {
+					statusBox.setDisable(false);
+					statusLbl.setDisable(false);
+					//isBox.setDisable(true);
+					//tsBox.setDisable(true);
+					chLbl.setDisable(false);
+					chBox.setDisable(false);
+					asBt.setDisable(false);
+				}
+				else {
+					rsBt.setDisable(false);
+					tdBox.setDisable(false);
+					tuitionDue.setDisable(false);
+					tuition.setDisable(false);
+					Student test;
+					//NonResident test2;
+					try {
+						test= (Resident) student;
+						Status.selectToggle(Resident);
+					}
+					catch(Exception e){
+						
+					}
+					try {
+						test= (NonResident) student;
+						Status.selectToggle(nonResident);
+						Tristate test3;
+						International test4;
+						try {
+							test= (Tristate) student;
+							test3= (Tristate) student;
+							home1.selectToggle(tristate);
+							String temp= test3.getState();
+							if(temp.equals(nyS)) {
+								stateT.selectToggle(ny);
+							}
+							else {
+								stateT.selectToggle(connecticut);
+							}
+						}				
+						catch(Exception e){
+							
+						}
+						try {
+							nonResident.setDisable(false);
+							internationalButton.setDisable(false);
+							abroadButton.setDisable(false);
+							us.setDisable(false);
+							test= (International) student;
+							test4= (International) student;
+							home1.selectToggle(internationalButton);
+							abroadButton.setSelected(test4.getStatus());
+						}				
+						catch(Exception e){
+							
+						}
+						tuition.setText(test.getTuition()+"");
+						creditHourTextField.setText(test.getCredits()+"");
+					}
+					catch(Exception e){
+						
+					}
+					
+				}
+				profileText.appendText("Search successful.\n");
+			}
+			else {
+				profileText.appendText("Please select a major.\n");
+			}
+		}
+		else {
+			profileText.appendText("Please enter a name for Student.\n");
+		}
+	}
 	
+	@FXML
+	void reset(){
+		aidbox1.setDisable(true);
+		aidbox2.setDisable(true);
+		pa1.setDisable(true);
+		pa2.setDisable(true);
+		pd1.setDisable(true);
+		pd2.setDisable(true);
+	}
 	
+	@FXML
+	void resetP(){
+		tristate.setDisable(true);
+		ny.setDisable(true);
+		connecticut.setDisable(true);
+		internationalButton.setDisable(true);
+		abroadButton.setDisable(true);
+		Status.selectToggle(null);
+		home1.selectToggle(null);
+		stateT.selectToggle(null);
+		abroadButton.setSelected(false);
+		statusBox.setDisable(true);
+		statusLbl.setDisable(true);
+		chLbl.setDisable(true);
+		chBox.setDisable(true);
+		asBt.setDisable(true);
+		rsBt.setDisable(true);
+		tdBox.setDisable(true);
+		tuitionDue.setDisable(true);
+		tuition.setDisable(true);
+		tuition.setText(null);
+		creditHourTextField.setText(null);
+		us.setDisable(true);
+	}
+	
+	@FXML
+	void calcAll() {
+		obj.printC();
+		printBox.appendText("Calculated Tuitions.\n");
+	}
 	
 	
 }

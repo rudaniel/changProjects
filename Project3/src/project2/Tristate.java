@@ -59,4 +59,8 @@ public class Tristate extends NonResident{
 		
 	}
 	
+	public String getState(){
+		return this.state.toString();
+	}
+	
 }

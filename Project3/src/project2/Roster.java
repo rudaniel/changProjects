@@ -159,6 +159,12 @@ public class Roster {
 			p.appendText("Student roster is empty!\n");
 			return;
 		}	
+		if(this.size==1) {
+			p.appendText("* list of students ordered by name **\n");	
+			p.appendText(roster[0].toString()+"\n");
+			p.appendText("* end of roster **\n");
+			return;
+		}	
 		for(int counter=0; counter<roster.length;counter++) {
 			int minIndex=counter;
 			for(int secCounter=minIndex+1; secCounter<roster.length; secCounter++) {
@@ -190,6 +196,16 @@ public class Roster {
 	 */
 	public void printT(TextArea p) {
 		if(this.size==0) {
+			p.appendText("Student roster is empty!\n");
+			return;
+		}
+		if(this.size==1&&roster[0].getPayment()>0) {
+			p.appendText("* list of students made payments ordered by payment date **\n");	
+			p.appendText(roster[0].toString()+"\n");
+			p.appendText("* end of roster **\n");
+			return;
+		}
+		if(this.size==1) {
 			p.appendText("Student roster is empty!\n");
 			return;
 		}
@@ -274,4 +290,12 @@ public class Roster {
 		return roster[index].giveAid(student.getPayment());
 	}	
 	
+	public Student search(Student s)	{
+		int notFound=-1;
+		int index = find(s);
+		if(index==notFound) {
+			return null;
+		}
+		return roster[index];
+	}	
 }
