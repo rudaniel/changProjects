@@ -291,7 +291,7 @@
                                     <Label text="Payment Date:" GridPane.rowIndex="3" />
                                     <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                        <children>
-                                          <DatePicker fx:id="paymentDate" promptText="%key.unspecified" />
+                                          <DatePicker fx:id="paymentDate" promptText="mm/dd/yyyy" />
                                           <Button mnemonicParsing="false" onAction="#paymentTotal" prefHeight="25.0" prefWidth="108.0" text="Submit Payment" />
                                        </children>
                                        <opaqueInsets>

@@ -2,10 +2,7 @@ package application;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.StringTokenizer;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -394,25 +391,52 @@ public void paymentTotal(ActionEvent e) {
 	}
 
 public void paymentAid(ActionEvent event) {
-	String namePay = getNamePay.getText();
-	String amountPaid = payTotal.getText();
-	String aidPaid = payAid.getText();
-	//boolean realNumAmount = isNumber(amountPaid);
-	boolean realNumAid = isNumber(aidPaid);
-	LocalDate date = paymentDate.getValue();
-	String formatDate = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-	
-	if(namePay.length() != 0 && validName(namePay)) {
-		//if(majorPay.length() != 0) {
-			if(aidPaid.length() != 0 && realNumAid == true && amountPaid.length() == 0) {
-				if(formatDate.length() != 0) {
-					String finalPayment = F + comma + namePay + comma + majorPay + comma + aidPaid + comma + formatDate;
-					//System.out.println(finalPayment);
-					displayBoard.appendText(finalPayment + "\n");
+	String name = namePay.getText();
+	if(!name.isBlank()) {
+		major1=(RadioButton) Major1.getSelectedToggle();
+		if(major1!=null) {
+			major= major1.getText();	
+			Profile profile= new Profile(name,major);
+			if(isNumber(payAid.getText())) {
+				double amount=Double.parseDouble(payAid.getText());
+				if(amount<=0) {
+					displayBoard.appendText("Invalid amount.\n");
+				}
+				else {
+					Student student= new Student(profile,amount);
+					displayBoard.appendText(obj.aid(student)+"\n");
 				}
 			}
-		//}
+			else {
+				displayBoard.appendText("Financial Aid can only be a number.\n");
+			}			
+		}
+		else {
+			displayBoard.appendText("Please select a major.\n");
+		}
 	}
+	else {
+		displayBoard.appendText("Please enter a name for Student.\n");
+	}
+	
+//	String namePay = getNamePay.getText();
+//	String aidPaid = payAid.getText();
+//	//boolean realNumAmount = isNumber(amountPaid);
+//	boolean realNumAid = isNumber(aidPaid);
+//	//LocalDate date = paymentDate.getValue();
+//	//String formatDate = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+//	
+//	if(namePay.length() != 0 && validName(namePay)) {
+//		//if(majorPay.length() != 0) {
+//			if(aidPaid.length() != 0 && realNumAid == true && amountPaid.length() == 0) {
+//				if(formatDate.length() != 0) {
+//					String finalPayment = F + comma + namePay + comma + majorPay + comma + aidPaid + comma + formatDate;
+//					//System.out.println(finalPayment);
+//					displayBoard.appendText(finalPayment + "\n");
+//				}
+//			}
+//		//}
+//	}
 }
 
 public static boolean validName(String name) {
@@ -429,10 +453,8 @@ public static boolean validName(String name) {
 	public static boolean isNumber(String amountPaid) {
 		try {
 			double number = Double.parseDouble(amountPaid);
-			if(number >0) {
-				return true;
-			}
-			return false;
+			return true;
+			
 			
 		} catch(NumberFormatException e) {
 			return false;
