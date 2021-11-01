@@ -137,7 +137,12 @@ public class Roster {
 			}
 		}
 	}
-	
+	/**
+	 * Searches for an individual student and calculates tuition.
+	 * @param student
+	 * @param Testfield f
+	 * @return true if successful, false otherwise.
+	 */
 	public boolean calcSingle(Student student, TextField f) {
 		int index = find(student);
 	    int notfound = -1;
@@ -289,7 +294,11 @@ public class Roster {
 			return "Student not in the roster.";
 		return roster[index].giveAid(student.getPayment());
 	}	
-	
+	/**
+	 * Looks for student and returns index.
+	 * @param student
+	 * @return index if found.
+	 */
 	public Student search(Student s)	{
 		int notFound=-1;
 		int index = find(s);

@@ -25,6 +25,12 @@ import project2.Student;
 import project2.Tristate;
 import project2.Resident;
 
+/**
+ * The Controller class will be controller the UI and preventing it from crashing.
+ * All desired commands for thr user will be coded here.
+ * @author Manav Bali
+ * @author Daniel Lopez
+ */
 public class controller1 {
 	Roster obj=new Roster();
 	String comma = ",";
@@ -71,6 +77,11 @@ public class controller1 {
 	boolean abroad;
 	String r= "Resident";
 	String nr= "Non-Resident";
+	
+	/**
+	 * Makes sure that the status buttons work property and wont crash the UI.
+	 * @param e the button click.
+	 */
 	public void getStatus(ActionEvent e) {
 		residency= (RadioButton) Status.getSelectedToggle();
 		String res= residency.getText();
@@ -121,6 +132,10 @@ public class controller1 {
 	String tristateadd = "AT";
 	String internationaladd = "AI";
 	
+	/**
+	 * Makes sure that the fields are filled out and then adds a student to the Roster list.
+	 * @param event1 the button click.
+	 */
 	public void addStudent(ActionEvent event1) {
 		String name = nameProfile.getText();
 		String credits = creditHourTextField.getText();
@@ -189,6 +204,10 @@ public class controller1 {
 		}
 	}
 	
+	/**
+	 * Makes sure that the fields are filled out and then removes a student from the Roster list.
+	 * @param event1 the button click.
+	 */
 	public void removeStudent(ActionEvent event1) {
 		String name = nameProfile.getText();
 		if(!name.isBlank()) {
@@ -214,6 +233,9 @@ public class controller1 {
 		}
 	}
 	
+	/**
+	 * Checks if the user inputed a proper name.
+	 */
 	public boolean nameCheck() {
 		String name = nameProfile.getText();
 		if(!name.isBlank()) {
@@ -223,6 +245,9 @@ public class controller1 {
 		return false;
 	}
 	
+	/**
+	 * Checks if the user inputed a proper major button.
+	 */
 	public boolean majorCheck() {
 		major1=(RadioButton) Major.getSelectedToggle();
 		if(major1!=null) {
@@ -232,6 +257,9 @@ public class controller1 {
 		return false;
 	}
 	
+	/**
+	 * Checks if the user inputed a proper status button.
+	 */
 	public boolean residencyCheck() {
 		residency= (RadioButton) Status.getSelectedToggle();
 		if(residency!=null) {
@@ -241,6 +269,9 @@ public class controller1 {
 		return false;
 	}
 	
+	/**
+	 * Checks if the user inputed a proper credit number.
+	 */
 	public boolean creditCheck() {
 		String credits= creditHourTextField.getText();
 		if(!credits.isBlank()) {
@@ -250,6 +281,10 @@ public class controller1 {
 		return false;
 	}
 	
+	/**
+	 * Adds the student and displays message for the user.
+	 * @param student to be added.
+	 */
 	public void add(Student student) {
 		if(obj.add(student)) {
 			profileText.appendText("Student added.\n");
@@ -259,6 +294,10 @@ public class controller1 {
 		}
 	}
 	
+	/**
+	 * Calculates the tuition of the student.
+	 * @param e click of button.
+	 */
 	public void studentTuition(ActionEvent e) {
 		String name = nameProfile.getText();
 		if(!name.isBlank()) {
@@ -283,30 +322,60 @@ public class controller1 {
 		}
 	}
 	
+	/**
+	 * Creates and adds a student of type international.
+	 * @param name name of student
+	 * @param major major of student
+	 * @param credits credits of student
+	 * @param studyAbroad
+	 */
 	public void addInternational(String name, String major, int credits, boolean studyAbroad) {
 		Profile profile= new Profile(name,major);
 		Student student= new International(profile,credits,studyAbroad);
 		add(student);
 	}
 	
+	/**
+	 * Creates and adds a student of type tristate.
+	 * @param name name of student
+	 * @param major major of student
+	 * @param credits credits of student
+	 * @param state
+	 */
 	public void addTristate(String name, String major, int credits, String state) {			
 		Profile profile= new Profile(name,major);
 		Student student= new Tristate(profile,credits,state);
 		add(student);
 	}
 	
+	/**
+	 * Creates and adds a student of type nonresident.
+	 * @param name name of student
+	 * @param major major of student
+	 * @param credits credits of student
+	 */
 	public void addNonResident(String name, String major, int credits) {
 		Profile profile= new Profile(name,major);
 		Student student= new NonResident(profile,credits);
 		add(student);
 	}
 	
+	/**
+	 * Creates and adds a student of type resident.
+	 * @param name name of student
+	 * @param major major of student
+	 * @param credits credits of student
+	 */
 	public void addResident(String name, String major, int credits) {
 		Profile profile= new Profile(name,major);
 		Student student= new Resident(profile,credits);
 		add(student);
 	}
 	
+	/**
+	 * Prints the Roster depending on user input.
+	 * @param e click of button
+	 */
 	public void printStudents(ActionEvent e) {
 		printing=(Button)e.getSource();
 		if(printing.getText().equals("Print")) {
@@ -340,6 +409,10 @@ public class controller1 {
 
 	String majorPay;
 	
+	/**
+	 * Gets the major the user selects in tab2.
+	 * @param e click of button
+	 */
 	public void getMajorPay(ActionEvent e) {
 		
 		
@@ -362,7 +435,10 @@ public class controller1 {
 		
 	}
 	
-	
+	/**
+	 * Handles the payment numbers. Making sure everything that is entered is valid.
+	 * @param e click of button
+	 */
 public void paymentTotal(ActionEvent e) {
 	String name = namePay.getText();
 	if(!name.isBlank()) {
@@ -408,12 +484,13 @@ public void paymentTotal(ActionEvent e) {
 		displayBoard.appendText("Please enter a name for Student.\n");
 	}
 	
-	
-	
-	//boolean realNumAid = isNumber(aidPaid);
-	//System.out.println("T,"+ namePay + "," +majorPay +","+ amountPaid + "," + formatDate );
+
 	}
 
+/**
+ * Handles the payment numbers for financial aid. Making sure everything that is entered is valid.
+ * @param event click of button
+ */
 public void paymentAid(ActionEvent event) {
 	String name = namePay.getText();
 	if(!name.isBlank()) {
@@ -444,6 +521,11 @@ public void paymentAid(ActionEvent event) {
 	}
 }
 
+
+/**
+ * Makes sure the name thats entered has a first and last name.
+ * @param name name of student
+ */
 public static boolean validName(String name) {
 	if (name.contains(" ")) {
 		return true;
@@ -454,8 +536,11 @@ public static boolean validName(String name) {
 	}
 }
 
-	
-	public static boolean isNumber(String amountPaid) {
+/**
+ * Checks if a real number is inputed.
+ * @param amountPaid
+ */
+public static boolean isNumber(String amountPaid) {
 		try {
 			double number = Double.parseDouble(amountPaid);
 			return true;
@@ -466,11 +551,13 @@ public static boolean validName(String name) {
 		}
 		
 		
-	}
+}
 	
 	
 	
-	
+/**
+ * Updates the fields while the user uses the UI.
+ */
 	@FXML
 	void update() {
 		String name = nameProfile.getText();
@@ -493,6 +580,10 @@ public static boolean validName(String name) {
 		}
 	}
 	
+	/**
+	 * Searches for the student in the Roster.
+	 * @param ee click of button
+	 */
 	@FXML
 	void search(ActionEvent ee) {
 		reset();
@@ -534,6 +625,10 @@ public static boolean validName(String name) {
 	
 	String nyS="NY";
 	
+	/**
+	 * Searches for the student that is already in list with status included.
+	 * @param ee click of button
+	 */
 	@FXML
 	void searchP(ActionEvent ee) {
 	//	resetP();
@@ -619,6 +714,9 @@ public static boolean validName(String name) {
 		}
 	}
 	
+	/**
+	 * Resets the UI to start researching.
+	 */
 	@FXML
 	void reset(){
 		aidbox1.setDisable(true);
@@ -629,6 +727,9 @@ public static boolean validName(String name) {
 		pd2.setDisable(true);
 	}
 	
+	/**
+	 * Resets the UI to start researching.
+	 */
 	@FXML
 	void resetP(){
 		tristate.setDisable(true);
@@ -654,6 +755,9 @@ public static boolean validName(String name) {
 		us.setDisable(true);
 	}
 	
+	/**
+	 * Calculates Tuition.
+	 */
 	@FXML
 	void calcAll() {
 		obj.printC();

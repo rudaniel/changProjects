@@ -30,7 +30,11 @@ public class Date implements Comparable<Date> {
 	private static final int OCT = 10; 
 	private static final int NOV = 11; 
 	private static final int DEC = 12;
-	
+	private static final int MONTHEND31 = 31; 
+	private static final int MONTHEND30 = 30; 
+	private static final int MONTHEND29 = 29;
+	private static final int MONTHEND28 = 28; 
+	private static final int MINDAY = 1; 
 	/**
 	 * Grabs the current instances of date and returns a string.
 	 * @return string of date.
@@ -45,7 +49,7 @@ public class Date implements Comparable<Date> {
 	 * Creates a date object.
 	 * @param date the specific date.
 	 */
-	public Date(String date) { //take “mm/dd/yyyy"‚and create a Date object
+	public Date(String date) { //take ï¿½mm/dd/yyyy"ï¿½and create a Date object
 		String seperate[] = date.split("/");
 		month = Integer.parseInt(seperate[0]);
 		day = Integer.parseInt(seperate[1]);
@@ -88,14 +92,14 @@ public class Date implements Comparable<Date> {
 		if (month > maxMonth || month < minMonth) {
 			return false;
 		}
-		else if((month == JAN || month == MAR || month == MAY || month == JUL || month == AUG || month == OCT|| month == DEC) && (day > 31 || day < 1) || 
-		   (month == APR || month == JUN || month == SEP || month == NOV) && (day > 30 || day < 1)) { 
+		else if((month == JAN || month == MAR || month == MAY || month == JUL || month == AUG || month == OCT|| month == DEC) && (day > MONTHEND31 || day < 1) || 
+		   (month == APR || month == JUN || month == SEP || month == NOV) && (day > MONTHEND30 || day < MINDAY)) { 
 			return false;
 		}
 		boolean leapYear = leapYear(); 
-		if (leapYear == true && (month == FEB && (day > 29 || day <1 ))) 
+		if (leapYear == true && (month == FEB && (day > MONTHEND29 || day < MINDAY ))) 
 			return false;
-		else if (leapYear == false && (month == FEB && (day > 28 || day <1 )))
+		else if (leapYear == false && (month == FEB && (day > MONTHEND28 || day < MINDAY )))
 			return false;
 		return true;
 	}

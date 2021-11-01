@@ -8,11 +8,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-
+/**
+ * The Main class will set the foundation for the root and scene and call the Controller class.
+ * @author Manav Bali
+ * @author Daniel Lopez
+ */
 public class Main extends Application {
 	
 	 
-
+	/**
+	 * Sets the stage/scene for our UI.
+	 * @param pimaryStage.
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		// TODO Auto-generated method stub
@@ -30,7 +37,10 @@ public class Main extends Application {
 		}
 	
 	}
-	
+	/**
+	 * Launches the stage.
+	 * @param args.
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
