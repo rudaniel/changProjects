@@ -2,7 +2,10 @@ package application;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.StringTokenizer;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +14,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import project2.Date;
 import project2.International;
 import project2.NonResident;
 import project2.Profile;
@@ -32,16 +36,19 @@ public class controller1 {
 	TextField creditHourTextField = new TextField();
 	
 	@FXML
+	TextField tuition= new TextField();
+	
+	@FXML
 	RadioButton csMajor, itMajor, baMajor, eeMajor, meMajor, major1;
 	
 	@FXML
 	RadioButton Resident, nonResident, tristate, ny, connecticut,internationalButton, abroadButton, residency, s, ts;
 
 	@FXML
-	ToggleGroup Major, Status, home1, stateT;
+	ToggleGroup Major, Status, home1, stateT, Major1;
 	
 	@FXML 
-	Button printing;
+	Button printing, tuitionDue;
 	
 	String major = null;
 	String status = null;
@@ -149,7 +156,16 @@ public class controller1 {
 						}
 					}
 				}
+				else {
+					profileText.appendText("Please select residency for the Student!\n");	
+				}
 			}
+			else {
+				profileText.appendText("Please select a major.\n");
+			}
+		}		
+		else {
+			profileText.appendText("Please enter a name for Student.\n");
 		}
 	}
 	
@@ -168,6 +184,12 @@ public class controller1 {
 					profileText.appendText("Student is not in the roster.\n");
 				}
 			}
+			else {
+				profileText.appendText("Please select a major.\n");
+			}
+		}		
+		else {
+			profileText.appendText("Please enter a name for Student.\n");
 		}
 	}
 	
@@ -216,6 +238,30 @@ public class controller1 {
 		}
 	}
 	
+	public void studentTuition(ActionEvent e) {
+		String name = nameProfile.getText();
+		if(!name.isBlank()) {
+			major1=(RadioButton) Major.getSelectedToggle();
+			if(major1!=null) {
+				major= major1.getText();	
+				Profile profile= new Profile(name,major);
+				Student student= new Student(profile);
+				if(obj.calcSingle(student, tuition)) {
+					profileText.appendText("Student Tuition Calculated.\n");
+				}
+				else {
+					profileText.appendText("Student is not in the roster.\n");
+				}
+			}
+			else {
+				profileText.appendText("Please select a major.\n");
+			}
+		}		
+		else {
+			profileText.appendText("Please enter a name for Student.\n");
+		}
+	}
+	
 	public void addInternational(String name, String major, int credits, boolean studyAbroad) {
 		Profile profile= new Profile(name,major);
 		Student student= new International(profile,credits,studyAbroad);
@@ -255,7 +301,7 @@ public class controller1 {
 	
 	
 	@FXML
-	TextField getNamePay;
+	TextField namePay;
 	
 	
 	@FXML
@@ -297,32 +343,54 @@ public class controller1 {
 	
 	
 public void paymentTotal(ActionEvent e) {
-	String namePay = getNamePay.getText();
-	String amountPaid = payTotal.getText();
-	String aidPaid = payAid.getText();
-	boolean realNumAmount = isNumber(amountPaid);
-	//boolean realNumAid = isNumber(aidPaid);
-	LocalDate date = paymentDate.getValue();
-	String formatDate = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-		
-		
-		if(namePay.length() != 0 && validName(namePay)) {
-			if(majorPay.length() != 0) {
-				if(amountPaid.length() != 0 && realNumAmount == true && aidPaid.length() == 0) {
-					if(formatDate.length() != 0) {
-						String finalPayment = T + comma + namePay + comma + majorPay + comma + amountPaid + comma + formatDate;
-						displayBoard.appendText(finalPayment + "\n");
-						//System.out.println(finalPayment);
+	String name = namePay.getText();
+	if(!name.isBlank()) {
+		major1=(RadioButton) Major1.getSelectedToggle();
+		if(major1!=null) {
+			major= major1.getText();	
+			Profile profile= new Profile(name,major);
+			if(isNumber(payTotal.getText())) {
+				double amount=Double.parseDouble(payTotal.getText());
+				if(amount<=0) {
+					displayBoard.appendText("Invalid amount.\n");
+				}
+				else {
+					LocalDate date1 = paymentDate.getValue();
+					Date date;
+					if(date1==null) {
+						date= new Date();
+					}
+					else {
+						String formatDate = date1.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+						date= new Date(formatDate);
+					}
+					if(!date.isValid()) {
+						displayBoard.appendText("Payment date invalid.\n");
+					}
+					else {
+						Student student= new Student(profile,amount,date);
+						obj.payment(student);
+						displayBoard.appendText("Payment made.\n");
+						
 					}
 				}
 			}
+			else {
+				displayBoard.appendText("Payment can only be a number.\n");
+			}			
 		}
-		
+		else {
+			displayBoard.appendText("Please select a major.\n");
+		}
+	}
+	else {
+		displayBoard.appendText("Please enter a name for Student.\n");
+	}
 	
-		
-		
-		
-		//System.out.println("T,"+ namePay + "," +majorPay +","+ amountPaid + "," + formatDate );
+	
+	
+	//boolean realNumAid = isNumber(aidPaid);
+	//System.out.println("T,"+ namePay + "," +majorPay +","+ amountPaid + "," + formatDate );
 	}
 
 public void paymentAid(ActionEvent event) {

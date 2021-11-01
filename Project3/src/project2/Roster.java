@@ -2,6 +2,7 @@ package project2;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 /**
 *The Roster class is what stores our students and handles features.
@@ -137,6 +138,17 @@ public class Roster {
 		}
 	}
 	
+	public boolean calcSingle(Student student, TextField f) {
+		int index = find(student);
+	    int notfound = -1;
+		if (index == notfound) {
+			//System.out.println("Student is already in the roster.");
+			return false;
+		}
+		roster[index].tuitionDue();
+		f.setText(roster[index].getTuition()+"");
+		return true; 
+	}
 
 	/**
 	 * Sorts roster[] by Name and prints them.
