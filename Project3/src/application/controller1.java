@@ -292,7 +292,7 @@ public class controller1 {
 				profileText.appendText("Enter a state for the Student!\n");	
 		}
 		else {
-			if(creditCheck())
+			if(intCreditCheck())
 				intAdd(name,Integer.parseInt(credits));
 		}
 	}
@@ -313,9 +313,9 @@ public class controller1 {
 	 */
 	public void removeStudent(ActionEvent event1) {
 		String name = nameProfile.getText();
-		if(!name.isBlank()) {
+		if(nameCheck(profileText, name)) {
 			major1=(RadioButton) Major.getSelectedToggle();
-			if(major1!=null) {
+			if(majorCheck(profileText, major1)) {
 				major= major1.getText();	
 				Profile profile= new Profile(name,major);
 				Student student= new Student(profile);
@@ -327,12 +327,6 @@ public class controller1 {
 					profileText.appendText("Student is not in the roster.\n");
 				}
 			}
-			else {
-				profileText.appendText("Please select a major.\n");
-			}
-		}		
-		else {
-			profileText.appendText("Please enter a name for Student.\n");
 		}
 	}
 	
@@ -379,22 +373,60 @@ public class controller1 {
 	 * Checks if the user inputed a proper credit number.
 	 */
 	public boolean creditCheck() {
+		int minTokens=3;
+		int zero =0;
+		int maxCredit = 24;
 		String credits= creditHourTextField.getText();
 		if(!(credits==null||credits.isBlank())) {
 			credits.trim();
 			try {
 				int credit=Integer.parseInt(credits);
-				if(credit<0) {
+				if(credit<zero) {
 					profileText.appendText("Credit hours cannot be negative.\n");
 					return false;
 				}
-				if(credit<3) {
+				if(credit<minTokens) {
 					profileText.appendText("Minimum credit hours is 3.\n");
 					return false;
 				}
-				if(credit>24) {
+				if(credit>maxCredit) {
 					profileText.appendText("Credit hours exceed the maximum 24.\n");
 					return false;
+				}
+				return true;
+			}
+			catch(NumberFormatException e) {
+				profileText.appendText("Invalid credit hours.\n");
+				return false;
+			}
+		}
+		else {
+			profileText.appendText("Credit hours missing.\n"); 
+			return false;
+		}
+	}
+	
+	public boolean intCreditCheck() {
+		String credits= creditHourTextField.getText();
+		int zero =0;
+		int minCredit = 3;
+		int fullCredit = 12;
+		int maxCredit = 24;
+		if(!(credits==null||credits.isBlank())) {
+			credits.trim();
+			try {
+				int credit=Integer.parseInt(credits);
+				if(credit < zero) {
+					profileText.appendText("Credit hours cannot be negative.\n");
+				}
+				if(credit < minCredit) {
+					profileText.appendText("Minimum credit hours is 3.\n");
+				}
+				if(credit < fullCredit) {
+					profileText.appendText("International students must enroll at least 12 credits.\n");
+				}
+				if(credit > maxCredit) {
+					profileText.appendText("Credit hours exceed the maximum 24.\n");
 				}
 				return true;
 			}
