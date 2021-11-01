@@ -101,11 +101,11 @@
                                           </HBox>
                                        </children>
                                     </HBox>
-                                    <VBox fx:id="statusBox" alignment="CENTER_LEFT" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <VBox fx:id="statusBox" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                        <children>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="26.4" prefWidth="200.0">
+                                          <HBox fx:id="rBox" alignment="CENTER_LEFT" disable="true" prefHeight="26.4" prefWidth="200.0">
                                              <children>
-                                                <HBox fx:id="rtog" alignment="CENTER" spacing="15.0">
+                                                <HBox alignment="CENTER" spacing="15.0">
                                                    <children>
                                                       <RadioButton fx:id="Resident" mnemonicParsing="false" onAction="#getStatus" text="Resident">
                                                          <toggleGroup>
@@ -143,8 +143,8 @@
                                           <HBox fx:id="isBox" alignment="CENTER_LEFT" prefHeight="26.4" spacing="15.0">
                                              <children>
                                                 <RadioButton fx:id="internationalButton" disable="true" mnemonicParsing="false" onAction="#getStatus" text="International" toggleGroup="$home1" />
-                                                <RadioButton fx:id="abroadButton" disable="true" mnemonicParsing="false" onAction="#getStatus" text="Study Abroad" />
-                                                <Button fx:id="us" mnemonicParsing="false" onAction="#update" prefHeight="25.0" prefWidth="115.0" text="Update Status">
+                                                <RadioButton fx:id="abroadButton" disable="true" mnemonicParsing="false" text="Study Abroad" />
+                                                <Button fx:id="us" disable="true" mnemonicParsing="false" onAction="#update" prefHeight="25.0" prefWidth="115.0" text="Update Status">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>

@@ -62,7 +62,7 @@ public class controller1 {
 	Label aidbox1, pa1, pd1, statusLbl, chLbl;
 	
 	@FXML
-	HBox aidbox2, pd2,chBox,tdBox,isBox,tsBox;
+	HBox aidbox2, pd2,chBox,tdBox,tsBox, isBox,rBox;
 	
 	@FXML
 	VBox statusBox;
@@ -97,7 +97,8 @@ public class controller1 {
 			internationalButton.setSelected(false);
 			abroadButton.setSelected(false);
 		}
-		if (res.equals(nr)){			
+		if (res.equals(nr)){
+			
 			
 			tristate.setDisable(false);
 			internationalButton.setDisable(false);
@@ -152,6 +153,7 @@ public class controller1 {
 						}
 						else {
 							disable();
+							rBox.setDisable(true);
 							profileText.appendText("adding Resident\n");
 							addResident(name,major, Integer.parseInt(credits));
 						}
@@ -165,6 +167,7 @@ public class controller1 {
 							}
 							else {
 								disable();
+								rBox.setDisable(true);
 								profileText.appendText("adding NonResident\n");
 								addNonResident(name,major, Integer.parseInt(credits));
 							}
@@ -182,6 +185,8 @@ public class controller1 {
 								}
 								else {
 									disable();
+									rBox.setDisable(true);
+									tsBox.setDisable(true);
 									profileText.appendText("adding tri-state\n");
 									addTristate(name,major, Integer.parseInt(credits), st);
 								}
@@ -200,6 +205,9 @@ public class controller1 {
 							}
 							else {
 								disable();
+								isBox.setDisable(false);
+								abroadButton.setDisable(false);
+								us.setDisable(false);
 								profileText.appendText("adding international\n");
 								addInternational(name,major, Integer.parseInt(credits), study);
 							}
@@ -483,7 +491,6 @@ public void paymentTotal(ActionEvent e) {
 						Student student= new Student(profile,amount,date);
 						obj.payment(student);
 						displayBoard.appendText("Payment made.\n");
-						
 					}
 				}
 			}
@@ -655,8 +662,12 @@ public static boolean isNumber(String amountPaid) {
 				Profile profile= new Profile(name,major);	
 				Student student= obj.search(new Student(profile));
 				if(student==null) {
-					statusBox.setDisable(false);
+					resetP();
+					//statusBox.setDisable(false);
 					statusLbl.setDisable(false);
+					rBox.setDisable(false);
+					tsBox.setDisable(false);
+					isBox.setDisable(false);
 					//isBox.setDisable(true);
 					//tsBox.setDisable(true);
 					chLbl.setDisable(false);
@@ -668,9 +679,12 @@ public static boolean isNumber(String amountPaid) {
 				else {
 					chLbl.setDisable(true);
 					chBox.setDisable(true);
-					statusBox.setDisable(true);
+					rBox.setDisable(true);
+					tsBox.setDisable(true);
+					isBox.setDisable(true);
+					//statusBox.setDisable(true);
 					statusLbl.setDisable(true);
-					rsBt.setDisable(false);
+					rsBt.setDisable(true);
 					tdBox.setDisable(false);
 					tuitionDue.setDisable(false);
 					tuition.setDisable(false);
@@ -679,6 +693,8 @@ public static boolean isNumber(String amountPaid) {
 					try {
 						test= (Resident) student;
 						Status.selectToggle(Resident);
+						creditHourTextField.setText(test.getCredits()+"");
+						tuition.setText(test.getTuition()+"");
 					}
 					catch(Exception e){
 						
@@ -686,6 +702,8 @@ public static boolean isNumber(String amountPaid) {
 					try {
 						test= (NonResident) student;
 						Status.selectToggle(nonResident);
+						creditHourTextField.setText(test.getCredits()+"");
+						tuition.setText(test.getTuition()+"");
 						Tristate test3;
 						International test4;
 						try {
@@ -704,20 +722,21 @@ public static boolean isNumber(String amountPaid) {
 							
 						}
 						try {
-							nonResident.setDisable(false);
-							internationalButton.setDisable(false);
-							abroadButton.setDisable(false);
-							us.setDisable(false);
 							test= (International) student;
 							test4= (International) student;
 							home1.selectToggle(internationalButton);
 							abroadButton.setSelected(test4.getStatus());
+							abroadButton.setDisable(false);
+							us.setDisable(false);
+							isBox.setDisable(false);
+							nonResident.setDisable(false);
+							internationalButton.setDisable(false);
 						}				
 						catch(Exception e){
 							
 						}
-						tuition.setText(test.getTuition()+"");
-						creditHourTextField.setText(test.getCredits()+"");
+						//tuition.setText(test.getTuition()+"");
+						//creditHourTextField.setText(test.getCredits()+"");
 					}
 					catch(Exception e){
 						
@@ -762,7 +781,10 @@ public static boolean isNumber(String amountPaid) {
 		home1.selectToggle(null);
 		stateT.selectToggle(null);
 		abroadButton.setSelected(false);
-		statusBox.setDisable(true);
+		//statusBox.setDisable(true);
+		rBox.setDisable(true);
+		tsBox.setDisable(true);
+		isBox.setDisable(true);
 		statusLbl.setDisable(true);
 		chLbl.setDisable(true);
 		chBox.setDisable(true);
@@ -786,7 +808,10 @@ public static boolean isNumber(String amountPaid) {
 		//home1.selectToggle(null);
 		//stateT.selectToggle(null);
 		//abroadButton.setSelected(false);
-		statusBox.setDisable(true);
+		//statusBox.setDisable(true);
+		rBox.setDisable(false);
+		tsBox.setDisable(false);
+		isBox.setDisable(false);
 		statusLbl.setDisable(true);
 		chLbl.setDisable(true);
 		chBox.setDisable(true);
@@ -802,6 +827,7 @@ public static boolean isNumber(String amountPaid) {
 		rsBt.setDisable(false);
 		tuitionDue.setDisable(false);
 		tdBox.setDisable(false);
+		us.setDisable(true);
 	}
 	
 	/**
