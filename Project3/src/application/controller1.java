@@ -157,20 +157,21 @@ public class controller1 {
 	 * @param name name of student
 	 * @param credits credits of student
 	 */
-	private void intAdd(String name, int credits) {
+	private void intAdd(String name, String credits) {
 		boolean study = false;
 		if(abroadButton.isSelected()) {
 			study = !study;
 			intCreditCheck(study);
 			return;
 		}
+		intCreditCheck(study);
 		disable();
 		rBox.setDisable(true);
 		isBox.setDisable(false);
 		abroadButton.setDisable(false);
 		us.setDisable(false);
 		profileText.appendText("adding international\n");
-		addInternational(name,major,credits, study);
+		addInternational(name,major,Integer.parseInt(credits), study);
 	}
 
 	/**
@@ -217,9 +218,7 @@ public class controller1 {
 				profileText.appendText("Enter a state for the Student!\n");	
 		}
 		else {
-			boolean f=false;
-			if(intCreditCheck(f))
-				intAdd(name,Integer.parseInt(credits));
+			intAdd(name,credits);
 		}
 	}
 
