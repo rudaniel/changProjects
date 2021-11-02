@@ -161,10 +161,8 @@ public class controller1 {
 		boolean study = false;
 		if(abroadButton.isSelected()) {
 			study = !study;
-			intCreditCheck(study);
-			return;
 		}
-		intCreditCheck(study);
+		if(intCreditCheck(study)) {
 		disable();
 		rBox.setDisable(true);
 		isBox.setDisable(false);
@@ -172,6 +170,7 @@ public class controller1 {
 		us.setDisable(false);
 		profileText.appendText("adding international\n");
 		addInternational(name,major,Integer.parseInt(credits), study);
+		}
 	}
 
 	/**
