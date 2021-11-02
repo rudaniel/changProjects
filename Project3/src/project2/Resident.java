@@ -72,5 +72,9 @@ public class Resident extends Student {
 		return super.toString()+"resident";
 		
 	}
+	
+	public boolean getAid(){
+		return this.aid;
+	}
 
 }

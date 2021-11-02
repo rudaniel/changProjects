@@ -418,15 +418,19 @@ public class controller1 {
 				int credit=Integer.parseInt(credits);
 				if(credit < zero) {
 					profileText.appendText("Credit hours cannot be negative.\n");
+					return false;
 				}
 				if(credit < minCredit) {
 					profileText.appendText("Minimum credit hours is 3.\n");
+					return false;
 				}
 				if(credit < fullCredit) {
 					profileText.appendText("International students must enroll at least 12 credits.\n");
+					return false;
 				}
 				if(credit > maxCredit) {
 					profileText.appendText("Credit hours exceed the maximum 24.\n");
+					return false;
 				}
 				return true;
 			}
@@ -712,7 +716,7 @@ public static boolean isNumber(String amountPaid) {
 					Resident test;
 					try {
 						test= (Resident) student;
-						if (test.getCredits()>=12) {
+						if (!test.isParttime()&&!test.getAid()) {
 							aidbox1.setDisable(false);
 							aidbox2.setDisable(false);
 						}
