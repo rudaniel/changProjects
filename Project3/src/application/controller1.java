@@ -208,10 +208,10 @@ public class controller1 {
 			if(ts != null) {
 				String st = "CT";
 				String NY="NY";
-				String 
+				String nys="New York";
 				String stat = ts.getText();
-				if(stat.equals("New York"))
-					st="NY";
+				if(stat.equals(nys))
+					st=NY;
 				if(creditCheck())
 					triAdd(name, Integer.parseInt(credits), st);
 			}
@@ -594,7 +594,7 @@ public static boolean isNumber(String inNumber) {
 		try {
 			double number = Double.parseDouble(inNumber);
 			return true;
-		} catch(NumberFormatException e) {
+		} catch(Exception e) {
 			return false;
 		}	
 }	
@@ -816,8 +816,13 @@ public static boolean isNumber(String inNumber) {
 	 */
 	@FXML
 	void calcAll() {
-		obj.printC();
-		printBox.appendText("Calculated Tuitions.\n");
+		
+		if(obj.printC()) {
+			printBox.appendText("Calculated Tuitions.\n");
+		}
+		else {
+			printBox.appendText("Student roster is empty!\n");
+		}
 	}
 	
 	

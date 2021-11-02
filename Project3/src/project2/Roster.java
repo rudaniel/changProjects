@@ -128,12 +128,17 @@ public class Roster {
 	/**
 	 * Checks if collection is empty and if not prints the entire albums[] array with tuition amount.
 	 */
-	public void printC() { 
+	public boolean printC() {
+		if(roster==null) {
+			return false;
+		}
 		for(int counter=0; counter<roster.length; counter++) {
 			if(roster[counter]!=null&&roster[counter].getTuition()==0&&roster[counter].getPayment()==0) {
 			roster[counter].tuitionDue();
 			}
 		}
+		
+		return true;
 	}
 	/**
 	 * Searches for an individual student and calculates tuition.
