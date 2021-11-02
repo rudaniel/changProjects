@@ -696,7 +696,7 @@ public static boolean isNumber(String inNumber) {
 					tsBox.setDisable(true);
 					isBox.setDisable(true);
 					statusLbl.setDisable(true);
-					rsBt.setDisable(true);
+					rsBt.setDisable(false);
 					tdBox.setDisable(false);
 					tuitionDue.setDisable(false);
 					tuition.setDisable(false);
