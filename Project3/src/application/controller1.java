@@ -460,9 +460,9 @@ public class controller1 {
 	 */
 	public void studentTuition(ActionEvent e) {
 		String name = nameProfile.getText();
-		if(!name.isBlank()) {
+		if(nameCheck(profileText, name)) {
 			major1=(RadioButton) Major.getSelectedToggle();
-			if(major1!=null) {
+			if(majorCheck(profileText, major1)) {
 				major= major1.getText();	
 				Profile profile= new Profile(name,major);
 				Student student= new Student(profile);
@@ -473,12 +473,6 @@ public class controller1 {
 					profileText.appendText("Student is not in the roster.\n");
 				}
 			}
-			else {
-				profileText.appendText("Please select a major.\n");
-			}
-		}		
-		else {
-			profileText.appendText("Please enter a name for Student.\n");
 		}
 	}
 	
@@ -570,40 +564,14 @@ public class controller1 {
 	String majorPay;
 	
 	/**
-	 * Gets the major the user selects in tab2.
-	 * @param e click of button
-	 */
-	public void getMajorPay(ActionEvent e) {
-		
-		
-		if(csMajorPay.isSelected()) {
-			majorPay = csMajorPay.getText();
-		}
-		if(itMajorPay.isSelected()) {
-			majorPay = itMajorPay.getText();
-		}
-		if(baMajorPay.isSelected()) {
-			majorPay = baMajorPay.getText();
-		}
-		if(eeMajorPay.isSelected()) {
-			majorPay = eeMajorPay.getText();
-		}
-		if(meMajorPay.isSelected()) {
-			majorPay = meMajorPay.getText();
-		}
-	//	System.out.println(majorPay);
-		
-	}
-	
-	/**
 	 * Handles the payment numbers. Making sure everything that is entered is valid.
 	 * @param e click of button
 	 */
 public void paymentTotal(ActionEvent e) {
 	String name = namePay.getText();
-	if(!name.isBlank()) {
+	if(nameCheck(displayBoard, name)) {
 		major1=(RadioButton) Major1.getSelectedToggle();
-		if(major1!=null) {
+		if(majorCheck(displayBoard, major1)) {
 			major= major1.getText();	
 			Profile profile= new Profile(name,major);
 			if(isNumber(payTotal.getText())) {
@@ -635,16 +603,8 @@ public void paymentTotal(ActionEvent e) {
 				displayBoard.appendText("Payment can only be a number.\n");
 			}			
 		}
-		else {
-			displayBoard.appendText("Please select a major.\n");
-		}
 	}
-	else {
-		displayBoard.appendText("Please enter a name for Student.\n");
-	}
-	
-
-	}
+}
 
 /**
  * Handles the payment numbers for financial aid. Making sure everything that is entered is valid.
@@ -652,9 +612,9 @@ public void paymentTotal(ActionEvent e) {
  */
 public void paymentAid(ActionEvent event) {
 	String name = namePay.getText();
-	if(!name.isBlank()) {
+	if(nameCheck(displayBoard, name)) {
 		major1=(RadioButton) Major1.getSelectedToggle();
-		if(major1!=null) {
+		if(majorCheck(displayBoard, major1)) {
 			major= major1.getText();	
 			Profile profile= new Profile(name,major);
 			if(isNumber(payAid.getText())) {
@@ -671,12 +631,6 @@ public void paymentAid(ActionEvent event) {
 				displayBoard.appendText("Financial Aid can only be a number.\n");
 			}			
 		}
-		else {
-			displayBoard.appendText("Please select a major.\n");
-		}
-	}
-	else {
-		displayBoard.appendText("Please enter a name for Student.\n");
 	}
 }
 
@@ -720,22 +674,15 @@ public static boolean isNumber(String amountPaid) {
 	@FXML
 	void update() {
 		String name = nameProfile.getText();
-		if(!name.isBlank()) {
+		if(nameCheck(profileText, name)) {
 			major1=(RadioButton) Major.getSelectedToggle();
-			if(major1!=null) {
+			if(majorCheck(profileText, major1)) {
 				major= major1.getText();	
 				Profile profile= new Profile(name,major);	
 				International student= new International(profile, abroadButton.isSelected());
 				obj.abroadStatus(student);
-				profileText.appendText("Status updated.\n");
-				
+				profileText.appendText("Status updated.\n");	
 			}
-			else {
-				profileText.appendText("Please select a major.\n");
-			}
-		}
-		else {
-			profileText.appendText("Please enter a name for Student.\n");
 		}
 	}
 	
@@ -747,9 +694,9 @@ public static boolean isNumber(String amountPaid) {
 	void search(ActionEvent ee) {
 		reset();
 		String name = namePay.getText();
-		if(!name.isBlank()) {
+		if(nameCheck(displayBoard,name)) {
 			major1=(RadioButton) Major1.getSelectedToggle();
-			if(major1!=null) {
+			if(majorCheck(displayBoard, major1)) {
 				major= major1.getText();	
 				Profile profile= new Profile(name,major);	
 				Student student= obj.search(new Student(profile));
@@ -765,29 +712,23 @@ public static boolean isNumber(String amountPaid) {
 					Resident test;
 					try {
 						test= (Resident) student;
-						aidbox1.setDisable(false);
-						aidbox2.setDisable(false);
+						if (test.getCredits()>=12) {
+							aidbox1.setDisable(false);
+							aidbox2.setDisable(false);
+						}
 					}
 					catch(Exception e){}
 				}
 			}
-			else {
-				displayBoard.appendText("Please select a major.\n");
-			}
 		}
-		else {
-			displayBoard.appendText("Please enter a name for Student.\n");
-		}
-	}
-	
-	String nyS="NY";
-	
+	}	
 	/**
 	 * Searches for the student that is already in list with status included.
 	 * @param ee click of button
 	 */
 	@FXML
 	void searchP(ActionEvent ee) {
+		String nyS="NY";
 		String name = nameProfile.getText();
 		if(nameCheck(profileText,name)) {
 			major1=(RadioButton) Major.getSelectedToggle();
@@ -877,6 +818,9 @@ public static boolean isNumber(String amountPaid) {
 		pa2.setDisable(true);
 		pd1.setDisable(true);
 		pd2.setDisable(true);
+		payTotal.setText(null);
+		paymentDate.setValue(null);
+		payAid.setText(null);
 	}
 	
 	/**
