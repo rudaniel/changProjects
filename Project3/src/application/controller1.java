@@ -32,10 +32,9 @@ import project2.Resident;
 
 public class controller1 {
 	Roster obj = new Roster();
-	String comma = ",";
-	String T = "T";
-	String F = "F";
 	private static final int zero = 0; 
+	private static final String r = "Resident";
+	private static final String nr = "Non-Resident";
 	
 	@FXML
 	TextField nameProfile = new TextField();
@@ -74,10 +73,7 @@ public class controller1 {
 	String status = null;
 	String state = null;
 	boolean international;
-	boolean abroad;
-	String r = "Resident";
-	String nr = "Non-Resident";
-	
+	boolean abroad;	
 	/**
 	 * Makes sure that the status buttons work property and wont crash the UI.
 	 * @param e the button click.
@@ -128,11 +124,6 @@ public class controller1 {
 	
 	String finalProfile = null;
 	
-	String residentadd = "AR";
-	String nonResidentadd = "AN";
-	String tristateadd = "AT";
-	String internationaladd = "AI";
-	
 	/**
 	 * Makes sure that the fields are filled out and then adds a student to the Roster list.
 	 * @param event1 the button click.
@@ -169,7 +160,9 @@ public class controller1 {
 	private void intAdd(String name, int credits) {
 		boolean study = false;
 		if(abroadButton.isSelected()) {
-			study = true;
+			study = !study;
+			intCreditCheck(study);
+			return;
 		}
 		disable();
 		rBox.setDisable(true);
@@ -224,7 +217,8 @@ public class controller1 {
 				profileText.appendText("Enter a state for the Student!\n");	
 		}
 		else {
-			if(intCreditCheck())
+			boolean f=false;
+			if(intCreditCheck(f))
 				intAdd(name,Integer.parseInt(credits));
 		}
 	}
@@ -344,7 +338,7 @@ public class controller1 {
 	/**
 	 * Checks if the user inputed a proper credit number for international students.
 	 */
-	public boolean intCreditCheck() {
+	public boolean intCreditCheck(boolean study) {
 		String credits = creditHourTextField.getText();
 		int minCredit = 3;
 		int fullCredit = 12;
@@ -360,6 +354,13 @@ public class controller1 {
 				if(credit < minCredit) {
 					profileText.appendText("Minimum credit hours is 3.\n");
 					return false;
+				}
+				if(study) {
+					if(credit > fullCredit) {
+						profileText.appendText("Study Abroad students must enroll at most 12 credits.\n");
+						return false;
+					}
+					return true;
 				}
 				if(credit < fullCredit) {
 					profileText.appendText("International students must enroll at least 12 credits.\n");
