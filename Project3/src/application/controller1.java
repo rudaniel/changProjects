@@ -207,6 +207,8 @@ public class controller1 {
 			ts = (RadioButton) stateT.getSelectedToggle();
 			if(ts != null) {
 				String st = "CT";
+				String NY="NY";
+				String 
 				String stat = ts.getText();
 				if(stat.equals("New York"))
 					st="NY";
@@ -231,9 +233,7 @@ public class controller1 {
 		rBox.setDisable(true);
 		profileText.appendText("adding Resident\n");
 		addResident(name,major, credits);
-		
 	}
-
 
 	/**
 	 * Makes sure that the fields are filled out and then removes a student from the Roster list.
@@ -264,7 +264,8 @@ public class controller1 {
 	public boolean nameCheck(TextArea a,String name) {
 		if(!(name == null || name.isBlank())) {
 			name.trim();
-			if (name.contains(" ")) {
+			String blank= " ";
+			if (name.contains(blank)) {
 				return true;
 			}
 			a.appendText("Invalid Name.\n");
@@ -471,14 +472,17 @@ public class controller1 {
 	 * @param e click of button
 	 */
 	public void printStudents(ActionEvent e) {
-		printing = (Button)e.getSource();
-		if(printing.getText().equals("Print")) {
+		String p="Print";
+		String pbn="Print by name";
+		String pbt="Print by time";
+		printing = (Button) e.getSource();
+		if(printing.getText().equals(p)) {
 			obj.print(printBox);
 		}
-		else if(printing.getText().equals("Print by name")) {
+		else if(printing.getText().equals(pbn)) {
 			obj.printN(printBox);
 		}
-		else if(printing.getText().equals("Print by time")) {
+		else if(printing.getText().equals(pbt)) {
 			obj.printT(printBox);
 		}
 	}
@@ -590,16 +594,10 @@ public static boolean isNumber(String inNumber) {
 		try {
 			double number = Double.parseDouble(inNumber);
 			return true;
-			
-			
 		} catch(NumberFormatException e) {
 			return false;
-		}
-		
-		
-}
-	
-	
+		}	
+}	
 	
 /**
  * Updates the fields while the user uses the UI.

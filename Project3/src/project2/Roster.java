@@ -89,7 +89,6 @@ public class Roster {
 	    int notfound = -1;
 		
 		if (index == notfound) {
-			//System.out.println("Student is already in the roster.");
 			return false;
 		}
 		for(int i =index; i <=  size-1; i++) {
@@ -100,7 +99,6 @@ public class Roster {
 				this.roster[i] = null;
 			}
 		}
-		//System.out.println("Student removed from the roster.");
 		this.size --;
 		return true; 
 	}
@@ -147,7 +145,6 @@ public class Roster {
 		int index = find(student);
 	    int notfound = -1;
 		if (index == notfound) {
-			//System.out.println("Student is already in the roster.");
 			return false;
 		}
 		roster[index].tuitionDue();
