@@ -157,7 +157,7 @@ public class controller1 {
 	 * @param name name of student
 	 * @param credits credits of student
 	 */
-	private void intAdd(String name, String credits) {
+	public void intAdd(String name, String credits) {
 		boolean study = false;
 		if(abroadButton.isSelected()) {
 			study = !study;
@@ -177,9 +177,9 @@ public class controller1 {
 	 * Adding an tristate student.
 	 * @param name name of student
 	 * @param credits credits of student
-	 * @param state state of student
+	 * @param st state of student
 	 */
-	private void triAdd(String name, int credits, String st) {
+	public void triAdd(String name, int credits, String st) {
 		disable();
 		rBox.setDisable(true);
 		tsBox.setDisable(true);
@@ -260,6 +260,9 @@ public class controller1 {
 	
 	/**
 	 * Checks if the user inputed a proper name.
+	 * @param a The TextArea to be printed in.
+	 * @param name the name to be checked.
+	 * @return true if name is valid, false otherwise.
 	 */
 	public boolean nameCheck(TextArea a,String name) {
 		if(!(name == null || name.isBlank())) {
@@ -276,7 +279,9 @@ public class controller1 {
 	}
 	
 	/**
-	 * Checks if the user inputed a proper major button.
+	 * @param a The TextArea to be printed in.
+	 * @param b the button to be checked.
+	 * @return true if major is selected, false otherwise.
 	 */
 	public boolean majorCheck(TextArea a, RadioButton b) {
 		if(b != null) {
@@ -288,6 +293,7 @@ public class controller1 {
 	
 	/**
 	 * Checks if the user inputed a proper status button.
+	 * @return true if residency is selected, false otherwise.
 	 */
 	public boolean residencyCheck() {
 		residency = (RadioButton) Status.getSelectedToggle();
@@ -300,6 +306,7 @@ public class controller1 {
 	
 	/**
 	 * Checks if the user inputed a proper credit number.
+	 * @return true if valid credits is entered, false otherwise.
 	 */
 	public boolean creditCheck() {
 		int minTokens = 3;
@@ -336,6 +343,8 @@ public class controller1 {
 	
 	/**
 	 * Checks if the user inputed a proper credit number for international students.
+	 * @param study The abroad status of student.
+	 * @return true if valid credits is entered, false otherwise.
 	 */
 	public boolean intCreditCheck(boolean study) {
 		String credits = creditHourTextField.getText();
@@ -422,7 +431,7 @@ public class controller1 {
 	 * @param name name of student
 	 * @param major major of student
 	 * @param credits credits of student
-	 * @param studyAbroad
+	 * @param studyAbroad studyabroad status of student.
 	 */
 	public void addInternational(String name, String major, int credits, boolean studyAbroad) {
 		Profile profile = new Profile(name,major);
@@ -435,7 +444,7 @@ public class controller1 {
 	 * @param name name of student
 	 * @param major major of student
 	 * @param credits credits of student
-	 * @param state
+	 * @param state State of student.
 	 */
 	public void addTristate(String name, String major, int credits, String state) {			
 		Profile profile = new Profile(name,major);
@@ -588,7 +597,8 @@ public void paymentAid(ActionEvent event) {
 
 /**
  * Checks if a real number is inputed.
- * @param amountPaid
+ * @param inNumber the Number to be checked.
+ * @return true of number is valid, false otherwise.
  */
 public static boolean isNumber(String inNumber) {
 		try {

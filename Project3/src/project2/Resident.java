@@ -75,6 +75,7 @@ public class Resident extends Student {
 	
 	/**
 	 * Getter method for aid amount.
+	 * @return financial Aid status.
 	 */
 	public boolean getAid(){
 		return this.aid;

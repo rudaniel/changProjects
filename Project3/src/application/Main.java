@@ -18,7 +18,7 @@ public class Main extends Application {
 	 
 	/**
 	 * Sets the stage/scene for our UI.
-	 * @param pimaryStage.
+	 * @param primaryStage the stage of UI.
 	 */
 	@Override
 	public void start(Stage primaryStage) {

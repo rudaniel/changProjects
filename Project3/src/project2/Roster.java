@@ -105,6 +105,7 @@ public class Roster {
 	
 	/**
 	 * Checks if collection is empty and if not prints the entire albums[] array.
+	 * @param p The textArea to be printed in.
 	 */
 	public void print(TextArea p) {
 	
@@ -127,6 +128,7 @@ public class Roster {
 
 	/**
 	 * Checks if collection is empty and if not prints the entire albums[] array with tuition amount.
+	 * @return true if roster is not empty, false otherwise.
 	 */
 	public boolean printC() {
 		if(roster==null) {
@@ -142,8 +144,8 @@ public class Roster {
 	}
 	/**
 	 * Searches for an individual student and calculates tuition.
-	 * @param student
-	 * @param Testfield f
+	 * @param student student object.
+	 * @param f text to be updated.
 	 * @return true if successful, false otherwise.
 	 */
 	public boolean calcSingle(Student student, TextField f) {
@@ -159,6 +161,7 @@ public class Roster {
 
 	/**
 	 * Sorts roster[] by Name and prints them.
+	 * @param p The textArea to be printed in.
 	 */
    public void printN(TextArea p) {
 		
@@ -200,6 +203,7 @@ public class Roster {
 
    /**
 	 * Sorts roster[] by Payment Date and prints them.
+	 * @param p The textArea to be printed in.
 	 */
 	public void printT(TextArea p) {
 		if(this.size==0) {
@@ -298,7 +302,7 @@ public class Roster {
 	}	
 	/**
 	 * Looks for student and returns index.
-	 * @param student
+	 * @param s Student object.
 	 * @return index if found.
 	 */
 	public Student search(Student s)	{
