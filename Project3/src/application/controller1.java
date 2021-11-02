@@ -598,8 +598,10 @@ public void paymentTotal(ActionEvent e) {
 					}
 					else {
 						Student student= new Student(profile,amount,date);
-						obj.payment(student);
-						displayBoard.appendText("Payment made.\n");
+						if(obj.payment(student))
+							displayBoard.appendText("Payment made.\n");
+						else
+							displayBoard.appendText("Payment amount exceeds tuition due.\n");
 					}
 				}
 			}
@@ -626,6 +628,9 @@ public void paymentAid(ActionEvent event) {
 				if(amount<=0) {
 					displayBoard.appendText("Invalid amount.\n");
 				}
+				if(amount>10000) {
+					displayBoard.appendText("Amount exceeds $10,000.\n");
+				}
 				else {
 					Student student= new Student(profile,amount);
 					displayBoard.appendText(obj.aid(student)+"\n");
@@ -639,27 +644,14 @@ public void paymentAid(ActionEvent event) {
 }
 
 
-/**
- * Makes sure the name thats entered has a first and last name.
- * @param name name of student
- */
-public static boolean validName(String name) {
-	if (name.contains(" ")) {
-		return true;
-	} 
-	else {
-		return false;
-	
-	}
-}
 
 /**
  * Checks if a real number is inputed.
  * @param amountPaid
  */
-public static boolean isNumber(String amountPaid) {
+public static boolean isNumber(String inNumber) {
 		try {
-			double number = Double.parseDouble(amountPaid);
+			double number = Double.parseDouble(inNumber);
 			return true;
 			
 			
