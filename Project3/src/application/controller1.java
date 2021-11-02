@@ -602,7 +602,7 @@ public void paymentAid(ActionEvent event) {
  */
 public static boolean isNumber(String inNumber) {
 		try {
-			double number = Double.parseDouble(inNumber);
+			Double.parseDouble(inNumber);
 			return true;
 		} catch(Exception e) {
 			return false;

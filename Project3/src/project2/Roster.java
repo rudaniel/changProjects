@@ -1,6 +1,5 @@
 package project2;
 
-import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
