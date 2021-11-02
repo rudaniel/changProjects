@@ -628,7 +628,7 @@ public void paymentAid(ActionEvent event) {
 				if(amount<=0) {
 					displayBoard.appendText("Invalid amount.\n");
 				}
-				if(amount>10000) {
+				else if(amount>10000) {
 					displayBoard.appendText("Amount exceeds $10,000.\n");
 				}
 				else {
