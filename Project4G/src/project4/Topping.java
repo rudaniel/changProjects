@@ -8,6 +8,6 @@ package project4;
 public enum Topping {
 
 	Pineapple, Ham, Cheese, Sausage, Chicken, Beef,
-	Pepperoni, GreenPepper, Onion, Mushroom, BlackOlives;
+	Pepperoni, GreenPepper, Onion, Mushroom, BlackOlives,UNKNOWN;
 	
 }

@@ -1,12 +1,15 @@
 package project4;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
 public class Deluxe extends Pizza {
 	
 	private double priceDeluxe;
 	
 	
 	
-	public Deluxe (String toppingList, String pizzaSize) {
+	public Deluxe (ArrayList<String> toppingList, String pizzaSize) {
 	
 		super(toppingList, pizzaSize);
 	//	this.priceDeluxe = price();

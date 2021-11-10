@@ -16,20 +16,33 @@ public abstract class Pizza {
 	public Pizza (String toppingList, String pizzaSize) {
 		Size temp = new Size(pizzaSize); 
 		this.size = temp;
-		
 		StringTokenizer reader = new StringTokenizer(toppingList,",");
 		while((reader.hasMoreTokens())) {
-			
 			try {
 				this.toppings.add(Topping.valueOf(reader.nextToken()));
 			}
 			catch(IllegalArgumentException e) {
 				this.toppings.add(Topping.valueOf("UNKNOWN"));
 			};
-			
-
 		}
 		
 	}
-	
+	public Pizza (ArrayList<String> toppingList, String pizzaSize) {
+		this.size = new Size(pizzaSize); 
+		while(!toppingList.isEmpty()) {
+			int item=0;
+			try {
+				this.toppings.add(Topping.valueOf(toppingList.get(item)));
+				toppingList.remove(item);
+			}
+			catch(IllegalArgumentException e) {
+				this.toppings.add(Topping.valueOf("UNKNOWN"));
+			};
+		}
+		
+	}
+	@Override
+	public String toString() {
+		return toppings+" :deluxe: "+size;
+	}
 }

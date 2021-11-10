@@ -16,12 +16,14 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.Pane;
+import project4.Deluxe;
+import project4.Pizza;
 
 public class CustomizeController {
 	
 	private MainController mainController;
 	ObservableList<String> sizes= FXCollections.observableArrayList("Small","Medium","Large");
-	ObservableList<String> Toppings= FXCollections.observableArrayList("Beef","Black Olives","Cheese","Chicken","Green Pepper","Ham","Mushroom","Onion","Pepperoni","Pineapple","Sausage");
+	ObservableList<String> Toppings= FXCollections.observableArrayList("Beef","BlackOlives","Cheese","Chicken","GreenPepper","Ham","Mushroom","Onion","Pepperoni","Pineapple","Sausage");
 	ObservableList<String> selectedToppings;
 	@FXML
 	public ChoiceBox<String> size;
@@ -83,20 +85,20 @@ public class CustomizeController {
 		if(pizza==0){
 			image= new Image("/deluxePizza.png");
 			text="Deluxe";
-			selectedToppings=FXCollections.observableArrayList("Black Olives","Cheese","Chicken","Green Pepper","Mushroom");
+			selectedToppings=FXCollections.observableArrayList("BlackOlives","Cheese","Chicken","GreenPepper","Mushroom");
 			Toppings= FXCollections.observableArrayList("Beef","Ham","Onion","Pepperoni","Pineapple","Sausage");	
 		}
 		else if(pizza==1) {
 			image= new Image("/hawaiianPizza.png");
 			text="Hawaiian";
 			selectedToppings=FXCollections.observableArrayList("Ham","Pineapple");
-			Toppings= FXCollections.observableArrayList("Beef","Black Olives","Cheese","Chicken","Green Pepper","Mushroom","Onion","Pepperoni","Sausage");	
+			Toppings= FXCollections.observableArrayList("Beef","BlackOlives","Cheese","Chicken","GreenPepper","Mushroom","Onion","Pepperoni","Sausage");	
 		}
 		else{
 			image= new Image("/pepperoniPizza.png");
 			text="Pepperoni";
 			selectedToppings=FXCollections.observableArrayList("Pepperoni");
-			Toppings= FXCollections.observableArrayList("Beef","Black Olives","Cheese","Chicken","Green Pepper","Ham","Mushroom","Onion","Pineapple","Sausage");
+			Toppings= FXCollections.observableArrayList("Beef","BlackOlives","Cheese","Chicken","GreenPepper","Ham","Mushroom","Onion","Pineapple","Sausage");
 		}
 		BackgroundImage back= new BackgroundImage(image,null,null,null,null);
 		pizzaImg.setBackground(new Background(back));
@@ -131,8 +133,10 @@ public class CustomizeController {
 	public void addOrder() {
 		ArrayList<String> aList=new ArrayList<> (aTop.getItems());
 		ArrayList<String> sList=new ArrayList<> (sTop.getItems());
-		System.out.println(aList);
-		System.out.println(sList);
+		Pizza pizza= new Deluxe(sList, size.getSelectionModel().getSelectedItem());
+		System.out.println(pizza);
+		//System.out.println(aList);
+		//System.out.println(sList);
 		
 	}
 	
