@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ArrayList;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -127,7 +129,10 @@ public class CustomizeController {
 	}
 	
 	public void addOrder() {
-		
+		ArrayList<String> aList=new ArrayList<> (aTop.getItems());
+		ArrayList<String> sList=new ArrayList<> (sTop.getItems());
+		System.out.println(aList);
+		System.out.println(sList);
 		
 	}
 	
