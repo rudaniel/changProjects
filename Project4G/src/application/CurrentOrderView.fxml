@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.OrderController">
+   <children>
+      <Label layoutX="227.0" layoutY="31.0" text="Pizza Order">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="39.0" layoutY="86.0" text="Customer Phone Number:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="phoneNumber" layoutX="227.0" layoutY="84.0" />
+      <ListView fx:id="pizzaList" layoutX="33.0" layoutY="120.0" prefHeight="144.0" prefWidth="528.0">
+         <effect>
+            <Glow level="0.95" />
+         </effect>
+      </ListView>
+      <Label layoutX="72.0" layoutY="284.0" text="Sub Total:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="239.0" layoutY="284.0" text="Sales Tax:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="60.0" layoutY="343.0" text="Order Total:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="subTotal" layoutX="147.0" layoutY="281.0" prefHeight="6.0" prefWidth="80.0" />
+      <TextField fx:id="salesTax" layoutX="318.0" layoutY="282.0" prefHeight="26.0" prefWidth="80.0" />
+      <TextField fx:id="orderTotal" layoutX="147.0" layoutY="341.0" prefHeight="26.0" prefWidth="80.0" />
+      <Button fx:id="rPizza" layoutX="446.0" layoutY="283.0" mnemonicParsing="false" onAction="#removePizza" text="Remove Pizza" />
+      <Button fx:id="placeOrder" layoutX="452.0" layoutY="341.0" mnemonicParsing="false" onAction="#confirmOrder" text="Place Order" />
+   </children>
+</AnchorPane>
