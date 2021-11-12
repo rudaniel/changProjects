@@ -8,22 +8,29 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import project4.Pizza;
 import project4.PizzaMaker;
 import project4.Topping;
 import project4.Size;
+import project4.StoreOrders;
 
 public class CustomizeController {
 	
 	private MainController mainController;
 	private String flavor;
+	private StoreOrders orders;
+	private String phone;
 	private Pizza pizza;
+	
 	ObservableList<Size> sizes= FXCollections.observableArrayList(Arrays.asList(Size.values()));
 	ObservableList<Topping> Toppings= FXCollections.observableArrayList(Arrays.asList(Topping.values()));
 	ObservableList<Topping> selectedToppings=FXCollections.observableArrayList(Arrays.asList(Topping.values()));
@@ -86,9 +93,11 @@ public class CustomizeController {
 	}
 
 	public void setMainController(MainController controller) {
-		mainController=controller;
-		flavor=mainController.getPizza();
-		pizza=PizzaMaker.createPizza(flavor);
+		this.mainController=controller;
+		this.flavor=mainController.getPizza();
+		this.pizza=PizzaMaker.createPizza(flavor);
+		this.phone=mainController.getPhone();
+		this.orders=mainController.getOrders();
 		set();
 		
 	}
@@ -116,12 +125,20 @@ public class CustomizeController {
 	}
 	
 	public void addOrder() {
-		ArrayList<Topping> aList=new ArrayList<> (aTop.getItems());
-		ArrayList<Topping> sList=new ArrayList<> (sTop.getItems());
-		System.out.println(pizza);
-		System.out.println(aList);
-		System.out.println(sList);
-		
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation");
+		alert.setHeaderText("Adding Pizzas");
+		alert.setContentText("Do you want to add this Pizaa to the order?");
+		alert.showAndWait();
+		if(alert.getResult().equals(ButtonType.OK)) {
+			if(orders.add(phone, pizza)) {
+				alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Information");
+				alert.setHeaderText("Added Pizza");
+				alert.setContentText("Pizza has been added to Order!");
+				alert.showAndWait();
+			}
+		}
 	}
 	
 }

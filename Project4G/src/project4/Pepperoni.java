@@ -74,6 +74,13 @@ public class Pepperoni extends Pizza {
 		return "Pepperoni Pizza :"+ super.toString();
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Pepperoni) {
+			return super.equals(obj);
+		}
+		return false;
+	}
 //	public static void main(String[] args) {
 //		String yum = "Cheese,Ham,Chicken";
 //		String size = "large";

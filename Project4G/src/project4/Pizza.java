@@ -1,6 +1,9 @@
 package project4;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+
+import project2.Profile;
+
 import java.text.DecimalFormat;
 
 public abstract class Pizza {
@@ -60,6 +63,19 @@ public abstract class Pizza {
 	@Override
 	public String toString() {
 		return toppings+", "+size+", "+"$"+price();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Pizza) {
+			Pizza compare= (Pizza) obj;
+			if (compare.size.equals(this.size)) {
+				if (compare.toppings.equals(this.toppings)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 

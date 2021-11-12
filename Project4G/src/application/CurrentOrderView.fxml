@@ -4,11 +4,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #900c3f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.OrderController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #900c3f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CurrentOrderController">
    <children>
       <Label blendMode="DARKEN" layoutX="232.0" layoutY="29.0" text="Pizza Order">
          <font>
@@ -20,12 +19,8 @@
             <Font name="Comic Sans MS Bold" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="phoneNumber" layoutX="253.0" layoutY="78.0" prefHeight="25.0" prefWidth="191.0" promptText="XXXXXXXXXX" />
-      <ListView fx:id="pizzaList" layoutX="33.0" layoutY="120.0" prefHeight="144.0" prefWidth="528.0">
-         <effect>
-            <Glow level="0.95" />
-         </effect>
-      </ListView>
+      <TextField fx:id="phoneNumber" editable="false" layoutX="253.0" layoutY="78.0" prefHeight="25.0" prefWidth="191.0" promptText="XXXXXXXXXX" />
+      <ListView fx:id="pizzaList" layoutX="33.0" layoutY="120.0" prefHeight="144.0" prefWidth="528.0" />
       <Label blendMode="DARKEN" layoutX="85.0" layoutY="284.0" text="Sub Total:">
          <font>
             <Font name="Comic Sans MS Bold" size="16.0" />
@@ -41,9 +36,9 @@
             <Font name="Comic Sans MS Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="subTotal" layoutX="169.0" layoutY="283.0" prefHeight="25.0" prefWidth="101.0" />
-      <TextField fx:id="salesTax" layoutX="414.0" layoutY="283.0" prefHeight="26.0" prefWidth="95.0" />
-      <TextField fx:id="orderTotal" layoutX="169.0" layoutY="328.0" prefHeight="26.0" prefWidth="101.0" />
+      <TextField fx:id="subTotal" editable="false" layoutX="169.0" layoutY="283.0" prefHeight="25.0" prefWidth="101.0" />
+      <TextField fx:id="salesTax" editable="false" layoutX="414.0" layoutY="283.0" prefHeight="26.0" prefWidth="95.0" />
+      <TextField fx:id="orderTotal" editable="false" layoutX="169.0" layoutY="328.0" prefHeight="26.0" prefWidth="101.0" />
       <Button fx:id="rPizza" layoutX="303.0" layoutY="328.0" mnemonicParsing="false" onAction="#removePizza" text="Remove Pizza">
          <font>
             <Font size="13.0" />

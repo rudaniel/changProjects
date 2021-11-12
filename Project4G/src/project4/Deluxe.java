@@ -76,6 +76,14 @@ public class Deluxe extends Pizza {
 		return "Deluxe Pizza :"+ super.toString();
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Deluxe) {
+			return super.equals(obj);
+		}
+		return false;
+	}
+	
 //	public static void main(String[] args) {
 //		String yum = "Cheese,Chicken,Beef,Onion,Mushroom,Ham";
 //		String size = "large";

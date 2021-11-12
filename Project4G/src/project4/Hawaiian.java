@@ -71,6 +71,14 @@ public class Hawaiian extends Pizza {
 		return "Hawaiian Pizza :"+ super.toString();
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Hawaiian) {
+			return super.equals(obj);
+		}
+		return false;
+	}
+	
 //	public static void main(String[] args) {
 //		String yum = "Cheese,Chicken";
 //		String size = "large";
