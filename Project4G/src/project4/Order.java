@@ -1,12 +1,11 @@
 package project4;
 
+
 import java.util.HashMap;
 import java.util.ArrayList;
 
 public class Order {
-
-	
-	HashMap <String, ArrayList <Pizza>> pizzaOrders = new HashMap<String, ArrayList <Pizza>>();
+HashMap <String, ArrayList <Pizza>> pizzaOrders = new HashMap<String, ArrayList <Pizza>>();
 	
 	public void phoneOrder (String phoneNumber, Pizza pizza) {
 	
@@ -67,6 +66,5 @@ public class Order {
 		//System.out.println(angelicaPizza.price());
 		//,Beef,Onion,Mushroom,Ham
 	}
-	
 	
 }
