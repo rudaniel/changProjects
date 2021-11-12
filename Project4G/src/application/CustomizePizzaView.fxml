@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -24,18 +24,18 @@
             <Font size="68.0" />
          </font>
       </Text>
-      <ChoiceBox fx:id="size" layoutX="318.0" layoutY="134.0" prefHeight="25.0" prefWidth="113.0" />
+      <ComboBox fx:id="size" layoutX="318.0" layoutY="134.0" prefHeight="25.0" prefWidth="113.0" />
       <Label blendMode="DARKEN" layoutX="317.0" layoutY="100.0" text="Pizza Size">
          <font>
-            <Font name="Comic Sans MS" size="20.0" />
+            <Font name="Comic Sans MS Bold" size="20.0" />
          </font>
       </Label>
-      <VBox layoutX="24.0" layoutY="38.0" prefHeight="192.0" prefWidth="250.0">
+      <VBox layoutX="24.0" layoutY="38.0" prefHeight="192.0" prefWidth="250.0" style="-fx-border-color: black;">
          <children>
-            <Pane fx:id="pizzaImg" prefHeight="157.0" prefWidth="250.0" style="-fx-border-color: black;" />
+            <ImageView fx:id="pizzaImg" />
             <Label fx:id="pizzaLbl" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefWidth="250.0" style="-fx-background-color: black;" text="Pizza" textFill="#900c3f">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Comic Sans MS Bold" size="24.0" />
                </font>
             </Label>
          </children>
@@ -59,22 +59,34 @@
       </ScrollPane>
       <Label blendMode="DARKEN" layoutX="24.0" layoutY="273.0" text="Additonal Toppings">
          <font>
-            <Font name="Comic Sans MS" size="16.0" />
+            <Font name="Comic Sans MS Bold" size="19.0" />
          </font>
       </Label>
-      <Label blendMode="DARKEN" layoutX="83.0" layoutY="531.0" text="Price $">
+      <Label blendMode="DARKEN" layoutX="77.0" layoutY="531.0" text="Price $">
          <font>
-            <Font name="Comic Sans MS" size="19.0" />
+            <Font name="Comic Sans MS Bold" size="19.0" />
          </font>
       </Label>
-      <Button layoutX="211.0" layoutY="346.0" mnemonicParsing="false" onAction="#addTop" prefHeight="25.0" prefWidth="77.0" text="Add" />
-      <Button layoutX="211.0" layoutY="417.0" mnemonicParsing="false" onAction="#removeTop" prefHeight="25.0" prefWidth="77.0" text="Remove" />
-      <Button layoutX="318.0" layoutY="532.0" mnemonicParsing="false" onAction="#addOrder" prefHeight="25.0" prefWidth="160.0" text="Add to Order" />
+      <Button layoutX="211.0" layoutY="346.0" mnemonicParsing="false" onAction="#addTop" prefHeight="25.0" prefWidth="77.0" text="Add">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
+      <Button layoutX="211.0" layoutY="417.0" mnemonicParsing="false" onAction="#removeTop" prefHeight="25.0" prefWidth="77.0" text="Remove">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
+      <Button layoutX="318.0" layoutY="532.0" mnemonicParsing="false" onAction="#addOrder" prefHeight="25.0" prefWidth="160.0" text="Add to Order">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
       <Label blendMode="DARKEN" layoutX="317.0" layoutY="273.0" text="Selected Toppings">
          <font>
-            <Font name="Comic Sans MS" size="16.0" />
+            <Font name="Comic Sans MS Bold" size="19.0" />
          </font>
       </Label>
-      <TextField fx:id="price" editable="false" layoutX="147.0" layoutY="532.0" text="0.00" />
+      <TextField fx:id="price" editable="false" layoutX="147.0" layoutY="532.0" prefHeight="27.0" prefWidth="141.0" text="0.00">
+         <font>
+            <Font size="13.0" />
+         </font></TextField>
    </children>
 </AnchorPane>

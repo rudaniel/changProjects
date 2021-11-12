@@ -1,17 +1,24 @@
 package project4;
 
-import project4.Pizza;
+import java.util.Arrays;
+
+
 
 public class Pepperoni extends Pizza {
 
 	private double pricePepperoni;
 	
 
-	public Pepperoni (String toppingList, String pizzaSize) {
-	
-		super(toppingList, pizzaSize);
-	}
+//	public Pepperoni (String toppingList, Size pizzaSize) {
+//	
+//		super(toppingList, pizzaSize);
+//	}
 
+	public Pepperoni() {
+		super();
+		toppings.addAll(Arrays.asList(Topping.Pepperoni));
+	}	
+	
 	public double price() {
 		
 		
@@ -23,7 +30,7 @@ public class Pepperoni extends Pizza {
 		int maxToppings = 7;
 		
 		
-		if(size.getPizzaSize().equals("small")) {
+		if(size.equals(Size.Small)) {
 			
 			if(toppingAmount == minToppings) {
 				pricePepperoni = regularPrice;
@@ -34,7 +41,7 @@ public class Pepperoni extends Pizza {
 			
 		}
 
-		if(size.getPizzaSize().equals("medium")) {
+		if(size.equals(Size.Medium)) {
 			if(toppingAmount == minToppings) {
 				pricePepperoni = regularPrice + medium;
 			}
@@ -43,7 +50,7 @@ public class Pepperoni extends Pizza {
 			}
 			
 		}
-		if(size.getPizzaSize().equals("large")) {
+		if(size.equals(Size.Large)) {
 			if(toppingAmount == minToppings) {
 				pricePepperoni = regularPrice + large;
 			}
@@ -53,13 +60,18 @@ public class Pepperoni extends Pizza {
 			
 		}
 		
-		pricePepperoni = pricePepperoni * tax;
+		//pricePepperoni = pricePepperoni * tax;
 		
 		String temp = df.format(pricePepperoni);	   
 	    double finalPrice = Double.parseDouble(temp);
 	    
 		return finalPrice;
 		
+	}
+	
+	@Override
+	public String toString() {
+		return "Pepperoni Pizza :"+ super.toString();
 	}
 	
 //	public static void main(String[] args) {

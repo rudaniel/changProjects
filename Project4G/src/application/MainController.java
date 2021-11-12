@@ -3,23 +3,25 @@ package application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class MainController {
-	private int pizza=0;
+	private String pizza;
 	public void deluxeP() {
-		this.pizza=0;
+		String deluxe="Deluxe";
+		this.pizza=deluxe;
 		customize();
 	}
 	
 	public void hawaiianP() {
-		this.pizza=1;
+		String hawaiian="Hawaiian";
+		this.pizza=hawaiian;
 		customize();
 	}
 	
 	public void pepperoniP() {
-		this.pizza=2;
+		String pepperoni="Pepperoni";
+		this.pizza=pepperoni;
 		customize();
 	}
 	
@@ -48,7 +50,7 @@ public class MainController {
 		}
 	}
 
-	public int getPizza() {
+	public String getPizza() {
 		return pizza;
 	}
 	

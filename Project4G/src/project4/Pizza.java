@@ -13,9 +13,8 @@ public abstract class Pizza {
 	
 	public abstract double price();
 	
-	public Pizza (String toppingList, String pizzaSize) {
-		Size temp = new Size(pizzaSize); 
-		this.size = temp;
+	public Pizza (String toppingList, Size pizzaSize) {
+		this.size = pizzaSize; 
 		StringTokenizer reader = new StringTokenizer(toppingList,",");
 		while((reader.hasMoreTokens())) {
 			try {
@@ -27,8 +26,8 @@ public abstract class Pizza {
 		}
 		
 	}
-	public Pizza (ArrayList<String> toppingList, String pizzaSize) {
-		this.size = new Size(pizzaSize); 
+	public Pizza (ArrayList<String> toppingList, Size pizzaSize) {
+		this.size = pizzaSize; 
 		while(!toppingList.isEmpty()) {
 			int item=0;
 			try {
@@ -41,8 +40,27 @@ public abstract class Pizza {
 		}
 		
 	}
+	
+	public Pizza() {
+		this.size= Size.Small;
+	}
+	
+	public void setSize(Size size) {
+		this.size=size; 
+	}
+	
+	public ArrayList<Topping> getToppings() {
+		return toppings;
+	}
+	
+	public void setToppings(ArrayList<Topping> toppings) {
+		this.toppings=toppings;
+	}
+	
 	@Override
 	public String toString() {
-		return toppings+" :deluxe: "+size;
+		return toppings+", "+size+", "+"$"+price();
 	}
+	
+
 }

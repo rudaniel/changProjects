@@ -1,19 +1,23 @@
 package project4;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class Deluxe extends Pizza {
 	
 	private double priceDeluxe;
 	
 	
+//	public Deluxe (ArrayList<String> toppingList, Size pizzaSize) {
+//		super(toppingList, pizzaSize);
+//		
+//		this.priceDeluxe = price();
+//	}
 	
-	public Deluxe (ArrayList<String> toppingList, String pizzaSize) {
-	
-		super(toppingList, pizzaSize);
-	//	this.priceDeluxe = price();
-	}
+	public Deluxe() {
+		super();
+		toppings.addAll(Arrays.asList(Topping.BlackOlives,Topping.Cheese,Topping.Chicken,Topping.GreenPepper,Topping.Mushroom));
+	}	
 	
 	@Override
 	public double price() {
@@ -27,7 +31,7 @@ public class Deluxe extends Pizza {
 		int maxToppings = 7;
 		
 		
-		if(size.getPizzaSize().equals("small")) {
+		if(size.equals(Size.Small)) {
 			
 			if(toppingAmount == minToppings) {
 				priceDeluxe = regularPrice;
@@ -38,7 +42,7 @@ public class Deluxe extends Pizza {
 			
 		}
 
-		if(size.getPizzaSize().equals("medium")) {
+		if(size.equals(Size.Medium)) {
 			if(toppingAmount == minToppings) {
 				priceDeluxe = regularPrice + medium;
 			}
@@ -47,7 +51,7 @@ public class Deluxe extends Pizza {
 			}
 			
 		}
-		if(size.getPizzaSize().equals("large")) {
+		if(size.equals(Size.Large)) {
 			if(toppingAmount == minToppings) {
 				priceDeluxe = regularPrice + large;
 			}
@@ -57,7 +61,7 @@ public class Deluxe extends Pizza {
 			
 		}
 		
-		priceDeluxe = priceDeluxe * tax;
+		//priceDeluxe = priceDeluxe * tax;
 		
 		String temp = df.format(priceDeluxe);	   
 	    double finalPrice = Double.parseDouble(temp);
@@ -65,6 +69,11 @@ public class Deluxe extends Pizza {
 		return finalPrice;
 		
 		
+	}
+	
+	@Override
+	public String toString() {
+		return "Deluxe Pizza :"+ super.toString();
 	}
 	
 //	public static void main(String[] args) {

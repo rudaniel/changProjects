@@ -1,15 +1,21 @@
 package project4;
 
+import java.util.Arrays;
+
 public class Hawaiian extends Pizza {
 	
 	private double priceHawaiian;
 	
 	
-	public Hawaiian (String toppingList, String pizzaSize) {
-		
-		super(toppingList, pizzaSize);
-	}
+//	public Hawaiian (String toppingList, Size pizzaSize) {
+//		
+//		super(toppingList, pizzaSize);
+//	}
 	
+	public Hawaiian() {
+		super();
+		toppings.addAll(Arrays.asList(Topping.Ham,Topping.Pineapple));
+	}	
 	
 	public double price() {
 		
@@ -21,7 +27,7 @@ public class Hawaiian extends Pizza {
 		int maxToppings = 7;
 		
 		
-		if(size.getPizzaSize().equals("small")) {
+		if(size.equals(Size.Small)) {
 			
 			if(toppingAmount == minToppings) {
 				priceHawaiian = regularPrice;
@@ -32,7 +38,7 @@ public class Hawaiian extends Pizza {
 			
 		}
 
-		if(size.getPizzaSize().equals("medium")) {
+		if(size.equals(Size.Medium)) {
 			if(toppingAmount == minToppings) {
 				priceHawaiian = regularPrice + medium;
 			}
@@ -41,7 +47,7 @@ public class Hawaiian extends Pizza {
 			}
 			
 		}
-		if(size.getPizzaSize().equals("large")) {
+		if(size.equals(Size.Large)) {
 			if(toppingAmount == minToppings) {
 				priceHawaiian = regularPrice + large;
 			}
@@ -51,13 +57,18 @@ public class Hawaiian extends Pizza {
 			
 		}
 		
-		priceHawaiian = priceHawaiian * tax;
+		//priceHawaiian = priceHawaiian * tax;
 		
 		String temp = df.format(priceHawaiian);	   
 	    double finalPrice = Double.parseDouble(temp);
 	    
 		return finalPrice;
 		
+	}
+	
+	@Override
+	public String toString() {
+		return "Hawaiian Pizza :"+ super.toString();
 	}
 	
 //	public static void main(String[] args) {

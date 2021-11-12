@@ -1,115 +1,94 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.Pane;
-import project4.Deluxe;
+import javafx.scene.image.ImageView;
 import project4.Pizza;
+import project4.PizzaMaker;
+import project4.Topping;
+import project4.Size;
 
 public class CustomizeController {
 	
 	private MainController mainController;
-	ObservableList<String> sizes= FXCollections.observableArrayList("Small","Medium","Large");
-	ObservableList<String> Toppings= FXCollections.observableArrayList("Beef","BlackOlives","Cheese","Chicken","GreenPepper","Ham","Mushroom","Onion","Pepperoni","Pineapple","Sausage");
-	ObservableList<String> selectedToppings;
+	private String flavor;
+	private Pizza pizza;
+	ObservableList<Size> sizes= FXCollections.observableArrayList(Arrays.asList(Size.values()));
+	ObservableList<Topping> Toppings= FXCollections.observableArrayList(Arrays.asList(Topping.values()));
+	ObservableList<Topping> selectedToppings=FXCollections.observableArrayList(Arrays.asList(Topping.values()));
 	@FXML
-	public ChoiceBox<String> size;
+	public ComboBox<Size> size;
 	
 	@FXML
-	public ListView sTop, aTop;
+	public ListView<Topping> sTop, aTop;
 	
 	@FXML
-	public Pane pizzaImg;
+	public ImageView pizzaImg;
 	
 	@FXML
 	public Label pizzaLbl;
 	
 	@FXML
 	public TextField price;
-	
+
 	@FXML
 	public void initialize() {
-		String small="Small";
-		String medium="Medium";
-		String large="Large";
 		size.setItems(sizes);
-		size.setValue(small);
+		size.setValue(Size.Small);
 		aTop.getItems().addAll(Toppings);
-		size.valueProperty().addListener(new ChangeListener<String>() {
-	        @Override public void changed(ObservableValue ov, String oldS, String newS) {
-	        	Double curPrice= Double.parseDouble(price.getText());
+		size.valueProperty().addListener(new ChangeListener<Size>() {
+	        @Override public void changed(ObservableValue ov, Size oldS, Size newS) {
 	        	String blank="";
-	        	int big=4;
-	        	int little=2;
-	        	String temp="";
-	        	if(newS.equals(small)){
-	        		if(oldS.equals(medium))
-	        			temp=(curPrice-little)+blank;
-	        		if(oldS.equals(large))
-	        			temp=(curPrice-big)+blank;
-	        	}
-	        	else if(newS.equals(large)) {
-	        		if(oldS.equals(medium))
-	        			temp=(curPrice+little)+blank;
-	        		if(oldS.equals(small))
-	        			temp=(curPrice+big)+blank;
-	        	}
-	        	else {
-	        		if(oldS.equals(large))
-	        			temp=(curPrice-little)+blank;
-	        		if(oldS.equals(small))
-	        			temp=(curPrice+little)+blank;
-	        	}
-	        	price.setText(temp);
+	        	pizza.setSize(newS);
+	        	price.setText(pizza.price()+blank);
 	        }    
 	    });
 	}
 	
 	public void set() {
-		int pizza=mainController.getPizza();
-		Image image;
-		String text;
-		if(pizza==0){
+		Image image=null;
+		String text="";
+		String deluxe="Deluxe";
+		String hawaiian="Hawaiian";
+		String pepperoni="Pepperoni";
+		if(flavor.equals(deluxe)){
 			image= new Image("/deluxePizza.png");
-			text="Deluxe";
-			selectedToppings=FXCollections.observableArrayList("BlackOlives","Cheese","Chicken","GreenPepper","Mushroom");
-			Toppings= FXCollections.observableArrayList("Beef","Ham","Onion","Pepperoni","Pineapple","Sausage");	
+			text=deluxe;
 		}
-		else if(pizza==1) {
+		else if(flavor.equals(hawaiian)) {
 			image= new Image("/hawaiianPizza.png");
-			text="Hawaiian";
-			selectedToppings=FXCollections.observableArrayList("Ham","Pineapple");
-			Toppings= FXCollections.observableArrayList("Beef","BlackOlives","Cheese","Chicken","GreenPepper","Mushroom","Onion","Pepperoni","Sausage");	
+			text=hawaiian;	
 		}
-		else{
+		else if(flavor.equals(pepperoni)){
 			image= new Image("/pepperoniPizza.png");
-			text="Pepperoni";
-			selectedToppings=FXCollections.observableArrayList("Pepperoni");
-			Toppings= FXCollections.observableArrayList("Beef","BlackOlives","Cheese","Chicken","GreenPepper","Ham","Mushroom","Onion","Pineapple","Sausage");
+			text=pepperoni;
 		}
-		BackgroundImage back= new BackgroundImage(image,null,null,null,null);
-		pizzaImg.setBackground(new Background(back));
+		pizzaImg.setImage(image);
 		pizzaLbl.setText(text);
+		selectedToppings=FXCollections.observableArrayList(pizza.getToppings());
+		Toppings.removeAll(selectedToppings);
 		aTop.getItems().clear();
 		aTop.getItems().addAll(Toppings);
 		sTop.getItems().addAll(selectedToppings);
+		String blank="";
+    	price.setText(pizza.price()+blank);
 	}
 
 	public void setMainController(MainController controller) {
 		mainController=controller;
+		flavor=mainController.getPizza();
+		pizza=PizzaMaker.createPizza(flavor);
 		set();
 		
 	}
@@ -117,26 +96,31 @@ public class CustomizeController {
 	public void addTop() {
 		if(!aTop.getSelectionModel().isEmpty()) {
 			int index=aTop.getSelectionModel().getSelectedIndex();
-			sTop.getItems().add(aTop.getItems().get(index).toString());
+			sTop.getItems().add(aTop.getItems().get(index));
 			aTop.getItems().remove(index);
+			pizza.setToppings(new ArrayList<Topping>(sTop.getItems()));
+			String blank="";
+        	price.setText(pizza.price()+blank);
 		}
 	}
 	
 	public void removeTop() {
 		if(!sTop.getSelectionModel().isEmpty()) {
 			int index=sTop.getSelectionModel().getSelectedIndex();
-			aTop.getItems().add(sTop.getItems().get(index).toString());
+			aTop.getItems().add(sTop.getItems().get(index));
 			sTop.getItems().remove(index);
+			pizza.setToppings(new ArrayList<Topping>(sTop.getItems()));
+			String blank="";
+        	price.setText(pizza.price()+blank);
 		}
 	}
 	
 	public void addOrder() {
-		ArrayList<String> aList=new ArrayList<> (aTop.getItems());
-		ArrayList<String> sList=new ArrayList<> (sTop.getItems());
-		Pizza pizza= new Deluxe(sList, size.getSelectionModel().getSelectedItem());
+		ArrayList<Topping> aList=new ArrayList<> (aTop.getItems());
+		ArrayList<Topping> sList=new ArrayList<> (sTop.getItems());
 		System.out.println(pizza);
-		//System.out.println(aList);
-		//System.out.println(sList);
+		System.out.println(aList);
+		System.out.println(sList);
 		
 	}
 	

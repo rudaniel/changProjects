@@ -8,20 +8,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.StoreOrderController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #900c3f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.StoreOrderController">
    <children>
-      <Label layoutX="236.0" layoutY="14.0" text="Store Orders">
+      <Label blendMode="DARKEN" layoutX="217.0" layoutY="21.0" text="Store Orders">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="28.0" />
          </font>
       </Label>
-      <Label layoutX="37.0" layoutY="81.0" text="Customer Phone Number:" />
-      <ChoiceBox fx:id="numberList" layoutX="188.0" layoutY="77.0" prefHeight="26.0" prefWidth="119.0" />
-      <Label layoutX="364.0" layoutY="82.0" text="Order Total:" />
-      <TextField fx:id="orderTotal" layoutX="443.0" layoutY="78.0" prefHeight="26.0" prefWidth="73.0" />
+      <Label blendMode="DARKEN" layoutX="52.0" layoutY="80.0" text="Customer Phone #">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <ChoiceBox fx:id="numberList" layoutX="208.0" layoutY="80.0" prefHeight="26.0" prefWidth="119.0" />
+      <Label blendMode="DARKEN" layoutX="359.0" layoutY="80.0" text="Order Total:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <TextField fx:id="orderTotal" layoutX="462.0" layoutY="80.0" prefHeight="26.0" prefWidth="86.0" />
       <ListView fx:id="finalOrders" layoutX="52.0" layoutY="120.0" prefHeight="161.0" prefWidth="496.0" />
-      <Button fx:id="cancelOrder" layoutX="134.0" layoutY="318.0" mnemonicParsing="false" onAction="#removeOrder" text="Cancel Order" />
-      <Button fx:id="exportOrder" layoutX="369.0" layoutY="318.0" mnemonicParsing="false" onAction="#export" text="Export Store Order" />
+      <Button fx:id="cancelOrder" layoutX="135.0" layoutY="319.0" mnemonicParsing="false" onAction="#removeOrder" prefHeight="30.0" prefWidth="134.0" text="Cancel Order">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button fx:id="exportOrder" layoutX="332.0" layoutY="319.0" mnemonicParsing="false" onAction="#export" text="Export Store Order">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
    </children>
 </AnchorPane>
