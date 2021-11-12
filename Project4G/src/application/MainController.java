@@ -1,28 +1,41 @@
 package application;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+
+@FXML
+TextField phoneMain;
 
 public class MainController {
 	private String pizza;
 	public void deluxeP() {
-		String deluxe="Deluxe";
-		this.pizza=deluxe;
-		customize();
+		if(alert()) {
+			String deluxe="Deluxe";
+			this.pizza=deluxe;
+			customize();
+		}
 	}
 	
 	public void hawaiianP() {
-		String hawaiian="Hawaiian";
-		this.pizza=hawaiian;
-		customize();
+		if(alert()) {	
+			String hawaiian="Hawaiian";
+			this.pizza=hawaiian;
+			customize();
+		}
 	}
 	
 	public void pepperoniP() {
-		String pepperoni="Pepperoni";
-		this.pizza=pepperoni;
-		customize();
+		if(alert()) {
+			String pepperoni="Pepperoni";
+			this.pizza=pepperoni;
+			customize();
+		}
 	}
 	
 	public void orders() {
@@ -31,6 +44,18 @@ public class MainController {
 	
 	public void current() {
 		
+	}
+	
+	public boolean alert() {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation");
+		alert.setHeaderText("Ordering Pizzas");
+		alert.setContentText("Start a new order!");
+		alert.showAndWait();
+		if(alert.getResult().equals(ButtonType.OK)) {
+			return true;
+		}
+		return false;
 	}
 	
 	public void customize() {

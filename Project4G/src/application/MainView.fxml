@@ -110,7 +110,7 @@
                               <Font name="Comic Sans MS Bold" size="19.0" />
                            </font>
                         </Label>
-                        <TextField promptText="XXX-XXX-XXXX">
+                        <TextField fx:id="phoneMain" promptText="XXX-XXX-XXXX">
                            <font>
                               <Font size="13.0" />
                            </font>
