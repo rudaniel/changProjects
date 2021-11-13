@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ArrayList;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +11,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import project4.Order;
 import project4.StoreOrders;
 
 /**
@@ -23,7 +26,8 @@ public class MainController {
 	
 	private String phoneNumber;
 	private String pizza;
-	private StoreOrders orders= new StoreOrders();
+	private StoreOrders orders = new StoreOrders();
+	private ArrayList<String> phoneNumberList = new ArrayList<String>();
 	
 	/**
 	 * Will call the Customize UI with the pizza type of deluxe.
@@ -32,6 +36,9 @@ public class MainController {
 		if(alert()) {
 			String deluxe="Deluxe";
 			this.pizza=deluxe;
+			if(!phoneNumberList.contains(phoneNumber)) {
+				this.phoneNumberList.add(phoneNumber);
+			}
 			customize();
 		}
 	}
@@ -43,6 +50,9 @@ public class MainController {
 		if(alert()) {	
 			String hawaiian="Hawaiian";
 			this.pizza=hawaiian;
+			if(!phoneNumberList.contains(phoneNumber)) {
+				this.phoneNumberList.add(phoneNumber);
+			}
 			customize();
 		}
 	}
@@ -54,6 +64,9 @@ public class MainController {
 		if(alert()) {
 			String pepperoni="Pepperoni";
 			this.pizza=pepperoni;
+			if(!phoneNumberList.contains(phoneNumber)) {
+				this.phoneNumberList.add(phoneNumber);
+			}
 			customize();
 		}
 	}
@@ -62,7 +75,22 @@ public class MainController {
 	 * Will open the Store Order UI.
 	 */
 	public void orders() {
-		
+		if(phoneCheck()){
+			try {
+				Stage stage= new Stage();
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("StoreOrderView.fxml"));
+				Parent root = loader.load();
+				Scene scene = new Scene(root,600,400);
+				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+				stage.setScene(scene);
+				stage.show();
+				StoreOrderController custom= loader.getController();
+				custom.setMainController(this);
+	
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/**
@@ -176,6 +204,13 @@ public class MainController {
 	 */
 	public StoreOrders getOrders() {
 		return orders;
+	}
+	
+	/**
+	 * Getter method for pizza type.
+	 */
+	public ArrayList<String> getNumbers() {
+		return phoneNumberList;
 	}
 	
 }
