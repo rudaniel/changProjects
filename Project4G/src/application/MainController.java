@@ -11,6 +11,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import project4.StoreOrders;
 
+/**
+ * The Main Controller will open the other UIs based on user selection.
+ * @author Manav Bali
+ * @author Daniel Lopez
+ */
 public class MainController {
 	
 	@FXML
@@ -20,6 +25,9 @@ public class MainController {
 	private String pizza;
 	private StoreOrders orders= new StoreOrders();
 	
+	/**
+	 * Will call the Customize UI with the pizza type of deluxe.
+	 */
 	public void deluxeP() {
 		if(alert()) {
 			String deluxe="Deluxe";
@@ -28,6 +36,9 @@ public class MainController {
 		}
 	}
 	
+	/**
+	 * Will call the Customize UI with the pizza type of hawaiian.
+	 */
 	public void hawaiianP() {
 		if(alert()) {	
 			String hawaiian="Hawaiian";
@@ -36,6 +47,9 @@ public class MainController {
 		}
 	}
 	
+	/**
+	 * Will call the Customize UI with the pizza type of pepperoni.
+	 */
 	public void pepperoniP() {
 		if(alert()) {
 			String pepperoni="Pepperoni";
@@ -44,10 +58,16 @@ public class MainController {
 		}
 	}
 	
+	/**
+	 * Will open the Store Order UI.
+	 */
 	public void orders() {
 		
 	}
 	
+	/**
+	 * Will open the Current Order UI.
+	 */
 	public void current() {
 		if(phoneCheck()){
 			try {
@@ -67,6 +87,9 @@ public class MainController {
 		}
 	}
 	
+	/**
+	 * Checks to make sure a phone number is entered before the user can create their pizza.
+	 */
 	public boolean alert() {
 		if(!phoneCheck()) {
 			return false;
@@ -81,6 +104,9 @@ public class MainController {
 		return false;
 	}
 	
+	/**
+	 * Makes sure that the phone number is valid.
+	 */
 	public boolean phoneCheck() {
 		String blank="";
 		Alert alert = new Alert(AlertType.WARNING);
@@ -93,8 +119,8 @@ public class MainController {
 		}
 		try {
 			String number=phoneMain.getText();
-			Integer.parseInt(number);
-			if(number.length()!=10) {
+		//	Integer.parseInt(number);
+			if(number.length()!=10 && number.matches("[0-9+")) {
 				alert.setHeaderText("Phone Number field is not 10 digits.");
 				alert.setContentText("Please enter a valid Phone Number containing 10 digits.");
 				alert.showAndWait();
@@ -111,6 +137,9 @@ public class MainController {
 		return true;
 	}
 	
+	/**
+	 * Opens the Customize UI and transfers data from this UI.
+	 */
 	public void customize() {
 		try {
 			Stage stage= new Stage();
@@ -128,14 +157,23 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * Getter method for pizza type.
+	 */
 	public String getPizza() {
 		return pizza;
 	}
 	
+	/**
+	 * Getter method for phone number.
+	 */
 	public String getPhone() {
 		return phoneNumber;
 	}
 	
+	/**
+	 * Getter method for order list.
+	 */
 	public StoreOrders getOrders() {
 		return orders;
 	}

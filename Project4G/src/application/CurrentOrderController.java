@@ -11,8 +11,14 @@ import javafx.scene.control.TextField;
 import project4.Order;
 import project4.Pizza;
 import project4.StoreOrders;
+import java.text.DecimalFormat;
 
-
+/**
+ * The Current Order Controller displays the users order with prices.
+ * The user can remove pizzas if needed and place final orders.
+ * @author Manav Bali
+ * @author Daniel Lopez
+ */
 public class CurrentOrderController {
 
 	
@@ -45,16 +51,39 @@ public class CurrentOrderController {
 	private Order order;
 	private ArrayList<Pizza> pizzas;
 	private StoreOrders orders;
+	private double subT;
+	private double orderTax;
+	private double orderTotals;
+	DecimalFormat df = new DecimalFormat("0.00");
 	
-	
+	/**
+	 * Removes the pizza the user selected and updates the prices.
+	 * @param e the button click.
+	 */
 	public void removePizza(ActionEvent e) {
 		Pizza selected=pizzaList.getSelectionModel().getSelectedItem();
+		
+		double taxAmount = 1.06625;
+		double pizzaPrice = selected.price();
+		
+		this.subT = subT - pizzaPrice;
+		this.orderTax = (subT * taxAmount) - subT;
+		this.orderTotals = subT + orderTax;
+		
+		subTotal.setText(String.valueOf(df.format(subT)));
+		salesTax.setText(String.valueOf(df.format(orderTax)));
+		orderTotal.setText(String.valueOf(df.format(orderTotals)));
+		
 		if(selected!=null) {
 			order.removePizza(selected);
 			getPizzas();
 		}
 	}
 	
+	/**
+	 * Resets the order page and transfers the data to Store Order Controller.
+	 * @param e the button click.
+	 */
 	public void confirmOrder(ActionEvent e) {
 		displayPopUp();
 		phoneNumber.setText("");
@@ -66,6 +95,10 @@ public class CurrentOrderController {
 		//After this is should be moved to store order fxml
 		
 	}
+	
+	/**
+	 * Transfer the information from the Main Controller to this UI controller.
+	 */
 	public void setMainController(MainController controller) {
 		mainController=controller;
 		flavor=mainController.getPizza();
@@ -75,14 +108,32 @@ public class CurrentOrderController {
 		order=orders.getOrder(phone);
 		getPizzas();
 		
+		
 	}
 	
+	/**
+	 * The total pizzas that the user ordered is displayed.
+	 * The prices for the total order is then calculated and set.
+	 */
 	public void getPizzas() {
 		pizzas=order.getPizzas();
 		pizzaList.getItems().clear();
 		pizzaList.getItems().addAll(pizzas);
 		
+		double taxAmount = 1.06625;
+		this.subT = order.subTotal(pizzas);
+		this.orderTax = (subT * taxAmount) - subT;
+		this.orderTotals = subT + orderTax;
+		
+		subTotal.setText(String.valueOf(df.format(subT)));
+		salesTax.setText(String.valueOf(df.format(orderTax)));
+		orderTotal.setText(String.valueOf(df.format(orderTotals)));
+		
 	}
+	
+	/**
+	 * Once the order is placed this alert will appear.
+	 */
 	public static void displayPopUp() {
 		 
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);

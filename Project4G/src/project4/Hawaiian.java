@@ -2,23 +2,28 @@ package project4;
 
 import java.util.Arrays;
 
+/**
+ * The Hawaiian sub class is where we create a Pizza of type Hawaiian.
+ * Subtotal of pizza is calculated here.
+ * @author Manav Bali
+ * @author Daniel Lopez
+ */
 public class Hawaiian extends Pizza {
 	
 	private double priceHawaiian;
 	
-	
-//	public Hawaiian (String toppingList, Size pizzaSize) {
-//		
-//		super(toppingList, pizzaSize);
-//	}
-	
+	/**
+	 * Setting up the default two toppings for a Hawaiian pizza.
+	 */
 	public Hawaiian() {
 		super();
 		toppings.addAll(Arrays.asList(Topping.Ham,Topping.Pineapple));
 	}	
 	
+	/**
+	 * Calculates the subtotal for the Hawaiian pizza based on size and topping count.
+	 */
 	public double price() {
-		
 		int toppingAmount = toppings.size();
 		double regularPrice = 10.99;
 		int medium = 2;
@@ -26,9 +31,7 @@ public class Hawaiian extends Pizza {
 		int minToppings = 2;
 		int maxToppings = 7;
 		
-		
 		if(size.equals(Size.Small)) {
-			
 			if(toppingAmount == minToppings) {
 				priceHawaiian = regularPrice;
 			}
@@ -57,20 +60,24 @@ public class Hawaiian extends Pizza {
 			
 		}
 		
-		//priceHawaiian = priceHawaiian * tax;
-		
 		String temp = df.format(priceHawaiian);	   
 	    double finalPrice = Double.parseDouble(temp);
 	    
-		return finalPrice;
-		
+		return finalPrice;	
 	}
 	
+	/**
+	 * Method extends subclasses and is used to print desired output.
+	 */
 	@Override
 	public String toString() {
 		return "Hawaiian Pizza :"+ super.toString();
 	}
 	
+	/**
+	 * Method extends subclasses and is used to check if the object is equal to current pizza instance.
+	 * @return true if equal, false otherwise.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Hawaiian) {

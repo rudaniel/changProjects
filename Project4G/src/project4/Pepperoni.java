@@ -2,26 +2,28 @@ package project4;
 
 import java.util.Arrays;
 
-
-
+/**
+ * The Pepperoni sub class is where we create a Pizza of type Pepperoni.
+ * Subtotal of pizza is calculated here.
+ * @author Manav Bali
+ * @author Daniel Lopez
+ */
 public class Pepperoni extends Pizza {
 
 	private double pricePepperoni;
 	
-
-//	public Pepperoni (String toppingList, Size pizzaSize) {
-//	
-//		super(toppingList, pizzaSize);
-//	}
-
+	/**
+	 * Setting up the default one toppings for a Pepperoni pizza.
+	 */
 	public Pepperoni() {
 		super();
 		toppings.addAll(Arrays.asList(Topping.Pepperoni));
 	}	
 	
+	/**
+	 * Calculates the subtotal for the Pepperoni pizza based on size and topping count.
+	 */
 	public double price() {
-		
-		
 		int toppingAmount = toppings.size();
 		double regularPrice = 8.99;
 		int medium = 2;
@@ -29,9 +31,7 @@ public class Pepperoni extends Pizza {
 		int minToppings = 1;
 		int maxToppings = 7;
 		
-		
 		if(size.equals(Size.Small)) {
-			
 			if(toppingAmount == minToppings) {
 				pricePepperoni = regularPrice;
 			}
@@ -40,7 +40,6 @@ public class Pepperoni extends Pizza {
 			}
 			
 		}
-
 		if(size.equals(Size.Medium)) {
 			if(toppingAmount == minToppings) {
 				pricePepperoni = regularPrice + medium;
@@ -60,20 +59,24 @@ public class Pepperoni extends Pizza {
 			
 		}
 		
-		//pricePepperoni = pricePepperoni * tax;
-		
 		String temp = df.format(pricePepperoni);	   
 	    double finalPrice = Double.parseDouble(temp);
 	    
 		return finalPrice;
-		
 	}
 	
+	/**
+	 * Method extends subclasses and is used to print desired output.
+	 */
 	@Override
 	public String toString() {
 		return "Pepperoni Pizza :"+ super.toString();
 	}
 	
+	/**
+	 * Method extends subclasses and is used to check if the object is equal to current pizza instance.
+	 * @return true if equal, false otherwise.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Pepperoni) {

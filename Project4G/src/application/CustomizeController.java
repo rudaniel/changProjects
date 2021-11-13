@@ -2,7 +2,6 @@ package application;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,6 +22,12 @@ import project4.Topping;
 import project4.Size;
 import project4.StoreOrders;
 
+/**
+ * The Customize Controller class will be used to create the user's pizza.
+ * Same UI for all pizza types.
+ * @author Manav Bali
+ * @author Daniel Lopez
+ */
 public class CustomizeController {
 	
 	private MainController mainController;
@@ -49,13 +54,15 @@ public class CustomizeController {
 	@FXML
 	public TextField price;
 
-	@FXML
+	/**
+	 * Initializes the UI to default settings for the user to customize.
+	 */
 	public void initialize() {
 		size.setItems(sizes);
 		size.setValue(Size.Small);
 		aTop.getItems().addAll(Toppings);
 		size.valueProperty().addListener(new ChangeListener<Size>() {
-	        @Override public void changed(ObservableValue ov, Size oldS, Size newS) {
+	        @Override public void changed(ObservableValue ov, Size oldS, Size newS) { //do i add comment?
 	        	String blank="";
 	        	pizza.setSize(newS);
 	        	price.setText(pizza.price()+blank);
@@ -63,6 +70,10 @@ public class CustomizeController {
 	    });
 	}
 	
+	/**
+	 * Sets up the UI pizza image based on what the user selects.
+	 * Adds the toppings based on what pizza the user selected. 
+	 */
 	public void set() {
 		Image image=null;
 		String text="";
@@ -91,7 +102,10 @@ public class CustomizeController {
 		String blank="";
     	price.setText(pizza.price()+blank);
 	}
-
+	
+	/**
+	 * Transfer the information from the Main Controller to this UI controller.
+	 */
 	public void setMainController(MainController controller) {
 		this.mainController=controller;
 		this.flavor=mainController.getPizza();
@@ -102,6 +116,10 @@ public class CustomizeController {
 		
 	}
 	
+	/**
+	 * Adds the topping based on user selection.
+	 * Subtotal of pizza is updated.
+	 */
 	public void addTop() {
 		if(!aTop.getSelectionModel().isEmpty()) {
 			int index=aTop.getSelectionModel().getSelectedIndex();
@@ -113,6 +131,10 @@ public class CustomizeController {
 		}
 	}
 	
+	/**
+	 * removes the topping based on user selection.
+	 * Subtotal of pizza is updated.
+	 */
 	public void removeTop() {
 		if(!sTop.getSelectionModel().isEmpty()) {
 			int index=sTop.getSelectionModel().getSelectedIndex();
@@ -124,6 +146,9 @@ public class CustomizeController {
 		}
 	}
 	
+	/**
+	 * Once the user is finished creating their pizza the order for that user is recorded.
+	 */
 	public void addOrder() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Confirmation");
