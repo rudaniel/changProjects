@@ -67,7 +67,28 @@ public class StoreOrderController {
 	
 		
 		orders = mainController.getOrders();
-		
+		if(phoneNumberList.isEmpty()) {
+			Alert alert = new Alert(Alert.AlertType.WARNING);
+			alert.setTitle("Warning!");
+			alert.setHeaderText("Empty Orders");
+			alert.setContentText("Create a order and try again!");
+			alert.showAndWait();
+		}
+		else {
+			order=orders.getOrder(phoneNumberList.get(0));
+			pizzas=order.getPizzas();
+			finalOrders.getItems().clear();
+			finalOrders.getItems().addAll(pizzas);
+			
+			numberList.getSelectionModel().select(phoneNumberList.get(0));
+			double taxAmount = 1.06625;
+			this.subT = order.subTotal(pizzas);
+			this.orderTax = (subT * taxAmount) - subT;
+			this.orderTotals = subT + orderTax;
+				
+
+			orderTotal.setText(String.valueOf(df.format(orderTotals)));
+		}
 		
 	}
 	
@@ -82,7 +103,7 @@ public class StoreOrderController {
 		pizzas=order.getPizzas();
 		finalOrders.getItems().clear();
 		finalOrders.getItems().addAll(pizzas);
-
+		
 		
 		double taxAmount = 1.06625;
 		this.subT = order.subTotal(pizzas);
@@ -123,7 +144,7 @@ public class StoreOrderController {
 	 */
 	public void export(ActionEvent e) throws IOException {
 		
-		orders.export(phoneNumberList, orders);
+		orders.export();
 			displayPopUp();
 		
 	}

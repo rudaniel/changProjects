@@ -52,6 +52,7 @@ public class CurrentOrderController {
 	private String phone;
 	private Order order;
 	private ArrayList<Pizza> pizzas;
+	
 	private StoreOrders orders;
 	private double subT;
 	private double orderTax;
@@ -63,6 +64,14 @@ public class CurrentOrderController {
 	 * @param e the button click.
 	 */
 	public void removePizza(ActionEvent e) {
+		if(order==null) {
+			Alert alert=new Alert(Alert.AlertType.WARNING);
+			alert.setTitle("Warning!");
+			alert.setHeaderText("Order is empty");
+			alert.setContentText("Add Pizza's to Create Order!");
+			alert.showAndWait();
+			return;
+		}
 		Pizza selected=pizzaList.getSelectionModel().getSelectedItem();
 		
 		double taxAmount = 1.06625;
@@ -89,6 +98,14 @@ public class CurrentOrderController {
 	public void confirmOrder(ActionEvent e) {
 		
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		if(order==null) {
+			alert=new Alert(Alert.AlertType.WARNING);
+			alert.setTitle("Warning!");
+			alert.setHeaderText("Order is empty");
+			alert.setContentText("Add Pizza's to Create Order!");
+			alert.showAndWait();
+			return;
+		}
 		alert.setTitle("Information");
 		alert.setHeaderText("Placing Order");
 		alert.setContentText("Order Added!");
@@ -102,6 +119,11 @@ public class CurrentOrderController {
 		//After this is should be moved to store order fxml
 		if(alert.getResult().equals(ButtonType.OK)) {
 		//	if(orders.add(phone, pizza)) {
+				orders.addOrder(order);
+				mainController.addPhone(phone);
+				order=null;
+				mainController.setOrder(order);
+				mainController.setOrders(orders);
 				alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Information");
 				alert.setHeaderText("Order Confirmed");
@@ -123,7 +145,7 @@ public class CurrentOrderController {
 		phone=mainController.getPhone();
 		phoneNumber.setText(phone);	
 		orders=mainController.getOrders();
-		order=orders.getOrder(phone);
+		order=mainController.getOrder();
 		getPizzas();
 		
 		
@@ -134,6 +156,9 @@ public class CurrentOrderController {
 	 * The prices for the total order is then calculated and set.
 	 */
 	public void getPizzas() {
+		if(order==null) {
+			return;
+		}
 		pizzas=order.getPizzas();
 		pizzaList.getItems().clear();
 		pizzaList.getItems().addAll(pizzas);

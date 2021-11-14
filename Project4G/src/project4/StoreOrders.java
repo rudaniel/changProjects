@@ -61,6 +61,10 @@ public class StoreOrders {
 		}
 	}
 	
+	public void addOrder(Order order) {
+		orders.add(order);
+	}
+	
 //	public boolean addOrder(Order order) {
 //		orders.add(order);
 //		return true;
@@ -116,8 +120,7 @@ public class StoreOrders {
 	 * @param orders list of all orders.
 	 * @returns true if file if made.
 	 */
-	public boolean export(ArrayList<String> phoneNumberList, StoreOrders orders) throws IOException {
-		ArrayList<Pizza> pizzas;
+	public boolean export() throws IOException {
 		FileChooser chooser = new FileChooser();
 		chooser.setTitle("Open Target File for the Export");
 		chooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"),
@@ -127,22 +130,11 @@ public class StoreOrders {
 		//write code to write to the file.
 		
 		FileWriter fw = new FileWriter(targetFile, true);
-		
 		PrintWriter pw = new PrintWriter(fw);
-		for(int i = 0; i < phoneNumberList.size(); i++) {
-			Order order= getOrder(phoneNumberList.get(i));
-			
-			pizzas = order.getPizzas();
-			for(int j =0; j < pizzas.size(); j++) {
-				pw.println(pizzas.get(j).toString());
-				
-				//System.out.println(pizzas.get(j));
-				System.out.println(pizzas.get(j).toString());
-			}
-		
-			
+		String order="Order: ";
+		for(int i = 0; i < orders.size(); i++) {
+			pw.println(order+orders.get(i));
 		}
-	
 		pw.close();
 		return true;
 	}

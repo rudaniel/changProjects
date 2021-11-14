@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import project4.Order;
 import project4.Pizza;
 import project4.PizzaMaker;
 import project4.Topping;
@@ -32,7 +33,7 @@ public class CustomizeController {
 	
 	private MainController mainController;
 	private String flavor;
-	private StoreOrders orders;
+	//private StoreOrders orders;
 	private String phone;
 	private Pizza pizza;
 	
@@ -53,6 +54,7 @@ public class CustomizeController {
 	
 	@FXML
 	public TextField price;
+	private Order order;
 
 	/**
 	 * Initializes the UI to default settings for the user to customize.
@@ -97,6 +99,7 @@ public class CustomizeController {
 		selectedToppings=FXCollections.observableArrayList(pizza.getToppings());
 		Toppings.removeAll(selectedToppings);
 		aTop.getItems().clear();
+		sTop.getItems().clear();
 		aTop.getItems().addAll(Toppings);
 		sTop.getItems().addAll(selectedToppings);
 		String blank="";
@@ -112,7 +115,8 @@ public class CustomizeController {
 		this.flavor=mainController.getPizza();
 		this.pizza=PizzaMaker.createPizza(flavor);
 		this.phone=mainController.getPhone();
-		this.orders=mainController.getOrders();
+		//this.orders=mainController.getOrders();
+		this.order=mainController.getOrder();
 		set();
 		
 	}
@@ -154,16 +158,24 @@ public class CustomizeController {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Confirmation");
 		alert.setHeaderText("Adding Pizzas");
-		alert.setContentText("Do you want to add this Pizaa to the order?");
+		alert.setContentText("Do you want to add this Pizza to the order?");
 		alert.showAndWait();
 		if(alert.getResult().equals(ButtonType.OK)) {
-			if(orders.add(phone, pizza)) {
+				
+			if(order==null) {
+				order=new Order(phone);
+			} 
+			order.addPizza(pizza);
+			mainController.setOrder(order);
+			pizza=PizzaMaker.createPizza(flavor);
+			order=mainController.getOrder();
+			set();
 				alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Information");
 				alert.setHeaderText("Added Pizza");
 				alert.setContentText("Pizza has been added to Order!");
 				alert.showAndWait();
-			}
+			
 		}
 	}
 	

@@ -27,6 +27,7 @@ public class MainController {
 	private String phoneNumber;
 	private String pizza;
 	private StoreOrders orders = new StoreOrders();
+	private Order order;
 	private ArrayList<String> phoneNumberList = new ArrayList<String>();
 	
 	/**
@@ -36,9 +37,9 @@ public class MainController {
 		if(alert()) {
 			String deluxe="Deluxe";
 			this.pizza=deluxe;
-			if(!phoneNumberList.contains(phoneNumber)) {
-				this.phoneNumberList.add(phoneNumber);
-			}
+//			if(!phoneNumberList.contains(phoneNumber)) {
+//				this.phoneNumberList.add(phoneNumber);
+//			}
 			customize();
 		}
 	}
@@ -50,9 +51,9 @@ public class MainController {
 		if(alert()) {	
 			String hawaiian="Hawaiian";
 			this.pizza=hawaiian;
-			if(!phoneNumberList.contains(phoneNumber)) {
-				this.phoneNumberList.add(phoneNumber);
-			}
+//			if(!phoneNumberList.contains(phoneNumber)) {
+//				this.phoneNumberList.add(phoneNumber);
+//			}
 			customize();
 		}
 	}
@@ -64,9 +65,9 @@ public class MainController {
 		if(alert()) {
 			String pepperoni="Pepperoni";
 			this.pizza=pepperoni;
-			if(!phoneNumberList.contains(phoneNumber)) {
-				this.phoneNumberList.add(phoneNumber);
-			}
+//			if(!phoneNumberList.contains(phoneNumber)) {
+//				this.phoneNumberList.add(phoneNumber);
+//			}
 			customize();
 		}
 	}
@@ -75,8 +76,7 @@ public class MainController {
 	 * Will open the Store Order UI.
 	 */
 	public void orders() {
-		if(phoneCheck()){
-			try {
+		try {
 				Stage stage= new Stage();
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("StoreOrderView.fxml"));
 				Parent root = loader.load();
@@ -90,7 +90,6 @@ public class MainController {
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
-		}
 	}
 	
 	/**
@@ -150,7 +149,8 @@ public class MainController {
 		try {
 			String number=phoneMain.getText();
 		//	Integer.parseInt(number);
-			if(number.length()!=10 && number.matches("[0-9+")) {
+//			if(number.length()!=10 && number.matches("[0-9+")) {
+				if(number.length()!=10) {
 				alert.setHeaderText("Phone Number field is not 10 digits.");
 				alert.setContentText("Please enter a valid Phone Number containing 10 digits.");
 				alert.showAndWait();
@@ -219,4 +219,19 @@ public class MainController {
 		return phoneNumberList;
 	}
 	
+	public Order getOrder() {
+		return order;
+	}
+	
+	public void setOrder(Order order) {
+		this.order= order;
+	}
+	
+	public void addPhone(String phone) {
+		phoneNumberList.add(phone);
+	}
+
+	public void setOrders(StoreOrders orders) {
+		this.orders=orders;
+	}
 }

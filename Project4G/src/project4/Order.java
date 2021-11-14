@@ -81,4 +81,9 @@ public class Order {
 		}
 		return false;
 	}
+
+@Override
+public String toString() {
+	return phone+" ["+pizzas+"]";
+}
 }
