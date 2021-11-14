@@ -1,6 +1,7 @@
 package project4;
 
 import java.io.File;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,19 +11,37 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 
+/**
+ * The Store Order class is where we store the list of orders.
+ * Adding and removing of orders is done here.
+ * @author Manav Bali
+ * @author Daniel Lopez
+ */
 public class StoreOrders {
 	
 	private ArrayList<Order> orders= new ArrayList<Order>();
 	
+	/**
+	 * Default constructor 
+	 */
 	public StoreOrders() {
 		
 	}
 	
+	/**
+	 * Sets current instance to the incoming orders list,
+	 * @param list of orders.
+	 */
 	public StoreOrders(ArrayList<Order> orders) {
 		this.orders=orders;
 	}
 	
-	
+	/**
+	 * Creates the order and adds it to the overall list,
+	 * @param phone number of user.
+	 * @param pizza type that was created.
+	 * @return true if added, false otherwise.
+	 */
 	public boolean add(String phone, Pizza pizza) {
 		Order order=new Order(phone);
 		Order temp;
@@ -47,6 +66,11 @@ public class StoreOrders {
 //		return true;
 //	}
 	
+	/**
+	 * Gets the orders that match the phone number.
+	 * @param phone number of user.
+	 * @return order if existing, null if not
+	 */
 	public Order getOrder(String phone) {
 		Order temp =new Order(phone);
 		int index=orders.indexOf(new Order(phone));
@@ -56,11 +80,22 @@ public class StoreOrders {
 		return orders.get(index);
 	}
 	
+	/**
+	 * Removes order from the orders list.
+	 * @param order to be removed.
+	 * @returns true when removed.
+	 */
 	public boolean removeOrder(Order order) {
 		orders.remove(order);
 		return true;
 	}
 	
+	/**
+	 * Removes order from the orders list.
+	 * @param phone number from user.
+	 * @param pizza type of user.
+	 * @returns true if removed, false otherwise.
+	 */
 	public boolean remove(String phone, Pizza pizza) {
 		Order order=new Order(phone);
 		Order temp;
@@ -75,6 +110,12 @@ public class StoreOrders {
 		return false;
 	}
 	
+	/**
+	 * Exports entire orders list into a text file.
+	 * @param phoneNumberList list of all phone numbers.
+	 * @param orders list of all orders.
+	 * @returns true if file if made.
+	 */
 	public boolean export(ArrayList<String> phoneNumberList, StoreOrders orders) throws IOException {
 		ArrayList<Pizza> pizzas;
 		FileChooser chooser = new FileChooser();

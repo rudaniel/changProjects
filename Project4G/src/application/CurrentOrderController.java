@@ -115,6 +115,7 @@ public class CurrentOrderController {
 	
 	/**
 	 * Transfer the information from the Main Controller to this UI controller.
+	 * @param controller from main menu.
 	 */
 	public void setMainController(MainController controller) {
 		mainController=controller;

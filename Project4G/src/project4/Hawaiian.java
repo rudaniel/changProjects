@@ -22,6 +22,7 @@ public class Hawaiian extends Pizza {
 	
 	/**
 	 * Calculates the subtotal for the Hawaiian pizza based on size and topping count.
+	 * @return subtotal of the pizza.
 	 */
 	public double price() {
 		int toppingAmount = toppings.size();
@@ -68,6 +69,7 @@ public class Hawaiian extends Pizza {
 	
 	/**
 	 * Method extends subclasses and is used to print desired output.
+	 * @return pizza description. 
 	 */
 	@Override
 	public String toString() {

@@ -16,6 +16,12 @@ import project4.Order;
 import project4.Pizza;
 import project4.StoreOrders;
 
+/**
+ * The Store Order class will be used to see final orders.
+ * Orders can be canceled and exported.
+ * @author Manav Bali
+ * @author Daniel Lopez
+ */
 public class StoreOrderController {
 
 	@FXML
@@ -47,6 +53,7 @@ public class StoreOrderController {
 	
 	/**
 	 * Transfer the information from the Main Controller to this UI controller.
+	 * @param controller from main menu.
 	 */
 	public void setMainController(MainController controller) {
 		mainController=controller;
@@ -64,7 +71,9 @@ public class StoreOrderController {
 		
 	}
 	
-	
+	/**
+	 * When a phone number is selected the values will change accordingly.
+	 */
 	public void selectedNumber(ActionEvent e) {
 		
 		String currentNumber = numberList.getValue();
@@ -92,9 +101,10 @@ public class StoreOrderController {
 		
 	}
 	
-	
-	
-	
+	/**
+	 * Removes the order from the order list and from the UI.
+	 * @param e event of button.
+	 */
 	public void removeOrder(ActionEvent e) {
 		
 		String currentNumber = numberList.getValue();
@@ -107,9 +117,11 @@ public class StoreOrderController {
 		
 	}
 	
+	/**
+	 * Calls the export method to create the text file.
+	 * @param e event of button.
+	 */
 	public void export(ActionEvent e) throws IOException {
-		
-	
 		
 		orders.export(phoneNumberList, orders);
 			displayPopUp();

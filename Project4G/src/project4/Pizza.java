@@ -78,6 +78,7 @@ public abstract class Pizza {
 	
 	/**
 	 * Getter method to get toppings list.
+	 * @return toppigs of pizza.
 	 */
 	public ArrayList<Topping> getToppings() {
 		return toppings;
@@ -92,6 +93,7 @@ public abstract class Pizza {
 	
 	/**
 	 * Method extends subclasses and is used to print desired output.
+	 * @return pizza description. 
 	 */
 	@Override
 	public String toString() {
@@ -100,6 +102,7 @@ public abstract class Pizza {
 	
 	/**
 	 * Method extends subclasses and is used to check if the object is equal to current pizza instance.
+	 * @param object that is being compared.
 	 * @return true if equal, false otherwise.
 	 */
 	@Override

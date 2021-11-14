@@ -22,6 +22,7 @@ public class Pepperoni extends Pizza {
 	
 	/**
 	 * Calculates the subtotal for the Pepperoni pizza based on size and topping count.
+	 * @return subtotal of the pizza.
 	 */
 	public double price() {
 		int toppingAmount = toppings.size();
@@ -67,6 +68,7 @@ public class Pepperoni extends Pizza {
 	
 	/**
 	 * Method extends subclasses and is used to print desired output.
+	 * @return pizza description. 
 	 */
 	@Override
 	public String toString() {

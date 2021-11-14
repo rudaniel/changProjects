@@ -22,6 +22,7 @@ public class Deluxe extends Pizza {
 	
 	/**
 	 * Calculates the subtotal for the Deluxe pizza based on size and topping count.
+	 * @return subtotal of the pizza.
 	 */
 	@Override
 	public double price() {
@@ -70,6 +71,7 @@ public class Deluxe extends Pizza {
 	
 	/**
 	 * Method extends subclasses and is used to print desired output.
+	 * @return pizza description. 
 	 */
 	@Override
 	public String toString() {

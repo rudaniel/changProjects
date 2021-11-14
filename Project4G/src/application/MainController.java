@@ -117,6 +117,7 @@ public class MainController {
 	
 	/**
 	 * Checks to make sure a phone number is entered before the user can create their pizza.
+	 * @return true if valid number, false otherwise.
 	 */
 	public boolean alert() {
 		if(!phoneCheck()) {
@@ -134,6 +135,7 @@ public class MainController {
 	
 	/**
 	 * Makes sure that the phone number is valid.
+	 * @return true is valid number, false otherwise.
 	 */
 	public boolean phoneCheck() {
 		String blank="";
@@ -187,6 +189,7 @@ public class MainController {
 
 	/**
 	 * Getter method for pizza type.
+	 * @return pizza
 	 */
 	public String getPizza() {
 		return pizza;
@@ -194,6 +197,7 @@ public class MainController {
 	
 	/**
 	 * Getter method for phone number.
+	 * @return phoneNumber
 	 */
 	public String getPhone() {
 		return phoneNumber;
@@ -201,13 +205,15 @@ public class MainController {
 	
 	/**
 	 * Getter method for order list.
+	 * @return orders list
 	 */
 	public StoreOrders getOrders() {
 		return orders;
 	}
 	
 	/**
-	 * Getter method for pizza type.
+	 * Getter method for phone number list.
+	 * @return phone number list.
 	 */
 	public ArrayList<String> getNumbers() {
 		return phoneNumberList;
