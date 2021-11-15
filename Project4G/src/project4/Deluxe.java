@@ -29,6 +29,7 @@ public class Deluxe extends Pizza {
 		
 		int toppingAmount = toppings.size();
 		double regularPrice = 12.99;
+		priceDeluxe = regularPrice;
 		int medium = 2;
 		int large = 4;
 		int minToppings = 5;
@@ -45,7 +46,7 @@ public class Deluxe extends Pizza {
 		}
 
 		if(size.equals(Size.Medium)) {
-			if(toppingAmount == minToppings) {
+			if(toppingAmount == minToppings || toppingAmount < minToppings) {
 				priceDeluxe = regularPrice + medium;
 			}
 			if(toppingAmount > minToppings && toppingAmount <= maxToppings) {
@@ -54,7 +55,7 @@ public class Deluxe extends Pizza {
 			
 		}
 		if(size.equals(Size.Large)) {
-			if(toppingAmount == minToppings) {
+			if(toppingAmount == minToppings || toppingAmount < minToppings) {
 				priceDeluxe = regularPrice + large;
 			}
 			if(toppingAmount > minToppings && toppingAmount <= maxToppings) {
@@ -90,12 +91,7 @@ public class Deluxe extends Pizza {
 		return false;
 	}
 	
-//	public static void main(String[] args) {
-//		String yum = "Cheese,Chicken,Beef,Onion,Mushroom,Ham";
-//		String size = "large";
-//		Deluxe angelicaPizza = new Deluxe(yum,size);
-//		System.out.println(angelicaPizza.price());
-//	}
+
 	
 }
 

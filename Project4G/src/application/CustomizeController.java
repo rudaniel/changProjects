@@ -32,7 +32,6 @@ public class CustomizeController {
 	
 	private MainController mainController;
 	private String flavor;
-	//private StoreOrders orders;
 	private String phone;
 	private Pizza pizza;
 	private Pizza pizza2;

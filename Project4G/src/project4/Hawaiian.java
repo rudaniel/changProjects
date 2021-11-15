@@ -27,6 +27,7 @@ public class Hawaiian extends Pizza {
 	public double price() {
 		int toppingAmount = toppings.size();
 		double regularPrice = 10.99;
+		priceHawaiian = regularPrice;
 		int medium = 2;
 		int large = 4;
 		int minToppings = 2;
@@ -43,7 +44,7 @@ public class Hawaiian extends Pizza {
 		}
 
 		if(size.equals(Size.Medium)) {
-			if(toppingAmount == minToppings) {
+			if(toppingAmount == minToppings || toppingAmount < minToppings) {
 				priceHawaiian = regularPrice + medium;
 			}
 			if(toppingAmount > minToppings && toppingAmount <= maxToppings) {
@@ -51,7 +52,7 @@ public class Hawaiian extends Pizza {
 			}
 			
 		}
-		if(size.equals(Size.Large)) {
+		if(size.equals(Size.Large) || toppingAmount < minToppings) {
 			if(toppingAmount == minToppings) {
 				priceHawaiian = regularPrice + large;
 			}
@@ -88,11 +89,5 @@ public class Hawaiian extends Pizza {
 		return false;
 	}
 	
-//	public static void main(String[] args) {
-//		String yum = "Cheese,Chicken";
-//		String size = "large";
-//		Hawaiian angelicaPizza = new Hawaiian(yum,size);
-//		System.out.println(angelicaPizza.price());
-//		//,Beef,Onion,Mushroom,Ham
-//	}
+
 }

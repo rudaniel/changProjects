@@ -27,6 +27,7 @@ public class Pepperoni extends Pizza {
 	public double price() {
 		int toppingAmount = toppings.size();
 		double regularPrice = 8.99;
+		pricePepperoni = regularPrice;
 		int medium = 2;
 		int large = 4;
 		int minToppings = 1;
@@ -42,7 +43,7 @@ public class Pepperoni extends Pizza {
 			
 		}
 		if(size.equals(Size.Medium)) {
-			if(toppingAmount == minToppings) {
+			if(toppingAmount == minToppings || toppingAmount < minToppings) {
 				pricePepperoni = regularPrice + medium;
 			}
 			if(toppingAmount > minToppings && toppingAmount <= maxToppings) {
@@ -51,7 +52,7 @@ public class Pepperoni extends Pizza {
 			
 		}
 		if(size.equals(Size.Large)) {
-			if(toppingAmount == minToppings) {
+			if(toppingAmount == minToppings || toppingAmount < minToppings) {
 				pricePepperoni = regularPrice + large;
 			}
 			if(toppingAmount > minToppings && toppingAmount <= maxToppings) {
@@ -86,12 +87,6 @@ public class Pepperoni extends Pizza {
 		}
 		return false;
 	}
-//	public static void main(String[] args) {
-//		String yum = "Cheese,Ham,Chicken";
-//		String size = "large";
-//		Pepperoni angelicaPizza = new Pepperoni(yum,size);
-//		System.out.println(angelicaPizza.price());
-//		//,Beef,Onion,Mushroom,Ham
-//	}
+
 	
 }

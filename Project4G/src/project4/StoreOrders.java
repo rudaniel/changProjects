@@ -131,6 +131,10 @@ public class StoreOrders {
 		}
 	}
 	
+	/**
+	 * Returns instance of list.
+	 * @returns orders list.
+	 */
 	public ArrayList<Order> getOrders() {
 		return orders;
 	}
