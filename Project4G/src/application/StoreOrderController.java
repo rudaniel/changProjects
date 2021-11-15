@@ -1,6 +1,5 @@
 package application;
 
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -8,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -31,7 +29,7 @@ public class StoreOrderController {
 	public TextField orderTotal;
 	
 	@FXML
-	private ListView finalOrders;
+	private ListView<Pizza> finalOrders;
 	
 	@FXML
 	private Button cancelOrder;
@@ -40,7 +38,6 @@ public class StoreOrderController {
 	private Button exportOrder;
 	
 	private MainController mainController;
-	private String phone;
 	private Order order;
 	private ArrayList<Pizza> pizzas;
 	private ArrayList<String> phoneNumberList;
@@ -48,7 +45,6 @@ public class StoreOrderController {
 	private double subT;
 	private double orderTax;
 	private double orderTotals;
-	private String flavor;
 	DecimalFormat df = new DecimalFormat("0.00");
 	
 	/**
@@ -57,15 +53,9 @@ public class StoreOrderController {
 	 */
 	public void setMainController(MainController controller) {
 		mainController=controller;
-		flavor=mainController.getPizza();
 		phoneNumberList=mainController.getNumbers();
-		
-		
 		numberList.getItems().addAll(phoneNumberList);
 		numberList.setOnAction(this::selectedNumber);
-		
-	
-		
 		orders = mainController.getOrders();
 		if(phoneNumberList.isEmpty()) {
 			Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -79,17 +69,13 @@ public class StoreOrderController {
 			pizzas=order.getPizzas();
 			finalOrders.getItems().clear();
 			finalOrders.getItems().addAll(pizzas);
-			
 			numberList.getSelectionModel().select(phoneNumberList.get(0));
 			double taxAmount = 1.06625;
 			this.subT = order.subTotal(pizzas);
 			this.orderTax = (subT * taxAmount) - subT;
 			this.orderTotals = subT + orderTax;
-				
-
 			orderTotal.setText(String.valueOf(df.format(orderTotals)));
 		}
-		
 	}
 	
 	/**
@@ -97,29 +83,24 @@ public class StoreOrderController {
 	 */
 	public void selectedNumber(ActionEvent e) {
 		
-		String currentNumber = numberList.getValue();
-		
-		order=orders.getOrder(currentNumber);
+		int index= numberList.getSelectionModel().getSelectedIndex();
+		if(index==-1) {
+			Alert alert = new Alert(Alert.AlertType.WARNING);
+			alert.setTitle("Warning!");
+			alert.setHeaderText("Empty Orders");
+			alert.setContentText("Create a order and try again!");
+			alert.showAndWait();
+			return;
+		}
+		order=orders.getOrders().get(index);
 		pizzas=order.getPizzas();
 		finalOrders.getItems().clear();
 		finalOrders.getItems().addAll(pizzas);
-		
-		
 		double taxAmount = 1.06625;
 		this.subT = order.subTotal(pizzas);
 		this.orderTax = (subT * taxAmount) - subT;
 		this.orderTotals = subT + orderTax;
-			
-
 		orderTotal.setText(String.valueOf(df.format(orderTotals)));
-			
-//		for(int i =0; i< pizzas.size(); i++) {
-//			System.out.println(pizzas.get(i));
-//		}
-
-		
-	//	System.out.println(currentNumber);
-		
 	}
 	
 	/**
@@ -127,39 +108,44 @@ public class StoreOrderController {
 	 * @param e event of button.
 	 */
 	public void removeOrder(ActionEvent e) {
-		
-		String currentNumber = numberList.getValue();
-		order = orders.getOrder(currentNumber);
-		orders.removeOrder(order); 
+		int index= numberList.getSelectionModel().getSelectedIndex();
+		if(index==-1) {
+			Alert alert = new Alert(Alert.AlertType.WARNING);
+			alert.setTitle("Warning!");
+			alert.setHeaderText("No Orders");
+			alert.setContentText("Select a order and try again!");
+			alert.showAndWait();
+			return;
+		}
+		order=orders.getOrders().get(index);
+		orders.removeOrder(index); 
 		finalOrders.getItems().clear();
-		
+		phoneNumberList.remove(index);
+		mainController.setNumbers(phoneNumberList);
 		orderTotal.clear();
-		numberList.getItems().remove(currentNumber);
-		
+		numberList.getItems().remove(index);
 	}
 	
 	/**
 	 * Calls the export method to create the text file.
 	 * @param e event of button.
 	 */
-	public void export(ActionEvent e) throws IOException {
-		
-		orders.export();
-			displayPopUp();
-		
+	public void export(ActionEvent e){
+		Alert alert;
+		if(orders.export()) {
+			alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Information");
+			alert.setHeaderText("Exporting");
+			alert.setContentText("Text File!");
+			alert.showAndWait();
+		}
+		else {
+			alert=new Alert(Alert.AlertType.WARNING);
+			alert.setTitle("Error!");
+			alert.setHeaderText("Orders Have Not Been Exported");
+			alert.setContentText("Please Try Again!");
+			alert.showAndWait();
+			return;
+		}	
 	}
-	
-	/**
-	 * Once the order is placed this alert will appear.
-	 */
-	public static void displayPopUp() {
-		 
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle("Information");
-		alert.setHeaderText("Exporting");
-		alert.setContentText("Text File!");
-		alert.showAndWait();
-		
-	}
-	
 }

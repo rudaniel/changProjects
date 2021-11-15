@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Order {
 	private String phone;
-	private ArrayList<Pizza> pizzas= new ArrayList();
+	private ArrayList<Pizza> pizzas= new ArrayList<Pizza>();
 	
 	/**
 	 * Setter method to set phone number.
@@ -59,11 +59,9 @@ public class Order {
 	 */
 	public double subTotal(ArrayList<Pizza> pizzas) {
 		double total = 0;
-		
 		for(int i =0; i < pizzas.size(); i++) {
 			total += (pizzas.get(i).price());
 		}
-		
 		return total;
 	}
 	

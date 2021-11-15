@@ -23,10 +23,6 @@ import java.text.DecimalFormat;
  */
 public class CurrentOrderController {
 
-	
-	private String flavor;
-	private String toppings;
-	private String size;
 	@FXML
 	private TextField phoneNumber;
 	
@@ -64,27 +60,23 @@ public class CurrentOrderController {
 	 * @param e the button click.
 	 */
 	public void removePizza(ActionEvent e) {
-		if(order==null) {
+		if(order==null||pizzaList.getSelectionModel().getSelectedItem()==null) {
 			Alert alert=new Alert(Alert.AlertType.WARNING);
 			alert.setTitle("Warning!");
-			alert.setHeaderText("Order is empty");
-			alert.setContentText("Add Pizza's to Create Order!");
+			alert.setHeaderText("Selection is empty");
+			alert.setContentText("Select Pizza's to edit Order!");
 			alert.showAndWait();
 			return;
 		}
 		Pizza selected=pizzaList.getSelectionModel().getSelectedItem();
-		
 		double taxAmount = 1.06625;
 		double pizzaPrice = selected.price();
-		
 		this.subT = subT - pizzaPrice;
 		this.orderTax = (subT * taxAmount) - subT;
 		this.orderTotals = subT + orderTax;
-		
 		subTotal.setText(String.valueOf(df.format(subT)));
 		salesTax.setText(String.valueOf(df.format(orderTax)));
 		orderTotal.setText(String.valueOf(df.format(orderTotals)));
-		
 		if(selected!=null) {
 			order.removePizza(selected);
 			getPizzas();
@@ -96,9 +88,16 @@ public class CurrentOrderController {
 	 * @param e the button click.
 	 */
 	public void confirmOrder(ActionEvent e) {
-		
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		if(order==null) {
+			alert=new Alert(Alert.AlertType.WARNING);
+			alert.setTitle("Warning!");
+			alert.setHeaderText("Order is empty");
+			alert.setContentText("Add Pizza's to Create Order!");
+			alert.showAndWait();
+			return;
+		}
+		if(pizzaList.getItems().size()==0) {
 			alert=new Alert(Alert.AlertType.WARNING);
 			alert.setTitle("Warning!");
 			alert.setHeaderText("Order is empty");
@@ -115,10 +114,7 @@ public class CurrentOrderController {
 		salesTax.setText("");
 		orderTotal.setText("");
 		pizzaList.getItems().clear();
-		
-		//After this is should be moved to store order fxml
 		if(alert.getResult().equals(ButtonType.OK)) {
-		//	if(orders.add(phone, pizza)) {
 				orders.addOrder(order);
 				mainController.addPhone(phone);
 				order=null;
@@ -129,10 +125,7 @@ public class CurrentOrderController {
 				alert.setHeaderText("Order Confirmed");
 				alert.setContentText("Pizza has been added to Store Orders!");
 				alert.showAndWait();
-		//	}
 		}
-		
-		
 	}
 	
 	/**
@@ -141,14 +134,11 @@ public class CurrentOrderController {
 	 */
 	public void setMainController(MainController controller) {
 		mainController=controller;
-		flavor=mainController.getPizza();
 		phone=mainController.getPhone();
 		phoneNumber.setText(phone);	
 		orders=mainController.getOrders();
 		order=mainController.getOrder();
 		getPizzas();
-		
-		
 	}
 	
 	/**
@@ -162,31 +152,23 @@ public class CurrentOrderController {
 		pizzas=order.getPizzas();
 		pizzaList.getItems().clear();
 		pizzaList.getItems().addAll(pizzas);
-		
 		double taxAmount = 1.06625;
 		this.subT = order.subTotal(pizzas);
 		this.orderTax = (subT * taxAmount) - subT;
 		this.orderTotals = subT + orderTax;
-		
 		subTotal.setText(String.valueOf(df.format(subT)));
 		salesTax.setText(String.valueOf(df.format(orderTax)));
 		orderTotal.setText(String.valueOf(df.format(orderTotals)));
-		
 	}
 	
 	/**
 	 * Once the order is placed this alert will appear.
 	 */
 	public static void displayPopUp() {
-		 
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("Information");
 		alert.setHeaderText("Placing Order");
 		alert.setContentText("Order Added!");
 		alert.showAndWait();
-		
 	}
-	
-	
-	
 }

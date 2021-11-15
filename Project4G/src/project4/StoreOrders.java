@@ -3,7 +3,6 @@ package project4;
 import java.io.File;
 
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -20,12 +19,10 @@ import javafx.stage.FileChooser.ExtensionFilter;
 public class StoreOrders {
 	
 	private ArrayList<Order> orders= new ArrayList<Order>();
-	
 	/**
 	 * Default constructor 
 	 */
 	public StoreOrders() {
-		
 	}
 	
 	/**
@@ -51,7 +48,6 @@ public class StoreOrders {
 			temp.addPizza(pizza);
 			orders.set(index, temp);
 			return true;
-			
 		}
 		else {
 			temp =new Order(phone);
@@ -65,18 +61,12 @@ public class StoreOrders {
 		orders.add(order);
 	}
 	
-//	public boolean addOrder(Order order) {
-//		orders.add(order);
-//		return true;
-//	}
-	
 	/**
 	 * Gets the orders that match the phone number.
 	 * @param phone number of user.
 	 * @return order if existing, null if not
 	 */
 	public Order getOrder(String phone) {
-		Order temp =new Order(phone);
 		int index=orders.indexOf(new Order(phone));
 		if(index==-1) {
 			return null;
@@ -86,11 +76,11 @@ public class StoreOrders {
 	
 	/**
 	 * Removes order from the orders list.
-	 * @param order to be removed.
+	 * @param index to be removed.
 	 * @returns true when removed.
 	 */
-	public boolean removeOrder(Order order) {
-		orders.remove(order);
+	public boolean removeOrder(int index) {
+		orders.remove(index);
 		return true;
 	}
 	
@@ -109,7 +99,6 @@ public class StoreOrders {
 			temp.removePizza(pizza);
 			orders.set(index, temp);
 			return true;
-			
 		}
 		return false;
 	}
@@ -120,15 +109,14 @@ public class StoreOrders {
 	 * @param orders list of all orders.
 	 * @returns true if file if made.
 	 */
-	public boolean export() throws IOException {
+	public boolean export(){
+		try {
 		FileChooser chooser = new FileChooser();
 		chooser.setTitle("Open Target File for the Export");
 		chooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"),
 				new ExtensionFilter("All Files", "*.*"));
 		Stage stage = new Stage();
-		File targetFile = chooser.showSaveDialog(stage); //get the reference of the target file
-		//write code to write to the file.
-		
+		File targetFile = chooser.showSaveDialog(stage);
 		FileWriter fw = new FileWriter(targetFile, true);
 		PrintWriter pw = new PrintWriter(fw);
 		String order="Order: ";
@@ -137,7 +125,14 @@ public class StoreOrders {
 		}
 		pw.close();
 		return true;
+		}
+		catch(Exception e) {
+		return false;	
+		}
 	}
 	
+	public ArrayList<Order> getOrders() {
+		return orders;
+	}
 	
 }

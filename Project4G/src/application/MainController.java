@@ -37,9 +37,6 @@ public class MainController {
 		if(alert()) {
 			String deluxe="Deluxe";
 			this.pizza=deluxe;
-//			if(!phoneNumberList.contains(phoneNumber)) {
-//				this.phoneNumberList.add(phoneNumber);
-//			}
 			customize();
 		}
 	}
@@ -51,9 +48,6 @@ public class MainController {
 		if(alert()) {	
 			String hawaiian="Hawaiian";
 			this.pizza=hawaiian;
-//			if(!phoneNumberList.contains(phoneNumber)) {
-//				this.phoneNumberList.add(phoneNumber);
-//			}
 			customize();
 		}
 	}
@@ -65,9 +59,6 @@ public class MainController {
 		if(alert()) {
 			String pepperoni="Pepperoni";
 			this.pizza=pepperoni;
-//			if(!phoneNumberList.contains(phoneNumber)) {
-//				this.phoneNumberList.add(phoneNumber);
-//			}
 			customize();
 		}
 	}
@@ -83,6 +74,7 @@ public class MainController {
 				Scene scene = new Scene(root,600,400);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				stage.setScene(scene);
+				stage.setTitle("Store Orders");
 				stage.show();
 				StoreOrderController custom= loader.getController();
 				custom.setMainController(this);
@@ -104,6 +96,7 @@ public class MainController {
 				Scene scene = new Scene(root,600,400);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				stage.setScene(scene);
+				stage.setTitle("Current Order");
 				stage.show();
 				CurrentOrderController custom= loader.getController();
 				custom.setMainController(this);
@@ -148,8 +141,6 @@ public class MainController {
 		}
 		try {
 			String number=phoneMain.getText();
-		//	Integer.parseInt(number);
-//			if(number.length()!=10 && number.matches("[0-9+")) {
 				if(number.length()!=10) {
 				alert.setHeaderText("Phone Number field is not 10 digits.");
 				alert.setContentText("Please enter a valid Phone Number containing 10 digits.");
@@ -178,6 +169,7 @@ public class MainController {
 			Scene scene = new Scene(root,500,610);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setScene(scene);
+			stage.setTitle("Pizza Customization");
 			stage.show();
 			CustomizeController custom= loader.getController();
 			custom.setMainController(this);
@@ -233,5 +225,9 @@ public class MainController {
 
 	public void setOrders(StoreOrders orders) {
 		this.orders=orders;
+	}
+
+	public void setNumbers(ArrayList<String> phoneNumberList) {
+		this.phoneNumberList=phoneNumberList;
 	}
 }

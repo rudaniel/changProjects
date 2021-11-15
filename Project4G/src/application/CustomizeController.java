@@ -21,7 +21,6 @@ import project4.Pizza;
 import project4.PizzaMaker;
 import project4.Topping;
 import project4.Size;
-import project4.StoreOrders;
 
 /**
  * The Customize Controller class will be used to create the user's pizza.
@@ -36,6 +35,7 @@ public class CustomizeController {
 	//private StoreOrders orders;
 	private String phone;
 	private Pizza pizza;
+	private Pizza pizza2;
 	
 	ObservableList<Size> sizes= FXCollections.observableArrayList(Arrays.asList(Size.values()));
 	ObservableList<Topping> Toppings= FXCollections.observableArrayList(Arrays.asList(Topping.values()));
@@ -114,11 +114,10 @@ public class CustomizeController {
 		this.mainController=controller;
 		this.flavor=mainController.getPizza();
 		this.pizza=PizzaMaker.createPizza(flavor);
+		this.pizza2=PizzaMaker.createPizza(flavor);
 		this.phone=mainController.getPhone();
-		//this.orders=mainController.getOrders();
 		this.order=mainController.getOrder();
 		set();
-		
 	}
 	
 	/**
@@ -127,6 +126,14 @@ public class CustomizeController {
 	 */
 	public void addTop() {
 		if(!aTop.getSelectionModel().isEmpty()) {
+			if(sTop.getItems().size()==7) {
+				Alert alert = new Alert(Alert.AlertType.WARNING);
+				alert.setTitle("Warning!");
+				alert.setHeaderText("Maximum Toppings Reached");
+				alert.setContentText("The Maximum number of allowed toppings is 7!");
+				alert.showAndWait();
+				return;
+			}
 			int index=aTop.getSelectionModel().getSelectedIndex();
 			sTop.getItems().add(aTop.getItems().get(index));
 			aTop.getItems().remove(index);
@@ -143,6 +150,13 @@ public class CustomizeController {
 	public void removeTop() {
 		if(!sTop.getSelectionModel().isEmpty()) {
 			int index=sTop.getSelectionModel().getSelectedIndex();
+			if(pizza2.getToppings().contains(sTop.getItems().get(index))) {
+				Alert alert = new Alert(Alert.AlertType.WARNING);
+				alert.setTitle("Warning!");
+				alert.setHeaderText("Removing Toppings");
+				alert.setContentText("Removing an Essential Topping!");
+				alert.showAndWait();
+			}
 			aTop.getItems().add(sTop.getItems().get(index));
 			sTop.getItems().remove(index);
 			pizza.setToppings(new ArrayList<Topping>(sTop.getItems()));
@@ -161,7 +175,6 @@ public class CustomizeController {
 		alert.setContentText("Do you want to add this Pizza to the order?");
 		alert.showAndWait();
 		if(alert.getResult().equals(ButtonType.OK)) {
-				
 			if(order==null) {
 				order=new Order(phone);
 			} 
@@ -175,8 +188,6 @@ public class CustomizeController {
 				alert.setHeaderText("Added Pizza");
 				alert.setContentText("Pizza has been added to Order!");
 				alert.showAndWait();
-			
 		}
 	}
-	
 }
