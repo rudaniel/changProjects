@@ -26,14 +26,6 @@ public class StoreOrders {
 	}
 	
 	/**
-	 * Sets current instance to the incoming orders list,
-	 * @param list of orders.
-	 */
-	public StoreOrders(ArrayList<Order> orders) {
-		this.orders=orders;
-	}
-	
-	/**
 	 * Creates the order and adds it to the overall list,
 	 * @param phone number of user.
 	 * @param pizza type that was created.
@@ -77,7 +69,7 @@ public class StoreOrders {
 	/**
 	 * Removes order from the orders list.
 	 * @param index to be removed.
-	 * @returns true when removed.
+	 * @return true when removed.
 	 */
 	public boolean removeOrder(int index) {
 		orders.remove(index);
@@ -88,7 +80,7 @@ public class StoreOrders {
 	 * Removes order from the orders list.
 	 * @param phone number from user.
 	 * @param pizza type of user.
-	 * @returns true if removed, false otherwise.
+	 * @return true if removed, false otherwise.
 	 */
 	public boolean remove(String phone, Pizza pizza) {
 		Order order=new Order(phone);
@@ -105,9 +97,7 @@ public class StoreOrders {
 	
 	/**
 	 * Exports entire orders list into a text file.
-	 * @param phoneNumberList list of all phone numbers.
-	 * @param orders list of all orders.
-	 * @returns true if file if made.
+	 * @return true if file if made.
 	 */
 	public boolean export(){
 		try {
@@ -133,7 +123,7 @@ public class StoreOrders {
 	
 	/**
 	 * Returns instance of list.
-	 * @returns orders list.
+	 * @return orders list.
 	 */
 	public ArrayList<Order> getOrders() {
 		return orders;

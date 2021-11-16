@@ -80,6 +80,7 @@ public class StoreOrderController {
 	
 	/**
 	 * When a phone number is selected the values will change accordingly.
+	 * @param e The action event that calls selected number.
 	 */
 	public void selectedNumber(ActionEvent e) {
 		

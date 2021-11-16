@@ -211,22 +211,42 @@ public class MainController {
 		return phoneNumberList;
 	}
 	
+	/**
+	 * Getter method for the current order.
+	 * @return order.
+	 */
 	public Order getOrder() {
 		return order;
 	}
 	
+	/**
+	 * Setter method for the current order.
+	 * @param order current order.
+	 */
 	public void setOrder(Order order) {
 		this.order= order;
 	}
 	
+	/**
+	 * Getter method for the current phone number.
+	 * @param phone number.
+	 */
 	public void addPhone(String phone) {
 		phoneNumberList.add(phone);
 	}
-
+	
+	/**
+	 * Setter method for the current orders.
+	 * @param orders orders.
+	 */
 	public void setOrders(StoreOrders orders) {
 		this.orders=orders;
 	}
-
+	
+	/**
+	 * Setter method for the current phone numbers.
+	 * @param phoneNumberList the number list.
+	 */
 	public void setNumbers(ArrayList<String> phoneNumberList) {
 		this.phoneNumberList=phoneNumberList;
 	}

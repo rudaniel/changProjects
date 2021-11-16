@@ -9,7 +9,7 @@ public class PizzaMaker {
 	
 	/**
 	 * The Pizza abstract class will create the overall design for all the pizza types.
-	 * @param falvor typer of pizza,
+	 * @param flavor typer of pizza,
 	 * @return instance of pizza.
 	 */
 	public static Pizza createPizza(String flavor) {

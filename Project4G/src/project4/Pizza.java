@@ -18,49 +18,9 @@ public abstract class Pizza {
 	
 	/**
 	 * Every class that extends this the Pizza abstract class must have this method.
+	 * @return price.
 	 */
 	public abstract double price();
-	
-	/**
-	 * Fills the toppings ArrayList and update size.
-	 * This will allow for price to be calculated in the extending classes. 
-	 * @param toppingList list of all toppings.
-	 * @param pizzaSize size of pizza.
-	 */
-	public Pizza (String toppingList, Size pizzaSize) {
-		this.size = pizzaSize; 
-		StringTokenizer reader = new StringTokenizer(toppingList,",");
-		while((reader.hasMoreTokens())) {
-			try {
-				this.toppings.add(Topping.valueOf(reader.nextToken()));
-			}
-			catch(IllegalArgumentException e) {
-				this.toppings.add(Topping.valueOf("UNKNOWN"));
-			};
-		}
-		
-	}
-	
-	/**
-	 * Fills the toppings ArrayList and update size.
-	 * This will allow for price to be calculated in the extending classes. 
-	 * @param toppingList list of all toppings.
-	 * @param pizzaSize size of pizza.
-	 */
-	public Pizza (ArrayList<String> toppingList, Size pizzaSize) {
-		this.size = pizzaSize; 
-		while(!toppingList.isEmpty()) {
-			int item=0;
-			try {
-				this.toppings.add(Topping.valueOf(toppingList.get(item)));
-				toppingList.remove(item);
-			}
-			catch(IllegalArgumentException e) {
-				this.toppings.add(Topping.valueOf("UNKNOWN"));
-			};
-		}
-		
-	}
 	
 	/**
 	 * Default size small when needed.
@@ -71,6 +31,7 @@ public abstract class Pizza {
 	
 	/**
 	 * Setter method to change size.
+	 * @param size size of pizza.
 	 */
 	public void setSize(Size size) {
 		this.size=size; 
@@ -86,6 +47,7 @@ public abstract class Pizza {
 	
 	/**
 	 * Setter method to set toppings list.
+	 * @param toppings the toppings of the pizza that need to be updated.
 	 */
 	public void setToppings(ArrayList<Topping> toppings) {
 		this.toppings=toppings;
@@ -102,8 +64,8 @@ public abstract class Pizza {
 	
 	/**
 	 * Method extends subclasses and is used to check if the object is equal to current pizza instance.
-	 * @param object that is being compared.
 	 * @return true if equal, false otherwise.
+	 * @param obj The pizza to be compared.
 	 */
 	@Override
 	public boolean equals(Object obj) {
