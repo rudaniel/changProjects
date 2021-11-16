@@ -59,7 +59,9 @@ public abstract class Pizza {
 	 */
 	@Override
 	public String toString() {
-		return toppings+", "+size+", "+"$"+price();
+		String temp = df.format(price()*tax);	
+		double total=Double.parseDouble(temp);
+		return toppings+", "+size+", "+"$"+total;
 	}
 	
 	/**
